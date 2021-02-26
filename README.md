@@ -8,6 +8,28 @@ This MSBuild SDK is designed to allow for the easy creation and use of SDK (shor
 
 This is the basic SDK that enables Visual Studio 2019 to work with an ASP.Net 4.x based project using a short form project file.
 
+## How do I get these SDKs?
+
+Simply add the following source to your nuget feeds; this can be done by adding or editing your `nuget.config` file as appropriate
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <config/>
+  <packageRestore>
+    <add key="enabled" value="True" />
+    <add key="automatic" value="True" />
+  </packageRestore>
+  <activePackageSource>
+    <add key="All" value="(Aggregate source)" />
+  </activePackageSource>
+  <packageSources>
+    <clear />
+    <add key="github" value="https://nuget.pkg.github.com/czemacleod/index.json" />
+    <add key="NuGet.org" value="https://api.nuget.org/v3/index.json" />
+  </packageSources>
+</configuration>
+```
+
 ## How can I use these SDKs?
 
 When using an MSBuild Project SDK obtained via NuGet (such as the SDKs in this repo) a specific version **must** be specified.
@@ -15,7 +37,7 @@ When using an MSBuild Project SDK obtained via NuGet (such as the SDKs in this r
 Either append the version to the package name:
 
 ```xml
-<Project Sdk="MSBuild.SDK.SystemWeb/1.0.0">
+<Project Sdk="MSBuild.SDK.SystemWeb/4.0.3">
   ...
 ```
 
@@ -24,7 +46,7 @@ Or omit the version from the SDK attribute and specify it in the version in `glo
 ```json
 {
   "msbuild-sdks": {
-    "MSBuild.SDK.SystemWeb" : "1.0.0"
+    "MSBuild.SDK.SystemWeb" : "4.0.3"
   }
 }
 ```
@@ -39,7 +61,7 @@ MSBuild 15.0 introduced new project XML for .NET Core that we refer to as SDK-st
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
 </Project>
 ```
@@ -51,7 +73,7 @@ At evaluation time, MSBuild adds implicit imports at the top and bottom of the p
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
 
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
