@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31004.235
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSBuild.SDK.SystemWeb", "src\MSBuild.SDK.SystemWeb\MSBuild.SDK.SystemWeb.csproj", "{D9DD78A9-4E97-4339-B809-6A2CC28B071A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSBuild.SDK.SystemWeb.Templates", "MSBuild.SDK.SystemWeb.Templates\MSBuild.SDK.SystemWeb.Templates.csproj", "{2271CCCF-D47D-406A-A228-6FF5AB7C3B9A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{4A37969E-D8DB-4AAA-A382-D6E733B6185B}"
 	ProjectSection(SolutionItems) = preProject
 		samples\Nuget.config = samples\Nuget.config
@@ -29,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleEmptyWebApplication"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ExampleFullWebApplication", "samples\ExampleFullWebApplication\ExampleFullWebApplication.vbproj", "{53B1BADD-D5EF-4209-82EA-CB37525D07AF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSBuild.SDK.SystemWeb.Templates", "src\MSBuild.SDK.SystemWeb.Templates\MSBuild.SDK.SystemWeb.Templates.csproj", "{750A2B35-A9BB-488B-972C-31FEAB17CF3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,10 +39,6 @@ Global
 		{D9DD78A9-4E97-4339-B809-6A2CC28B071A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9DD78A9-4E97-4339-B809-6A2CC28B071A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9DD78A9-4E97-4339-B809-6A2CC28B071A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2271CCCF-D47D-406A-A228-6FF5AB7C3B9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2271CCCF-D47D-406A-A228-6FF5AB7C3B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2271CCCF-D47D-406A-A228-6FF5AB7C3B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2271CCCF-D47D-406A-A228-6FF5AB7C3B9A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BA8C0E69-87E1-46F8-A871-F1CDD8760A75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BA8C0E69-87E1-46F8-A871-F1CDD8760A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA8C0E69-87E1-46F8-A871-F1CDD8760A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{53B1BADD-D5EF-4209-82EA-CB37525D07AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53B1BADD-D5EF-4209-82EA-CB37525D07AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53B1BADD-D5EF-4209-82EA-CB37525D07AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{750A2B35-A9BB-488B-972C-31FEAB17CF3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{750A2B35-A9BB-488B-972C-31FEAB17CF3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{750A2B35-A9BB-488B-972C-31FEAB17CF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{750A2B35-A9BB-488B-972C-31FEAB17CF3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
