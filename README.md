@@ -8,33 +8,17 @@ This MSBuild SDK is designed to allow for the easy creation and use of SDK (shor
 
 ### [MSBuild.SDK.SystemWeb](src/MSBuild.SDK.SystemWeb)
 
+[![NuGet package](https://img.shields.io/nuget/v/MSBuild.SDK.SystemWeb.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb)
+[![NuGet downloads](https://img.shields.io/nuget/dt/MSBuild.SDK.SystemWeb.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb)
+
 This is the basic SDK that enables Visual Studio 2019 to work with an ASP.Net 4.x based project using a short form project file.
 
 ### [MSBuild.SDK.SystemWeb.Templates](src/MSBuild.SDK.SystemWeb.Templates)
 
+[![NuGet package](https://img.shields.io/nuget/v/MSBuild.SDK.SystemWeb.Templates.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb)
+[![NuGet downloads](https://img.shields.io/nuget/dt/MSBuild.SDK.SystemWeb.Templates.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb)
+
 This is a set of templates that allow for the easy creation of projects based on the MSBuild.SDK.SystemWeb project SDK type.
-
-## How do I get these SDKs?
-
-Simply add the following source to your nuget feeds; this can be done by adding or editing your `nuget.config` file as appropriate
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <config/>
-  <packageRestore>
-    <add key="enabled" value="True" />
-    <add key="automatic" value="True" />
-  </packageRestore>
-  <activePackageSource>
-    <add key="All" value="(Aggregate source)" />
-  </activePackageSource>
-  <packageSources>
-    <clear />
-    <add key="github" value="https://nuget.pkg.github.com/czemacleod/index.json" />
-    <add key="NuGet.org" value="https://api.nuget.org/v3/index.json" />
-  </packageSources>
-</configuration>
-```
 
 ## How can I use these SDKs?
 
@@ -43,7 +27,7 @@ When using an MSBuild Project SDK obtained via NuGet (such as the SDKs in this r
 Either append the version to the package name:
 
 ```xml
-<Project Sdk="MSBuild.SDK.SystemWeb/4.0.3">
+<Project Sdk="MSBuild.SDK.SystemWeb/4.0.33">
   ...
 ```
 
@@ -52,7 +36,7 @@ Or omit the version from the SDK attribute and specify it in the version in `glo
 ```json
 {
   "msbuild-sdks": {
-    "MSBuild.SDK.SystemWeb" : "4.0.3"
+    "MSBuild.SDK.SystemWeb" : "4.0.33"
   }
 }
 ```
