@@ -37,7 +37,7 @@ steps:
   displayName: 'Download secure file PFX'
   name: app_pfx
   inputs:
-    secureFile: 'bda11808-f92b-45df-ad05-0f1d95ce54c2'
+    secureFile: '99ca122a-939c-491f-9ea3-bb7ad1819ec1'
 
 - task: DownloadSecureFile@1
   displayName: 'Download secure file SNK'
