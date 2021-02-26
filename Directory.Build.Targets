@@ -26,6 +26,7 @@
     <PackageLicensePath>$(MSBuildThisFileDirectory)$(PackageLicenseFile)</PackageLicensePath>
     <PackageProjectUrl>https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb</PackageProjectUrl>
     <RepositoryUrl>https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(IsPackable)' == 'true'">
