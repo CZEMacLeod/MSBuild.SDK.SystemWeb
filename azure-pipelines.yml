@@ -11,6 +11,7 @@ pool:
 
 variables:
 - group: Github-Packages
+- group: Signing
 - name: solution
   value: 'MSBuild.SDK.SystemWeb.sln'
 - name: buildPlatform
@@ -21,8 +22,6 @@ variables:
   value: '$(Agent.MachineName)'
 - name: buildUser
   value: '$(Build.QueuedBy)'
-- name: 'timestamper'
-  value: 'http://timestamp.comodoca.com'
 
 steps:
 - checkout: self
