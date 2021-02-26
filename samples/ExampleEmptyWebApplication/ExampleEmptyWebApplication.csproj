@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0">
+﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.1">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
 
@@ -10,8 +10,16 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />-->
   </PropertyGroup>
+  <PropertyGroup>
+    <Copyright>Copyright ©  2021</Copyright>
+  </PropertyGroup>
   <ItemGroup>
+    <None Include="Properties\launchSettings.json" />
     <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web.Debug.config" />
+    <None Include="Web.Release.config" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Web.*.config">
