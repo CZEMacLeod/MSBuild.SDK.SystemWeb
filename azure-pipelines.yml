@@ -43,7 +43,7 @@ steps:
   displayName: 'Download secure file SNK'
   name: snk
   inputs:
-    secureFile: '6f85c5fc-e5fb-4a11-9a20-98ba90a8f4f6'
+    secureFile: '61ad38e7-05ff-4421-aea8-e3241b75c7a1'
 
 - task: PowerShell@2
   displayName: 'Install Cert'
@@ -68,7 +68,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     clean: true
-    msbuildArgs: '/p:PackageOutputPath="$(Build.ArtifactStagingDirectory)" /p:BuildUser="$(buildUser)" /p:BuildMachine="$(buildMachine)"'
+    msbuildArgs: '/p:PackageOutputPath="$(Build.ArtifactStagingDirectory)" /p:BuildUser="$(buildUser)" /p:BuildMachine="$(buildMachine)" /p:AssemblyOriginatorKeyFile="$(snk.secureFilePath)"'
 
 - task: PublishBuildArtifacts@1
   inputs:
