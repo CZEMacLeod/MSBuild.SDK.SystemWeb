@@ -61,7 +61,7 @@ steps:
     restoreSolution: '$(solution)'
     feedsToUse: 'config'
     includeNugetOrg: 'true'
-    externalFeedCredentials: 'CZEMacLeod'
+    externalFeedCredentials: 'github-czemacleod'
 
 - task: VSBuild@1
   inputs:
@@ -96,47 +96,62 @@ steps:
     arguments: 'sign $(Build.ArtifactStagingDirectory)\*.nupkg -Timestamper $(timestamper) -CertificateFingerprint $(app_pfx_thumbprint)'
 
 
-- task: CopyFiles@2
-  displayName: Create nuget publish config
-  inputs:
-    sourceFolder: $(Build.SourcesDirectory)
-    contents: 'nuget.config'
-    targetFolder: $(Build.ArtifactStagingDirectory)
+#- task: CopyFiles@2
+#  displayName: Create nuget publish config
+#  inputs:
+#    sourceFolder: $(Build.SourcesDirectory)
+#    contents: 'nuget.config'
+#    targetFolder: $(Build.ArtifactStagingDirectory)
 
-- task: PowerShell@2
-  displayName: Build Nuget Source URL
-  inputs:
-    targetType: 'inline'
-    script: |
-      $owner = "$env:GITHUB_OWNER"
-      $source = "https://nuget.pkg.github.com/" + $owner.ToLower() + "/index.json"
-      Write-Host ("Nuget Source URL = $source")
-      Write-Host ("##vso[task.setvariable variable=NUGET_SOURCE]$source")
-  env:
-    GITHUB_OWNER: $(GITHUB_OWNER)
+#- task: PowerShell@2
+#  displayName: Build Nuget Source URL
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      $owner = "$env:GITHUB_OWNER"
+#      $source = "https://nuget.pkg.github.com/" + $owner.ToLower() + "/index.json"
+#      Write-Host ("Nuget Source URL = $source")
+#      Write-Host ("##vso[task.setvariable variable=NUGET_SOURCE]$source")
+#  env:
+#    GITHUB_OWNER: $(GITHUB_OWNER)
 
-- script: nuget.exe sources Add -NonInteractive -Name GitHub -Source "%NUGET_SOURCE%" -Username "%GITHUB_USERNAME%" -Password "%GITHUB_TOKEN%" -ConfigFile %NUGET_CONFIG%
-  displayName: Add github package source
-  env:
-    GITHUB_OWNER: $(GITHUB_OWNER)
-    GITHUB_USERNAME: $(GITHUB_USERNAME)
-    GITHUB_TOKEN: $(GITHUB_TOKEN)
-    NUGET_SOURCE: $(NUGET_SOURCE)
-    NUGET_CONFIG: $(Build.ArtifactStagingDirectory)\nuget.publish.config
+#- script: nuget.exe sources Add -NonInteractive -Name GitHub -Source "%NUGET_SOURCE%" -Username "%GITHUB_USERNAME%" -Password "%GITHUB_TOKEN%" -ConfigFile %NUGET_CONFIG%
+#  displayName: Add github package source
+#  env:
+#    GITHUB_OWNER: $(GITHUB_OWNER)
+#    GITHUB_USERNAME: $(GITHUB_USERNAME)
+#    GITHUB_TOKEN: $(GITHUB_TOKEN)
+#    NUGET_SOURCE: $(NUGET_SOURCE)
+#    NUGET_CONFIG: $(Build.ArtifactStagingDirectory)\nuget.publish.config
 
-- script: nuget push -Source GitHub -ConfigFile %NUGET_CONFIG% -SkipDuplicate "%PACKAGES_DIR%\*.nupkg"
-  displayName: Push Nuget Packages to $(GITHUB_PACKAGES)
-  env:
-    PACKAGES_DIR: $(Build.ArtifactStagingDirectory)
-    NUGET_CONFIG: $(Build.ArtifactStagingDirectory)\nuget.publish.config
+#- script: nuget push -Source GitHub -ConfigFile %NUGET_CONFIG% -SkipDuplicate "%PACKAGES_DIR%\*.nupkg"
+#  displayName: Push Nuget Packages to $(GITHUB_PACKAGES)
+#  env:
+#    PACKAGES_DIR: $(Build.ArtifactStagingDirectory)
+#    NUGET_CONFIG: $(Build.ArtifactStagingDirectory)\nuget.publish.config
 
 - task: NuGetCommand@2
+  displayName: Push Nuget Packages to $(GITHUB_PACKAGES)
+  inputs:
+    command: 'push'
+    feedsToUse: 'config'
+    publishFeedCredentials: 'github-czemacleod'
+    externalFeedCredentials: 'github-czemacleod'
+    packagesToPush: $(Build.ArtifactStagingDirectory)
+    verbosityPush: 'Detailed'
+    nuGetFeedType: 'external'
+
+- task: NuGetCommand@2
+  displayName: Push Nuget Packages to nuget.org
   inputs:
     command: 'push'
     feedsToUse: 'config'
     includeNugetOrg: 'true'
+    publishFeedCredentials: 'NuGet.org'
     externalFeedCredentials: 'NuGet.org'
     packagesToPush: $(Build.ArtifactStagingDirectory)
+    verbosityPush: 'Detailed'
+    nuGetFeedType: 'external'
 
 - task: PowerShell@2
   displayName: 'Remove Cert'
