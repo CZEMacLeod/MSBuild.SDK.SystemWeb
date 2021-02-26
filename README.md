@@ -2,11 +2,15 @@
 
 This MSBuild SDK is designed to allow for the easy creation and use of SDK (shortform) projects targeting ASP.NET 4.x using System.Web.
 
-## What SDKs are available
+## What's available
 
-### MSBuild.SDK.SystemWeb
+### [MSBuild.SDK.SystemWeb](src/MSBuild.SDK.SystemWeb)
 
 This is the basic SDK that enables Visual Studio 2019 to work with an ASP.Net 4.x based project using a short form project file.
+
+### [MSBuild.SDK.SystemWeb.Templates](src/MSBuild.SDK.SystemWeb.Templates)
+
+This is a set of templates that allow for the easy creation of projects based on the MSBuild.SDK.SystemWeb project SDK type.
 
 ## How do I get these SDKs?
 
