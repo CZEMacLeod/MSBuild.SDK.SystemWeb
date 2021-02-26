@@ -66,7 +66,7 @@ steps:
     restoreSolution: '$(solution)'
     feedsToUse: 'config'
     includeNugetOrg: 'true'
-    externalFeedCredentials: 'github-czemacleod'
+    externalFeedCredentials: 'github-czemacleod-packages'
 
 - task: VSBuild@1
   inputs:
@@ -140,8 +140,8 @@ steps:
 #  inputs:
 #    command: 'push'
 #    feedsToUse: 'config'
-#    publishFeedCredentials: 'github-czemacleod'
-#    externalFeedCredentials: 'github-czemacleod'
+#    publishFeedCredentials: 'github-czemacleod-packages'
+#    externalFeedCredentials: 'github-czemacleod-packages'
 #    packagesToPush: $(Build.ArtifactStagingDirectory)\*.nupkg
 #    verbosityPush: 'Detailed'
 #    nuGetFeedType: 'external'
@@ -170,7 +170,7 @@ steps:
 - task: GithubRelease@0 
   displayName: 'Create GitHub Release'      
   inputs:
-    gitHubConnection: CZEMacLeod
+    gitHubConnection: github-czemacleod
     repositoryName: CZEMacLeod/MSBuild.SDK.SystemWeb           
     assets: $(Build.ArtifactStagingDirectory)/*.nupkg
     addChangeLog: true
