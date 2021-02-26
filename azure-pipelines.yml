@@ -60,6 +60,8 @@ steps:
     command: 'restore'
     restoreSolution: '$(solution)'
     feedsToUse: 'config'
+    includeNugetOrg: 'true'
+    externalFeedCredentials: 'CZEMacLeod'
 
 - task: VSBuild@1
   inputs:
