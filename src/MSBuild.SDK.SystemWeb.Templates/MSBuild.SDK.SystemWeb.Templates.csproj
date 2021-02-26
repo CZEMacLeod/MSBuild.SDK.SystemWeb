@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.Build.NoTargets">
+﻿<Project Sdk="Microsoft.Build.NoTargets">
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
 
     <PackageType>Template</PackageType>
-    <Description>Provides templated for projects that that target System.Web.</Description>
+    <Description>Provides templates for projects that that target System.Web.</Description>
     <PackageTags>MSBuild;MSBuildSdk;System.Web;Templates</PackageTags>
 
     <IncludeContentInPack>true</IncludeContentInPack>
@@ -20,15 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="templates\Full.SystemWeb.VB\My Project\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Content>
-    <Content Update="templates\Full.SystemWeb.VB\My Project\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </Content>
+    <None Include="images\*" />
   </ItemGroup>
 
 </Project>
