@@ -1,0 +1,146 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  name: 'Default'
+
+variables:
+- group: Github-Packages
+- name: solution
+  value: 'MSBuild.SDK.SystemWeb.sln'
+- name: buildPlatform
+  value: 'Any CPU'
+- name: buildConfiguration
+  value: 'Release'
+- name: buildMachine
+  value: '$(Agent.MachineName)'
+- name: buildUser
+  value: '$(Build.QueuedBy)'
+- name: 'timestamper'
+  value: 'http://timestamp.comodoca.com'
+
+steps:
+- checkout: self
+  clean: true
+  submodules: true
+  persistCredentials: true
+
+- powershell: 'Write-Host ("##vso[task.setvariable variable=MSBuildEmitSolution;]0")'
+  displayName: 'Ensure MSBuildEmitSolution is not set'
+
+- task: DownloadSecureFile@1
+  displayName: 'Download secure file PFX'
+  name: app_pfx
+  inputs:
+    secureFile: 'bda11808-f92b-45df-ad05-0f1d95ce54c2'
+
+- task: DownloadSecureFile@1
+  displayName: 'Download secure file SNK'
+  name: snk
+  inputs:
+    secureFile: '6f85c5fc-e5fb-4a11-9a20-98ba90a8f4f6'
+
+- task: PowerShell@2
+  displayName: 'Install Cert'
+  inputs:
+    targetType: filePath
+    filePath: 'InstallCert.ps1'
+    arguments: '-pfxpath $(app_pfx.secureFilePath) -password $(pfx_password)'
+
+- task: NuGetToolInstaller@0
+  inputs:
+    versionSpec: 5.8.1
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '$(solution)'
+    feedsToUse: 'config'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    clean: true
+    msbuildArgs: '/p:PackageOutputPath="$(Build.ArtifactStagingDirectory)" /p:BuildUser="$(buildUser)" /p:BuildMachine="$(buildMachine)"'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+
+- task: PowerShell@2
+  displayName: 'Detect packages'
+  inputs:
+   targetType: inline
+   script: |
+     $dir = $env:BUILD_ARTIFACTSTAGINGDIRECTORY + "\*.nupkg"
+     Write-Host "Package Directory: $dir"
+     $packages = Get-ChildItem -Path $dir -Recurse
+     $ids = $packages | Select-Object -ExpandProperty name
+     Write-Host "Packages: $ids"
+     Write-Host "Package Count: $($packages.Count)"
+     Write-Host ("##vso[task.setvariable variable=package_count;]$($packages.Count)")
+
+- task: NuGetCommand@2
+  condition: and(succeeded(), ne(variables['package_count'],0))
+  displayName: 'NuGet Sign'
+  inputs:
+    command: custom
+    arguments: 'sign $(Build.ArtifactStagingDirectory)\*.nupkg -Timestamper $(timestamper) -CertificateFingerprint $(app_pfx_thumbprint)'
+
+
+- task: CopyFiles@2
+  displayName: Create nuget publish config
+  inputs:
+    sourceFolder: $(Build.SourcesDirectory)
+    contents: 'nuget.config'
+    targetFolder: $(Build.ArtifactStagingDirectory)
+
+- task: PowerShell@2
+  displayName: Build Nuget Source URL
+  inputs:
+    targetType: 'inline'
+    script: |
+      $owner = "$env:GITHUB_OWNER"
+      $source = "https://nuget.pkg.github.com/" + $owner.ToLower() + "/index.json"
+      Write-Host ("Nuget Source URL = $source")
+      Write-Host ("##vso[task.setvariable variable=NUGET_SOURCE]$source")
+  env:
+    GITHUB_OWNER: $(GITHUB_OWNER)
+
+- script: nuget.exe sources Add -NonInteractive -Name GitHub -Source "%NUGET_SOURCE%" -Username "%GITHUB_USERNAME%" -Password "%GITHUB_TOKEN%" -ConfigFile %NUGET_CONFIG%
+  displayName: Add github package source
+  env:
+    GITHUB_OWNER: $(GITHUB_OWNER)
+    GITHUB_USERNAME: $(GITHUB_USERNAME)
+    GITHUB_TOKEN: $(GITHUB_TOKEN)
+    NUGET_SOURCE: $(NUGET_SOURCE)
+    NUGET_CONFIG: $(Build.ArtifactStagingDirectory)\nuget.publish.config
+
+- script: nuget push -Source GitHub -ConfigFile %NUGET_CONFIG% -SkipDuplicate "%PACKAGES_DIR%\*.nupkg"
+  displayName: Push Nuget Packages to $(GITHUB_PACKAGES)
+  env:
+    PACKAGES_DIR: $(Build.ArtifactStagingDirectory)
+    NUGET_CONFIG: $(Build.ArtifactStagingDirectory)\nuget.publish.config
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    feedsToUse: 'config'
+    includeNugetOrg: 'true'
+    externalFeedCredentials: 'NuGet.org'
+    packagesToPush: $(Build.ArtifactStagingDirectory)
+
+- task: PowerShell@2
+  displayName: 'Remove Cert'
+  inputs:
+    targetType: filePath
+    filePath: 'RemoveCert.ps1'
+    arguments: '-pfxpath $(app_pfx.secureFilePath) -password $(pfx_password)'
+  condition: always()
