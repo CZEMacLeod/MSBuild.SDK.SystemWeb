@@ -100,7 +100,7 @@ steps:
   displayName: Create nuget publish config
   inputs:
     sourceFolder: $(Build.SourcesDirectory)
-    contents: 'nuget.config'
+    contents: 'nuget.publish.config'
     targetFolder: $(Build.ArtifactStagingDirectory)
 
 - task: PowerShell@2
