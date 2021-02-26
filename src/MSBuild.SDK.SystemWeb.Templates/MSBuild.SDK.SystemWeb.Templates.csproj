@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <None Include="images\*" />
+    <None Include="version.json" />
   </ItemGroup>
 
 </Project>

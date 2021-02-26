@@ -18,6 +18,6 @@ e.g. `dotnet new systemweb -land VB`
 Alternatively use the Visual Studio Add Project dialog.
 You need to have enabled the Preview feature to show [.NET CLI Templates in Visual Studio](https://devblogs.microsoft.com/dotnet/net-cli-templates-in-visual-studio/) and have Visual Studio 16.8 Preview 2 or higher.
 
-![Visual Studio New Project Dialog](images/Create New Project.png)
+![Visual Studio New Project Dialog](images/create-new-project.png)
 
 You can find the new templates easily by selecting System.Web from the Project Type dropdown.
