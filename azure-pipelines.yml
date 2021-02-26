@@ -137,7 +137,7 @@ steps:
     feedsToUse: 'config'
     publishFeedCredentials: 'github-czemacleod'
     externalFeedCredentials: 'github-czemacleod'
-    packagesToPush: $(Build.ArtifactStagingDirectory)
+    packagesToPush: $(Build.ArtifactStagingDirectory)\*.nupkg
     verbosityPush: 'Detailed'
     nuGetFeedType: 'external'
 
@@ -149,7 +149,7 @@ steps:
     includeNugetOrg: 'true'
     publishFeedCredentials: 'NuGet.org'
     externalFeedCredentials: 'NuGet.org'
-    packagesToPush: $(Build.ArtifactStagingDirectory)
+    packagesToPush: $(Build.ArtifactStagingDirectory)\*.nupkg
     verbosityPush: 'Detailed'
     nuGetFeedType: 'external'
 
