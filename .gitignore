@@ -272,3 +272,6 @@ paket-files/
 
 # Cloud3D specific key
 cloud3d-codesign.snk
+
+# libman restored files
+/samples/ExampleFullWebApplication/lib
