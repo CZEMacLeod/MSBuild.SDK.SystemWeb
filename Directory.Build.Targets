@@ -1,0 +1,46 @@
+<Project>
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.52" />
+
+  <PropertyGroup>
+    <!-- Full symbols so that unit test assertions have more info -->
+    <DebugType Condition=" '$(Configuration)' == 'Debug' ">Full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(SignType)' == 'Test'">
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Test.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(SignType)' == 'Real'">
+    <SignAssembly>true</SignAssembly>
+    <DelaySign Condition="'$(IsTestProject)' != 'true'">true</DelaySign>
+    <AssemblyOriginatorKeyFile Condition="'$(IsTestProject)' != 'true'">$(MSBuildThisFileDirectory)cloud3d-codesign.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile Condition="'$(IsTestProject)' == 'true'">$(MSBuildThisFileDirectory)Test.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>CZEMacLeod</Authors>
+    <Company>Cloud3D Ltd.</Company>
+    <Copyright>© Cloud3D Ltd. All rights reserved.</Copyright>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicensePath>$(MSBuildThisFileDirectory)$(PackageLicenseFile)</PackageLicensePath>
+    <PackageProjectUrl>https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb.git</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(IsPackable)' == 'true'">
+    <None Include="Sdk\**"
+          Pack="true"
+          PackagePath="Sdk\" />
+    <None Include="README.md" />
+    <None Include="$(PackageLicensePath)"
+          Pack="true"
+          PackagePath="$(PackageLicenseFile)"
+          Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.2.31" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

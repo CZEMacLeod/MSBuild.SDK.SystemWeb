@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "publicReleaseRefSpec": [
+    "^refs/heads/main$", // we release out of master
+    "^refs/heads/rel/v\\d+\\.\\d+" // we also release tags starting with rel/N.N
+  ],
+  "nugetPackageVersion": {
+    "semVer": 2
+  }
+}

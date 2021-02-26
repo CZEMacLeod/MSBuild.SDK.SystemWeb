@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31004.235
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.SDK.SystemWeb", "src\MSBuild.SDK.SystemWeb\MSBuild.SDK.SystemWeb.csproj", "{D9DD78A9-4E97-4339-B809-6A2CC28B071A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.SDK.SystemWeb.Templates", "MSBuild.SDK.SystemWeb.Templates\MSBuild.SDK.SystemWeb.Templates.csproj", "{2271CCCF-D47D-406A-A228-6FF5AB7C3B9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{4A37969E-D8DB-4AAA-A382-D6E733B6185B}"
+	ProjectSection(SolutionItems) = preProject
+		samples\Nuget.config = samples\Nuget.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A4372060-C59E-4102-B357-F678F45BC0E3}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		cloud3d-codesign.snk = cloud3d-codesign.snk
+		Directory.Build.Props = Directory.Build.Props
+		Directory.Build.Targets = Directory.Build.Targets
+		global.json = global.json
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+		Test.snk = Test.snk
+		version.json = version.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleWebApplication", "samples\ExampleWebApplication\ExampleWebApplication.csproj", "{8E2485CD-8E48-443B-9BB5-029C0531467E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9DD78A9-4E97-4339-B809-6A2CC28B071A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9DD78A9-4E97-4339-B809-6A2CC28B071A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9DD78A9-4E97-4339-B809-6A2CC28B071A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9DD78A9-4E97-4339-B809-6A2CC28B071A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2271CCCF-D47D-406A-A228-6FF5AB7C3B9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2271CCCF-D47D-406A-A228-6FF5AB7C3B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2271CCCF-D47D-406A-A228-6FF5AB7C3B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2271CCCF-D47D-406A-A228-6FF5AB7C3B9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E2485CD-8E48-443B-9BB5-029C0531467E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E2485CD-8E48-443B-9BB5-029C0531467E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E2485CD-8E48-443B-9BB5-029C0531467E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E2485CD-8E48-443B-9BB5-029C0531467E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8E2485CD-8E48-443B-9BB5-029C0531467E} = {4A37969E-D8DB-4AAA-A382-D6E733B6185B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5FBE1CF-A73C-4BFD-BBA5-95488B7930D9}
+	EndGlobalSection
+EndGlobal
