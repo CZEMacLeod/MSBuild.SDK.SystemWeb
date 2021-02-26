@@ -1,0 +1,20 @@
+﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.3">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Copyright>Copyright © (copyrightYear)</Copyright>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Properties\launchSettings.json" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web.*.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Web.*.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>    
+  </ItemGroup>
+</Project>

@@ -2,6 +2,45 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
+
+    <PackageType>Template</PackageType>
+    <Description>Provides templated for projects that that target System.Web.</Description>
+    <PackageTags>MSBuild;MSBuildSdk;System.Web;Templates</PackageTags>
+
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>content</ContentTargetFolders>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="templates\**\*" />
+    <Compile Remove="**\*" />
+    <Content Remove="templates\Full.SystemWeb.CS\Models\**" />
+    <Content Remove="templates\Full.SystemWeb.CS\Scripts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="templates\Full.SystemWeb.CS\Models\_._" />
+    <Content Include="templates\Full.SystemWeb.CS\Scripts\_._" />
+    <Content Include="version.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="templates\Full.SystemWeb.VB\My Project\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Content>
+    <Content Update="templates\Full.SystemWeb.VB\My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="templates\Empty.SystemWeb.CS\.template.config\vs-2017.3\" />
+  </ItemGroup>
 
 </Project>
