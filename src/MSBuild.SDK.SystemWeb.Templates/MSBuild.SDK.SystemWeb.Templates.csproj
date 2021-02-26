@@ -17,14 +17,6 @@
   <ItemGroup>
     <Content Include="templates\**\*" />
     <Compile Remove="**\*" />
-    <Content Remove="templates\Full.SystemWeb.CS\Models\**" />
-    <Content Remove="templates\Full.SystemWeb.CS\Scripts\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="templates\Full.SystemWeb.CS\Models\_._" />
-    <Content Include="templates\Full.SystemWeb.CS\Scripts\_._" />
-    <Content Include="version.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,10 +29,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="templates\Empty.SystemWeb.CS\.template.config\vs-2017.3\" />
   </ItemGroup>
 
 </Project>

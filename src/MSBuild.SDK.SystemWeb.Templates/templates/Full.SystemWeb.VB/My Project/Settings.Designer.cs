@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MSBuild.SDK.SystemWeb.Templates.templates.Full.SystemWeb.VB.My_Project {
+namespace My {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
