@@ -4,7 +4,12 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  batch: true
+  branches:
+    include:
+    - main
+
+pr: none
 
 pool:
   vmImage: windows-latest
@@ -152,6 +157,23 @@ steps:
     packagesToPush: $(Build.ArtifactStagingDirectory)\*.nupkg
     verbosityPush: 'Detailed'
     nuGetFeedType: 'external'
+
+- powershell: |
+    Write-Host "Tagging Build: $env:BuildNumber"
+
+    git tag $env:BuildNumber
+    git push origin $env:BuildNumber
+  env:
+    BuildNumber: $(Build.BuildNumber)
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+
+- task: GithubRelease@0 
+  displayName: 'Create GitHub Release'      
+  inputs:
+    gitHubConnection: CZEMacLeod
+    repositoryName: CZEMacLeod/MSBuild.SDK.SystemWeb           
+    assets: $(Build.ArtifactStagingDirectory)/*.nupkg
+    addChangeLog: true
 
 - task: PowerShell@2
   displayName: 'Remove Cert'
