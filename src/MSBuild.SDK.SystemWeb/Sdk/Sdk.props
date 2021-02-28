@@ -17,4 +17,8 @@
     <ProjectCapability Include="DotNetCoreWeb" />
     <ProjectCapability Include="SupportsSystemWeb" />
   </ItemGroup>
+
+  <!-- Default item includes -->
+  <Import Project="MSBuild.SDK.SystemWeb.DefaultItems.props" />
+  
 </Project>

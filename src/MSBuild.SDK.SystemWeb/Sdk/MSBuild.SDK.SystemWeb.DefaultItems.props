@@ -1,0 +1,12 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Condition="'$(EnableDefaultItems)'=='true'">
+    <Content Include="Web.config" />
+    <_WebConfigConfigurations Include="$(Configurations)" />
+    <None Update="@(_WebConfigConfigurations->'Web.%(Identity).config')">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="Web.*.config" Exclude="@(_WebConfigConfigurations->'Web.%(Identity).config')">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+</Project>
