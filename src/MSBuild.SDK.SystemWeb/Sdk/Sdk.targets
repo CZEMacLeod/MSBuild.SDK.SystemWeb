@@ -8,10 +8,20 @@
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="3.6.0" />
   </ItemGroup>
 
+  <PropertyGroup Condition="'$(MvcBuildViews)'==''">
+    <MvcBuildViews Condition="'$(Configuration)'=='Release'">true</MvcBuildViews>
+    <MvcBuildViews Condition="'$(Configuration)'!='Release'">false</MvcBuildViews>
+  </PropertyGroup>
+
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" />
 </Project>

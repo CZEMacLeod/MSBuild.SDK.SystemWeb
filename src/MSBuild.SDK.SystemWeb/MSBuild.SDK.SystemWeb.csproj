@@ -11,4 +11,7 @@
     <None Include="version.json" />
     <None Include="README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sdk\Frameworks\" />
+  </ItemGroup>
 </Project>
