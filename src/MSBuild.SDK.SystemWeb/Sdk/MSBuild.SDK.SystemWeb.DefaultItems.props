@@ -1,4 +1,4 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Condition="'$(EnableDefaultItems)'=='true'">
     <Content Include="Web.config" />
     <_WebConfigConfigurations Include="$(Configurations)" />
@@ -8,6 +8,32 @@
     <Content Include="Web.*.config" Exclude="@(_WebConfigConfigurations->'Web.%(Identity).config')">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+  </ItemGroup>
+
+  <!-- Support App_GlobalResources folder
+      https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/3
+      https://github.com/dotnet/project-system/issues/2670#issuecomment-820581558
+   -->
+  <ItemGroup>
+    <EmbeddedResource Remove="App_GlobalResources\*.resx" />
+    <Content Include="App_GlobalResources\*.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>%(Filename).Designer$(DefaultLanguageSourceExtension)</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Language)'=='C#'">
+    <Compile Update="App_GlobalResources\*.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace('%(Filename)', '\.Designer$', '')).resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Language)'=='VB'">
+    <Compile Update="App_GlobalResources\*.Designer.vb">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace('%(Filename)', '\.Designer$', '')).resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <!-- Support App_Code folder https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/4 -->
