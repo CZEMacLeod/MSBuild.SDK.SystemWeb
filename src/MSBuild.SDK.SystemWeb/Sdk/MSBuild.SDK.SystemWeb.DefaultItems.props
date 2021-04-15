@@ -9,4 +9,14 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
+
+  <!-- Support App_Code folder https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/4 -->
+  <ItemGroup Condition="'$(Language)'=='VB'">
+    <Compile Remove="App_Code\*.vb" />
+    <Content Include="App_Code\*.vb" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Language)'=='C#'">
+    <Compile Remove="App_Code\*.cs" />
+    <Content Include="App_Code\*.cs" />
+  </ItemGroup>
 </Project>
