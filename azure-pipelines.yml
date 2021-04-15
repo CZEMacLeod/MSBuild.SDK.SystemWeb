@@ -160,9 +160,10 @@ steps:
 
 - powershell: |
     Write-Host "Tagging Build: $env:BuildNumber"
-
-    git tag $env:BuildNumber
-    git push origin $env:BuildNumber
+    $tag = "v" + $env:BuildNumber
+    git tag $tag
+    git push origin $tag
+  displayName: Tag build
   env:
     BuildNumber: $(Build.BuildNumber)
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
