@@ -18,6 +18,11 @@
     <ProjectCapability Include="SupportsSystemWeb" />
   </ItemGroup>
 
+
+  <PropertyGroup>
+    <OverwriteAppConfigWithBindingRedirects Condition="'$(OverwriteAppConfigWithBindingRedirects)'==''">false</OverwriteAppConfigWithBindingRedirects>
+  </PropertyGroup>
+
   <!-- Default item includes -->
   <Import Project="MSBuild.SDK.SystemWeb.DefaultItems.props" />
   
