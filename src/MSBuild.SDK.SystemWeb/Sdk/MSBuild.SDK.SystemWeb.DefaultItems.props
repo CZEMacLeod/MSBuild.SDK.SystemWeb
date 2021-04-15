@@ -1,4 +1,4 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Condition="'$(EnableDefaultItems)'=='true'">
     <Content Include="Web.config" />
     <_WebConfigConfigurations Include="$(Configurations)" />
@@ -34,5 +34,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace('%(Filename)', '\.Designer$', '')).resx</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <!-- Support App_Code folder https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/4 -->
+  <ItemGroup Condition="'$(Language)'=='VB'">
+    <Compile Remove="App_Code\*.vb" />
+    <Content Include="App_Code\*.vb" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Language)'=='C#'">
+    <Compile Remove="App_Code\*.cs" />
+    <Content Include="App_Code\*.cs" />
   </ItemGroup>
 </Project>
