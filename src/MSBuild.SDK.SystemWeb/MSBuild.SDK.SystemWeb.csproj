@@ -8,6 +8,9 @@
     <PackageType>MSBuildSdk</PackageType>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="version.json" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>

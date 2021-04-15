@@ -25,4 +25,8 @@
     <None Include="images\*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="version.json" />
+  </ItemGroup>
+
 </Project>

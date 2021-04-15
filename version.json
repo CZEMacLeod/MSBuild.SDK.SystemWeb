@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/dotnet/Nerdbank.GitVersioning/v3.3.37/src/NerdBank.GitVersioning/version.schema.json",
   "version": "4.0",
   "publicReleaseRefSpec": [
     "^refs/heads/main$", // we release out of main
@@ -11,5 +12,6 @@
     "buildNumber": {
       "enabled": true
     }
-  }
+  },
+  "buildNumberOffset": 11
 }
