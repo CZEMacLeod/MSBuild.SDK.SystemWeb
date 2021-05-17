@@ -8,6 +8,9 @@ trigger:
   branches:
     include:
     - main
+  paths:
+    exclude:
+    - docs/*
 
 pr: none
 

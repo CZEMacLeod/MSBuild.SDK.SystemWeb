@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.Build.NoTargets">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="**\*.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Known_Limitations\" />
+  </ItemGroup>
+</Project>

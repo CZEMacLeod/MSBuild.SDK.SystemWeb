@@ -33,7 +33,7 @@
     <None Include="Sdk\**"
           Pack="true"
           PackagePath="Sdk\" />
-    <None Include="README.md" />
+    <None Include="README.md" Condition="EXISTS('README.md')" />
     <None Include="$(PackageLicensePath)"
           Pack="true"
           PackagePath="$(PackageLicenseFile)"
