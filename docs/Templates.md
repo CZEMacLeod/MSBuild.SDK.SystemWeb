@@ -6,29 +6,47 @@
 
 ## Installation
 
-`dotnet new -i MSBuild.SDK.SystemWeb.Templates`
+```cmd 
+dotnet new -i MSBuild.SDK.SystemWeb.Templates
+```
+
+## Updating
+
+Optionally
+```cmd
+dotnet new --update-check
+```
+and
+```cmd
+dotnet new --update-apply
+```
+**N.B.** This applies to all installed templates.
+```cmd 
+dotnet new -i MSBuild.SDK.SystemWeb.Templates
+```
+Should update you to the latest version even if you have them already installed.
 
 ## Usage
 
 ### CLI
-`dotnet new systemweb`
+```cmd
+dotnet new systemweb
+```
 or
-`dotnet new systemwebfull`
+```cmd
+dotnet new systemwebfull
+```
 
 To select the VB.Net version use the flag `-lang VB`
-e.g. `dotnet new systemweb -land VB`
+e.g. 
+```cmd
+dotnet new systemweb -land VB
+```
 
 ### Visual Studio 2019
 Alternatively use the Visual Studio Add Project dialog.
 You need to have enabled the Preview feature to show [.NET CLI Templates in Visual Studio](https://devblogs.microsoft.com/dotnet/net-cli-templates-in-visual-studio/) and have Visual Studio 16.8 Preview 2 or higher.
 
-![Visual Studio New Project Dialog](images/create-new-project.png)
+![Visual Studio New Project Dialog](https://raw.githubusercontent.com/CZEMacLeod/MSBuild.SDK.SystemWeb/main/src/MSBuild.SDK.SystemWeb.Templates/images/create-new-project.png)
 
-You can find the new templates easily by selecting System.Web from the Project Type dropdown.
-
-## Documentation
-
-For more information see 
-
-[![Source](https://img.shields.io/badge/github-source-lightgrey?logo=github)](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb)
-[![Docs](https://img.shields.io/badge/github_pages-docs-lightgrey?logo=github)](https://czemacleod.github.io/MSBuild.SDK.SystemWeb/)
+You can find the new templates easily by selecting `System.Web` from the Project Type dropdown.

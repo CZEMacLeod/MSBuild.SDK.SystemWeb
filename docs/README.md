@@ -1,29 +1,25 @@
 # MSBuild.SDK.SystemWeb
 
 [![Build Status](https://dev.azure.com/flexviews/MSBuild.SDKs.SystemWeb/_apis/build/status/CZEMacLeod.MSBuild.SDK.SystemWeb?branchName=main)](https://dev.azure.com/flexviews/MSBuild.SDKs.SystemWeb/_build/latest?definitionId=69&branchName=main)
-[![Docs](https://img.shields.io/badge/Documentation-docs-lightgrey?logo=github)](https://czemacleod.github.io/MSBuild.SDK.SystemWeb/)
+[![Source](https://img.shields.io/badge/github-source-lightgrey?logo=github)](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb)
 
 This MSBuild SDK is designed to allow for the easy creation and use of SDK (shortform) projects targeting ASP.NET 4.x using System.Web.
 
 ## What's available
 
-### [MSBuild.SDK.SystemWeb](src/MSBuild.SDK.SystemWeb)
+### [MSBuild.SDK.SystemWeb](SDK.md)
 
 [![NuGet package](https://img.shields.io/nuget/v/MSBuild.SDK.SystemWeb.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb)
 [![NuGet downloads](https://img.shields.io/nuget/dt/MSBuild.SDK.SystemWeb.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb)
 
 This is the basic SDK that enables Visual Studio 2019 to work with an ASP.Net 4.x based project using a short form project file.
 
-### [MSBuild.SDK.SystemWeb.Templates](src/MSBuild.SDK.SystemWeb.Templates)
+### [MSBuild.SDK.SystemWeb.Templates](Templates.md)
 
 [![NuGet package](https://img.shields.io/nuget/v/MSBuild.SDK.SystemWeb.Templates.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb)
 [![NuGet downloads](https://img.shields.io/nuget/dt/MSBuild.SDK.SystemWeb.Templates.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb)
 
 This is a set of templates that allow for the easy creation of projects based on the MSBuild.SDK.SystemWeb project SDK type.
-
-## Read The Docs
-
-### [Documentation](https://czemacleod.github.io/MSBuild.SDK.SystemWeb/)
 
 ## How can I use these SDKs?
 
@@ -74,3 +70,18 @@ At evaluation time, MSBuild adds implicit imports at the top and bottom of the p
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
 </Project>
 ```
+
+# Useful Information
+
+## [Binding Redirects](Binding_Rediects)
+- [How to show Suggested Binding Redirects](How-to-show-Suggested-Binding-Redirects.md)
+- [Autogenerating Binding Redirects](Autogenerating-Binding-Redirects.md)
+
+## ![GitHub issues by-label](https://img.shields.io/github/issues/CZEMacLeod/MSBuild.SDK.SystemWeb/known%20limitation?label=known%20limitations) ![GitHub issues by-label](https://img.shields.io/github/issues-closed/CZEMacLeod/MSBuild.SDK.SystemWeb/known%20limitation?label=known%20limitations)
+- [Projects don't work with dotnet CLI tooling](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/1)
+- [Docker Containers](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/9)
+- [WebForms](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/11)
+- [VS Publish Command](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/12)
+
+## Templates
+- [How to install and use the templates](Templates.md)
