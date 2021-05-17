@@ -73,11 +73,13 @@ At evaluation time, MSBuild adds implicit imports at the top and bottom of the p
 
 # Useful Information
 
-## [Binding Redirects](Binding_Rediects)
-- [How to show Suggested Binding Redirects](How-to-show-Suggested-Binding-Redirects.md)
-- [Autogenerating Binding Redirects](Autogenerating-Binding-Redirects.md)
+## Binding Redirects
+- [How to show Suggested Binding Redirects](Binding_Rediects/How-to-show-Suggested-Binding-Redirects.md)
+- [Autogenerating Binding Redirects](Binding_Rediects/Autogenerating-Binding-Redirects.md)
 
-## ![GitHub issues by-label](https://img.shields.io/github/issues/CZEMacLeod/MSBuild.SDK.SystemWeb/known%20limitation?label=known%20limitations) ![GitHub issues by-label](https://img.shields.io/github/issues-closed/CZEMacLeod/MSBuild.SDK.SystemWeb/known%20limitation?label=known%20limitations)
+## Known Limitations
+- ![GitHub issues by-label](https://img.shields.io/github/issues/CZEMacLeod/MSBuild.SDK.SystemWeb/known%20limitation?label=known%20limitations)
+- ![GitHub issues by-label](https://img.shields.io/github/issues-closed/CZEMacLeod/MSBuild.SDK.SystemWeb/known%20limitation?label=known%20limitations)
 - [Projects don't work with dotnet CLI tooling](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/1)
 - [Docker Containers](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/9)
 - [WebForms](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/11)
