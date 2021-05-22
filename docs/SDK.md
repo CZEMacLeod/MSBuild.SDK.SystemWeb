@@ -10,7 +10,7 @@ Based on the discussion and ideas in [Add support for ASP.NET (non-Core) project
 
 When using an MSBuild Project SDK obtained via NuGet (such as the SDKs in this repo) a specific version **must** be specified.
 
-Either append the version to the package name:
+Either append the version (as shown in the nuget shield above) to the package name:
 
 ```xml
 <Project Sdk="MSBuild.SDK.SystemWeb/4.0.33">
@@ -27,11 +27,4 @@ Or omit the version from the SDK attribute and specify it in the version in `glo
 }
 ```
 
-You can also use the [templates](../MSBuild.SDK.SystemWeb.Templates) to easily create new projects.
-
-## Documentation
-
-For more information see 
-
-[![Source](https://img.shields.io/badge/github-source-lightgrey?logo=github)](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb)
-[![Docs](https://img.shields.io/badge/github_pages-docs-lightgrey?logo=github)](https://czemacleod.github.io/MSBuild.SDK.SystemWeb/)
+You can also use the [templates](Templates.md) to easily create new projects.
