@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.33">
+﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.47">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
@@ -7,15 +7,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="Properties\launchSettings.json" />
-    <Content Include="Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web.*.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Web.*.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>    
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">

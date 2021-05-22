@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.33">
+﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.47">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <Copyright>Copyright © (copyrightYear)</Copyright>
@@ -67,13 +67,6 @@
     <Content Include="Global.asax" />
     <Content Include="libman.json" />
     <Content Include="My Project\launchSettings.json" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Views\_ViewStart.vbhtml" />
     <Content Include="Views\Home\About.vbhtml" />
