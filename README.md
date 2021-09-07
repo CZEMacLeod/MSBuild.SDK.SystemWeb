@@ -16,8 +16,8 @@ This is the basic SDK that enables Visual Studio 2019 to work with an ASP.Net 4.
 
 ### [MSBuild.SDK.SystemWeb.Templates](src/MSBuild.SDK.SystemWeb.Templates)
 
-[![NuGet package](https://img.shields.io/nuget/v/MSBuild.SDK.SystemWeb.Templates.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb)
-[![NuGet downloads](https://img.shields.io/nuget/dt/MSBuild.SDK.SystemWeb.Templates.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb)
+[![NuGet package](https://img.shields.io/nuget/v/MSBuild.SDK.SystemWeb.Templates.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb.Templates)
+[![NuGet downloads](https://img.shields.io/nuget/dt/MSBuild.SDK.SystemWeb.Templates.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb.Templates)
 
 This is a set of templates that allow for the easy creation of projects based on the MSBuild.SDK.SystemWeb project SDK type.
 
@@ -32,7 +32,7 @@ When using an MSBuild Project SDK obtained via NuGet (such as the SDKs in this r
 Either append the version to the package name:
 
 ```xml
-<Project Sdk="MSBuild.SDK.SystemWeb/4.0.33">
+<Project Sdk="MSBuild.SDK.SystemWeb/4.0.50">
   ...
 ```
 
@@ -41,7 +41,7 @@ Or omit the version from the SDK attribute and specify it in the version in `glo
 ```json
 {
   "msbuild-sdks": {
-    "MSBuild.SDK.SystemWeb" : "4.0.33"
+    "MSBuild.SDK.SystemWeb" : "4.0.50"
   }
 }
 ```

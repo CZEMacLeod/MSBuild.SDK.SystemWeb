@@ -13,7 +13,7 @@ When using an MSBuild Project SDK obtained via NuGet (such as the SDKs in this r
 Either append the version to the package name:
 
 ```xml
-<Project Sdk="MSBuild.SDK.SystemWeb/4.0.33">
+<Project Sdk="MSBuild.SDK.SystemWeb/4.0.50">
   ...
 ```
 
@@ -22,7 +22,7 @@ Or omit the version from the SDK attribute and specify it in the version in `glo
 ```json
 {
   "msbuild-sdks": {
-    "MSBuild.SDK.SystemWeb" : "4.0.33"
+    "MSBuild.SDK.SystemWeb" : "4.0.50"
   }
 }
 ```
