@@ -45,4 +45,11 @@
     <Compile Remove="App_Code\*.cs" />
     <Content Include="App_Code\*.cs" />
   </ItemGroup>
+
+  <!-- Exclude node_modules and similar folders from default globbing - Closes #19 -->
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\node_modules\**;node_modules\**</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\jspm_packages\**;jspm_packages\**</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\bower_components\**;bower_components\**</DefaultItemExcludes>
+  </PropertyGroup>
 </Project>
