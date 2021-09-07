@@ -78,8 +78,8 @@ At evaluation time, MSBuild adds implicit imports at the top and bottom of the p
 - [Autogenerating Binding Redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md)
 
 ## Known Limitations
-- ![GitHub issues by-label](https://img.shields.io/github/issues/CZEMacLeod/MSBuild.SDK.SystemWeb/known%20limitation?label=known%20limitations)
-- ![GitHub issues by-label](https://img.shields.io/github/issues-closed/CZEMacLeod/MSBuild.SDK.SystemWeb/known%20limitation?label=known%20limitations)
+- [![GitHub issues by-label](https://img.shields.io/github/issues/CZEMacLeod/MSBuild.SDK.SystemWeb/known%20limitation?label=known%20limitations)](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues?q=is%3Aissue+label%3A%22known+limitation%22+is%3Aopen)
+- [![GitHub issues by-label](https://img.shields.io/github/issues-closed/CZEMacLeod/MSBuild.SDK.SystemWeb/known%20limitation?label=known%20limitations)](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues?q=is%3Aissue+label%3A%22known+limitation%22+is%3Aclosed)
 - [Projects don't work with dotnet CLI tooling](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/1)
 - [Docker Containers](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/9)
 - [WebForms](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/11)
