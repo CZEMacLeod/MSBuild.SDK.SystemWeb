@@ -52,4 +52,29 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);**\jspm_packages\**;jspm_packages\**</DefaultItemExcludes>
     <DefaultItemExcludes>$(DefaultItemExcludes);**\bower_components\**;bower_components\**</DefaultItemExcludes>
   </PropertyGroup>
+
+  <!-- EnableWebFormsDefaultItems follows EnableDefaultItems and adds WebForms items as content - Closes #24 -->
+  <PropertyGroup>
+    <EnableWebFormsDefaultItems Condition="'$(EnableWebFormsDefaultItems)'==''">$(EnableDefaultItems)</EnableWebFormsDefaultItems>
+  </PropertyGroup>
+
+  <!-- Exclude WebForms items from default items -->
+  <PropertyGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.asax;*.asax</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.ascx;*.ascx</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.ashx;*.ashx</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.asmx;*.asmx</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.aspx;*.aspx</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.master;*.master</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <!-- Include WebForms items as content -->
+  <ItemGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
+    <Content Include="**\*.asax" />
+    <Content Include="**\*.ascx" />
+    <Content Include="**\*.ashx" />
+    <Content Include="**\*.asmx" />
+    <Content Include="**\*.aspx" />
+    <Content Include="**\*.master" />
+  </ItemGroup>
 </Project>
