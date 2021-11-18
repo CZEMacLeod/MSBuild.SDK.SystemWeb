@@ -1,32 +1,32 @@
 ﻿<Project Sdk="Microsoft.Build.NoTargets">
 
-  <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+	<PropertyGroup>
+		<TargetFramework>net472</TargetFramework>
 
-    <PackageType>Template</PackageType>
-    <Description>Provides templates for projects that that target System.Web.</Description>
-    <PackageTags>MSBuild;MSBuildSdk;System.Web;Templates</PackageTags>
+		<PackageType>Template</PackageType>
+		<Description>Provides templates for projects that that target System.Web.</Description>
+		<PackageTags>MSBuild;MSBuildSdk;System.Web;Templates</PackageTags>
 
-    <IncludeContentInPack>true</IncludeContentInPack>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
-    <ContentTargetFolders>content</ContentTargetFolders>
-    <NoWarn>$(NoWarn);NU5128</NoWarn>
+		<IncludeContentInPack>true</IncludeContentInPack>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<ContentTargetFolders>content</ContentTargetFolders>
+		<NoWarn>$(NoWarn);NU5128</NoWarn>
 
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
 
-  </PropertyGroup>
+	<ItemGroup>
+		<Content Include="templates\**\*" />
+		<Compile Remove="**\*" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Include="templates\**\*" />
-    <Compile Remove="**\*" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="images\*" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="images\*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="version.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="version.json" />
+	</ItemGroup>
 
 </Project>
