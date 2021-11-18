@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31004.235
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSBuild.SDK.SystemWeb", "src\MSBuild.SDK.SystemWeb\MSBuild.SDK.SystemWeb.csproj", "{D9DD78A9-4E97-4339-B809-6A2CC28B071A}"
 EndProject
@@ -18,11 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A4372060
 		Directory.Build.Props = Directory.Build.Props
 		Directory.Build.Targets = Directory.Build.Targets
 		global.json = global.json
-		InstallCert.ps1 = InstallCert.ps1
+		build\ImportCert.ps1 = build\ImportCert.ps1
 		LICENSE.txt = LICENSE.txt
 		nuget.publish.config = nuget.publish.config
 		README.md = README.md
-		RemoveCert.ps1 = RemoveCert.ps1
+		build\RemoveCert.ps1 = build\RemoveCert.ps1
 		Test.snk = Test.snk
 		version.json = version.json
 	EndProjectSection
@@ -33,7 +33,7 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "ExampleFullWebApplication",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSBuild.SDK.SystemWeb.Templates", "src\MSBuild.SDK.SystemWeb.Templates\MSBuild.SDK.SystemWeb.Templates.csproj", "{750A2B35-A9BB-488B-972C-31FEAB17CF3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "docs", "docs\docs.csproj", "{9E629342-F10C-4EA4-A578-016DD5713C1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "docs", "docs\docs.csproj", "{9E629342-F10C-4EA4-A578-016DD5713C1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

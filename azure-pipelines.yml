@@ -19,7 +19,7 @@ pool:
 
 variables:
 - group: Github-Packages
-- group: Signing
+- group: 'c3d-devops'
 - name: solution
   value: 'MSBuild.SDK.SystemWeb.sln'
 - name: buildPlatform
@@ -30,6 +30,8 @@ variables:
   value: '$(Agent.MachineName)'
 - name: buildUser
   value: '$(Build.QueuedBy)'
+- name: 'timestamper'
+  value: 'http://timestamp.comodoca.com'
 
 steps:
 - checkout: self
@@ -41,23 +43,19 @@ steps:
   displayName: 'Ensure MSBuildEmitSolution is not set'
 
 - task: DownloadSecureFile@1
-  displayName: 'Download secure file PFX'
-  name: app_pfx
-  inputs:
-    secureFile: '99ca122a-939c-491f-9ea3-bb7ad1819ec1'
-
-- task: DownloadSecureFile@1
   displayName: 'Download secure file SNK'
   name: snk
   inputs:
     secureFile: '61ad38e7-05ff-4421-aea8-e3241b75c7a1'
 
 - task: PowerShell@2
-  displayName: 'Install Cert'
+  displayName: 'Install Certificate'
   inputs:
-    targetType: filePath
-    filePath: 'InstallCert.ps1'
-    arguments: '-pfxpath $(app_pfx.secureFilePath) -password $(pfx_password)'
+    targetType: 'filePath'
+    filePath: 'build/ImportCert.ps1'
+  env:
+    password: $(pfx-password)
+    pfx: $(c3d-codesign)
 
 - task: NuGetToolInstaller@0
   inputs:
@@ -183,6 +181,6 @@ steps:
   displayName: 'Remove Cert'
   inputs:
     targetType: filePath
-    filePath: 'RemoveCert.ps1'
-    arguments: '-pfxpath $(app_pfx.secureFilePath) -password $(pfx_password)'
+    filePath: 'build/RemoveCert.ps1'
+    arguments: '-thumb $(app_pfx_thumbprint)'
   condition: always()
