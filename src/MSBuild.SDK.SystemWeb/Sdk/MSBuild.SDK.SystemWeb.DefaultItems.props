@@ -66,15 +66,19 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);**\*.asmx;*.asmx</DefaultItemExcludes>
     <DefaultItemExcludes>$(DefaultItemExcludes);**\*.aspx;*.aspx</DefaultItemExcludes>
     <DefaultItemExcludes>$(DefaultItemExcludes);**\*.master;*.master</DefaultItemExcludes>
+	<!-- DefaultWebFormsItemExcludes prevents including build and publish outputs - Closes #25 -->
+    <DefaultWebFormsItemExcludes>$([MSBuild]::EnsureTrailingSlash($(BaseOutputPath)))**</DefaultWebFormsItemExcludes>
+	<DefaultWebFormsItemExcludes>$(DefaultWebFormsItemExcludes);$([MSBuild]::EnsureTrailingSlash($(BaseIntermediateOutputPath)))**</DefaultWebFormsItemExcludes>
+	<DefaultWebFormsItemExcludes Condition="'$(PackageLocation)'!=''">$(DefaultWebFormsItemExcludes);$([MSBuild]::EnsureTrailingSlash($(PackageLocation)))**</DefaultWebFormsItemExcludes>
   </PropertyGroup>
 
   <!-- Include WebForms items as content -->
   <ItemGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
-    <Content Include="**\*.asax" />
-    <Content Include="**\*.ascx" />
-    <Content Include="**\*.ashx" />
-    <Content Include="**\*.asmx" />
-    <Content Include="**\*.aspx" />
-    <Content Include="**\*.master" />
+    <Content Include="**\*.asax" Exclude="$(DefaultWebFormsItemExcludes)" />
+    <Content Include="**\*.ascx" Exclude="$(DefaultWebFormsItemExcludes)" />
+    <Content Include="**\*.ashx" Exclude="$(DefaultWebFormsItemExcludes)" />
+    <Content Include="**\*.asmx" Exclude="$(DefaultWebFormsItemExcludes)" />
+    <Content Include="**\*.aspx" Exclude="$(DefaultWebFormsItemExcludes)" />
+    <Content Include="**\*.master" Exclude="$(DefaultWebFormsItemExcludes)" />
   </ItemGroup>
 </Project>
