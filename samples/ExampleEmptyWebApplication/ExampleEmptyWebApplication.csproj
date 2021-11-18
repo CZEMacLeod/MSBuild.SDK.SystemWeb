@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.62">
+﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.58">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
 

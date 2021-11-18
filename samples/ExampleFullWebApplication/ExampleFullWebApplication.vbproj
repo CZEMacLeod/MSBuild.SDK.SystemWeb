@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.62">
+﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.58">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <Copyright>Copyright ©  2021</Copyright>
@@ -116,7 +116,11 @@
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>
 
+  <!--<PropertyGroup>
+    <EnableWebFormsDefaultItems>true</EnableWebFormsDefaultItems>
+  </PropertyGroup>
 	<Target Name="DumpExcludePaths" BeforeTargets="BeforeBuild">
+    <Message Importance="high" Text="DefaultItemExcludes: $(DefaultItemExcludes)" />
 		<Message Importance="high" Text="DefaultWebFormsItemExcludes: $(DefaultWebFormsItemExcludes)" />
-	</Target>
+	</Target>-->
 </Project>
