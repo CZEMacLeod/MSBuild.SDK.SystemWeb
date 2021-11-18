@@ -12,7 +12,7 @@
 		<None Include="version.json" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Include="README.md" />
+		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Sdk\Frameworks\" />
