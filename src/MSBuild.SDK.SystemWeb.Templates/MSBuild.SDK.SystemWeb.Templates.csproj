@@ -4,7 +4,7 @@
 		<TargetFramework>net472</TargetFramework>
 
 		<PackageType>Template</PackageType>
-		<Description>Provides templates for projects that that target System.Web.</Description>
+		<Description>Provides templates for projects that target System.Web using the MSBuild.SDK.SystemWeb SDK.</Description>
 		<PackageTags>MSBuild;MSBuildSdk;System.Web;Templates</PackageTags>
 
 		<IncludeContentInPack>true</IncludeContentInPack>
