@@ -2,7 +2,7 @@
   <ItemGroup>
     <Reference Include="System.Web" />
   </ItemGroup>
-  
+
   <ItemGroup Condition="'$(ExcludeASPNetCompilers)'=='false'">
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="3.8.0" PrivateAssets="All"/>
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="3.6.0" />
@@ -46,6 +46,9 @@
     <Warning Text="Replacing web.config due to changes during compile - This should clear warning MSB3276 on next compile" File="web.config" Condition="'$(_DllConfigHash)'!='$(_AppConfigHash)'" />
     <Copy SourceFiles="$(OutDir)$(AssemblyName).dll.config" DestinationFiles="web.config" Condition="'$(_DllConfigHash)'!='$(_AppConfigHash)'" />
   </Target>
+
+  <!-- Default item excludes -->
+  <Import Project="MSBuild.SDK.SystemWeb.DefaultItems.targets" />
 
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" />

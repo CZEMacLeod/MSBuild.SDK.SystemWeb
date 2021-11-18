@@ -58,20 +58,6 @@
     <EnableWebFormsDefaultItems Condition="'$(EnableWebFormsDefaultItems)'==''">$(EnableDefaultItems)</EnableWebFormsDefaultItems>
   </PropertyGroup>
 
-  <!-- Exclude WebForms items from default items -->
-  <PropertyGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.asax;*.asax</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.ascx;*.ascx</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.ashx;*.ashx</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.asmx;*.asmx</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.aspx;*.aspx</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.master;*.master</DefaultItemExcludes>
-	<!-- DefaultWebFormsItemExcludes prevents including build and publish outputs - Closes #25 -->
-    <DefaultWebFormsItemExcludes>$([MSBuild]::EnsureTrailingSlash($(BaseOutputPath)))**</DefaultWebFormsItemExcludes>
-	<DefaultWebFormsItemExcludes>$(DefaultWebFormsItemExcludes);$([MSBuild]::EnsureTrailingSlash($(BaseIntermediateOutputPath)))**</DefaultWebFormsItemExcludes>
-	<DefaultWebFormsItemExcludes Condition="'$(PackageLocation)'!=''">$(DefaultWebFormsItemExcludes);$([MSBuild]::EnsureTrailingSlash($(PackageLocation)))**</DefaultWebFormsItemExcludes>
-  </PropertyGroup>
-
   <!-- Include WebForms items as content -->
   <ItemGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
     <Content Include="**\*.asax" Exclude="$(DefaultWebFormsItemExcludes)" />
