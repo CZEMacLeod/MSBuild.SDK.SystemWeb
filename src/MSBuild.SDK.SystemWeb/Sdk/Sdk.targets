@@ -3,10 +3,8 @@
     <Reference Include="System.Web" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(ExcludeASPNetCompilers)'=='false'">
-    <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="3.8.0" PrivateAssets="All"/>
-    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="3.6.0" />
-  </ItemGroup>
+  <!-- Default packages -->
+  <Import Project="MSBuild.SDK.SystemWeb.DefaultPackages.targets" />
 
   <PropertyGroup Condition="'$(MvcBuildViews)'==''">
     <MvcBuildViews Condition="'$(Configuration)'=='Release'">true</MvcBuildViews>
