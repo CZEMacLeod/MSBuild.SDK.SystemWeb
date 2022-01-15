@@ -23,6 +23,7 @@
     <OverwriteAppConfigWithBindingRedirects Condition="'$(OverwriteAppConfigWithBindingRedirects)'==''">false</OverwriteAppConfigWithBindingRedirects>
   </PropertyGroup>
 
+  <Import Project="MSBuild.SDK.SystemWeb.DefaultPackages.props" />
   <!-- Default item includes -->
   <Import Project="MSBuild.SDK.SystemWeb.DefaultItems.props" />
   

@@ -2,8 +2,8 @@
 
   <!-- Include versioned compilers unless ExcludeASPNetCompilers property is set or we are using Microsoft.Build.CentralPackageVersions -->
   <ItemGroup Condition="'$(ExcludeASPNetCompilers)'=='false' AND '$(UsingMicrosoftCentralPackageVersionsSdk)'!='true'">
-    <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="3.8.0" PrivateAssets="All"/>
-    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="3.6.0" />
+    <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="$(MicrosoftNetCompilersToolset_Version)" PrivateAssets="All" Condition="'$(MicrosoftNetCompilersToolset_Version)'!=''"/>
+    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)" Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'!=''" />
   </ItemGroup>
 
   <!-- Include unversioned compilers unless ExcludeASPNetCompilers property is set if we are using Microsoft.Build.CentralPackageVersions -->
