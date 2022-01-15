@@ -28,3 +28,16 @@ Or omit the version from the SDK attribute and specify it in the version in `glo
 ```
 
 You can also use the [templates](Templates.md) to easily create new projects.
+
+## Properties
+
+|Property|Default value|Description|
+|-|-|
+|ExcludeASPNetCompilers|false|Do not include the default packages `Microsoft.Net.Compilers.Toolset` and `Microsoft.CodeDom.Providers.DotNetCompilerPlatform`|
+|MicrosoftNetCompilersToolset_Version|3.8.0|Version number of the package `Microsoft.Net.Compilers.Toolset` to include*|
+|MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version|3.6.0|Version number of the packge `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` to include*|
+|OverwriteAppConfigWithBindingRedirects|false|If set, then any [automatically generated binding redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md) will be copied into your web.config file.|
+|MvcBuildViews|true if Configuration is Release<br/>false otherwise|Whether to invoke the AspNetCompiler automatically after build|
+|EnableWebFormsDefaultItems|Same as `EnableDefaultItems`|Whether to automatically include WebForms files as content<br><ul><li> *.asax</li><li> *.ascx</li><li> *.ashx</li><li> *.asmx</li><li> *.aspx</li><li> *.master</li></ul>|
+
+*Version numbers are not applied if you are using `Microsoft.Build.CentralPackageVersions` version 2.1.1 or higher. Remember to include the packages in your central package versions file.
