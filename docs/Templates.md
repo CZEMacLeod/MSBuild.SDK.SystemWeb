@@ -40,7 +40,7 @@ dotnet new systemwebfull
 To select the VB.Net version use the flag `-lang VB`
 e.g. 
 ```cmd
-dotnet new systemweb -land VB
+dotnet new systemweb -lang VB
 ```
 
 ### Visual Studio 2019
