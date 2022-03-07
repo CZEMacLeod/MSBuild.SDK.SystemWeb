@@ -16,7 +16,7 @@ or
 `dotnet new systemwebfull`
 
 To select the VB.Net version use the flag `-lang VB`
-e.g. `dotnet new systemweb -land VB`
+e.g. `dotnet new systemweb -lang VB`
 
 ### Visual Studio
 
