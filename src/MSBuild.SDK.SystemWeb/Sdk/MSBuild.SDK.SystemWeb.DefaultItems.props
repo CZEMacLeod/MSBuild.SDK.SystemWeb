@@ -1,5 +1,12 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Condition="'$(EnableDefaultItems)'=='true'">
+
+  <!-- EnableWebFormsDefaultItems follows EnableSystemWebDefaultItems and adds WebForms items as content - Closes #24 -->
+  <PropertyGroup>
+    <EnableWebFormsDefaultItems Condition="'$(EnableWebFormsDefaultItems)'==''">$(EnableDefaultItems)</EnableWebFormsDefaultItems>
+    <EnableWebFormsDefaultItems Condition="'$(EnableWebFormsDefaultItems)'==''">true</EnableWebFormsDefaultItems> <!-- If $(EnableDefaultItems) is undefined-->
+  </PropertyGroup>
+  
+  <ItemGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
     <Content Include="Web.config" />
     <_WebConfigConfigurations Include="$(Configurations)" />
     <None Update="@(_WebConfigConfigurations->'Web.%(Identity).config')">
@@ -53,11 +60,6 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);**\bower_components\**;bower_components\**</DefaultItemExcludes>
   </PropertyGroup>
 
-  <!-- EnableWebFormsDefaultItems follows EnableDefaultItems and adds WebForms items as content - Closes #24 -->
-  <PropertyGroup>
-    <EnableWebFormsDefaultItems Condition="'$(EnableWebFormsDefaultItems)'==''">$(EnableDefaultItems)</EnableWebFormsDefaultItems>
-  </PropertyGroup>
-
   <!-- Include WebForms items as content -->
   <ItemGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
     <Content Include="**\*.asax" Exclude="$(DefaultWebFormsItemExcludes)" />
@@ -66,5 +68,6 @@
     <Content Include="**\*.asmx" Exclude="$(DefaultWebFormsItemExcludes)" />
     <Content Include="**\*.aspx" Exclude="$(DefaultWebFormsItemExcludes)" />
     <Content Include="**\*.master" Exclude="$(DefaultWebFormsItemExcludes)" />
+    <Content Include="**\*.svc" Exclude="$(DefaultWebFormsItemExcludes)" />
   </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);**\*.asmx;*.asmx</DefaultItemExcludes>
     <DefaultItemExcludes>$(DefaultItemExcludes);**\*.aspx;*.aspx</DefaultItemExcludes>
     <DefaultItemExcludes>$(DefaultItemExcludes);**\*.master;*.master</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.svc;*.svc</DefaultItemExcludes>
     <!-- DefaultWebFormsItemExcludes prevents including build and publish outputs - Closes #25 -->
     <DefaultWebFormsItemExcludes Condition="'$(DefaultWebFormsItemExcludes)'!=''">$(DefaultWebFormsItemExcludes);</DefaultWebFormsItemExcludes>
     <DefaultWebFormsItemExcludes>$(DefaultWebFormsItemExcludes)$([MSBuild]::EnsureTrailingSlash($(OutputPath)))**</DefaultWebFormsItemExcludes>
