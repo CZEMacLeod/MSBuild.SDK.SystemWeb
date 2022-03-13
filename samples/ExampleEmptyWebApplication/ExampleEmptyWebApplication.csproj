@@ -1,47 +1,11 @@
-﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.58">
+﻿<Project Sdk="MSBuild.SDK.SystemWeb">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-
-    <!--<UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
-    <IISExpressSSLPort>44392</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
-    <UseGlobalApplicationHostFile />-->
   </PropertyGroup>
   <PropertyGroup>
     <Copyright>Copyright ©  2021</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <None Include="Properties\launchSettings.json" />
-    <Content Include="Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web.Debug.config" />
-    <None Include="Web.Release.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Web.*.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>    
-  </ItemGroup>
-  <!--<ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
-        <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>60248</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44392/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
-        </WebProjectProperties>
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>-->  
+  </ItemGroup> 
 </Project>

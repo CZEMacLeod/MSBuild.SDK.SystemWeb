@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.58">
+﻿<Project Sdk="MSBuild.SDK.SystemWeb">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <Copyright>Copyright ©  2021</Copyright>
@@ -24,7 +24,6 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="lib\**\*.*" />
     <Compile Update="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -64,31 +63,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
-    <Content Include="Global.asax" />
-    <Content Include="libman.json" />
-    <Content Include="My Project\launchSettings.json" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Content\Site.css" />
-    <Content Include="Views\_ViewStart.vbhtml" />
-    <Content Include="Views\Home\About.vbhtml" />
-    <Content Include="Views\Home\Contact.vbhtml" />
-    <Content Include="Views\Home\Index.vbhtml" />
-    <Content Include="Views\Shared\Error.vbhtml" />
-    <Content Include="Views\Shared\_Layout.vbhtml" />
+    <Content Include="lib\**\*.*" />
+    <Content Include="Content\**\*.*" />
+    <Content Include="Views\**\*.vbhtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="Scripts\" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="libman.json" />
+    <None Include="My Project\launchSettings.json" />
     <None Include="My Project\Application.myapp" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -105,22 +87,8 @@
     <PackageReference Include="Microsoft.AspNet.WebApi">
       <Version>5.2.7</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <Version>2.0.1</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="WebGrease" Version="1.6.0" />
   </ItemGroup>
-  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
-    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
-  </Target>
-
-  <!--<PropertyGroup>
-    <EnableWebFormsDefaultItems>true</EnableWebFormsDefaultItems>
-  </PropertyGroup>
-	<Target Name="DumpExcludePaths" BeforeTargets="BeforeBuild">
-    <Message Importance="high" Text="DefaultItemExcludes: $(DefaultItemExcludes)" />
-		<Message Importance="high" Text="DefaultWebFormsItemExcludes: $(DefaultWebFormsItemExcludes)" />
-	</Target>-->
 </Project>

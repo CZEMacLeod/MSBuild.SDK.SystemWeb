@@ -4,7 +4,8 @@
     "rollForward": "latestMajor",
     "allowPrerelease": true
   },
-  "msbuild-sdks": {
-    "Microsoft.Build.NoTargets": "2.0.1"
-  }
+    "msbuild-sdks": {
+        "Microsoft.Build.NoTargets": "2.0.1",
+        "MSBuild.SDK.SystemWeb": "4.0.69"
+    }
 }
