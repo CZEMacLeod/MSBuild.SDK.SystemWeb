@@ -1,0 +1,28 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:57506",
+      "sslPort": 44386
+    }
+  },
+    "profiles": {
+        "IIS Express Local Service": {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "launchUrl": "http://localhost:57506/service.svc"
+        },
+        "IIS Express Class Library": {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "launchUrl": "http://localhost:57506/service2/Add?n1=420&n2=0.69"
+        }
+    }
+}

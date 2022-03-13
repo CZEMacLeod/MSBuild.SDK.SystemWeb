@@ -1,0 +1,21 @@
+﻿<Project Sdk="MSBuild.SDK.SystemWeb">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <MicrosoftNetCompilersToolset_Version>4.1.0</MicrosoftNetCompilersToolset_Version>
+    <LangVersion>10</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Copyright>Copyright © 2022</Copyright>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Properties\launchSettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WCF.Service.ClassLibrary\WCF.Service.ClassLibrary.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.ServiceModel" />
+    <Content Include="Global.asax" />
+    <Content Include="*.svc" />
+  </ItemGroup>
+</Project>
