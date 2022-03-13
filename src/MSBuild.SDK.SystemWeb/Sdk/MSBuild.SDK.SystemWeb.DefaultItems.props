@@ -9,7 +9,7 @@
   <ItemGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
     <Content Include="Web.config" />
     <_WebConfigConfigurations Include="$(Configurations)" />
-    <None Update="@(_WebConfigConfigurations->'Web.%(Identity).config')">
+    <None Include="@(_WebConfigConfigurations->'Web.%(Identity).config')">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="Web.*.config" Exclude="@(_WebConfigConfigurations->'Web.%(Identity).config')">
