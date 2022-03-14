@@ -16,8 +16,9 @@
   <ItemGroup>
     <ProjectCapability Include="DotNetCoreWeb" />
     <ProjectCapability Include="SupportsSystemWeb" />
+    <!-- Force 'legacy' mode for razor files (no LSP) so that we can handle ASP.NET 4.x Intellisense - Closes #27 -->
+    <ProjectCapability Include="LegacyRazorEditor" />
   </ItemGroup>
-
 
   <PropertyGroup>
     <OverwriteAppConfigWithBindingRedirects Condition="'$(OverwriteAppConfigWithBindingRedirects)'==''">false</OverwriteAppConfigWithBindingRedirects>
