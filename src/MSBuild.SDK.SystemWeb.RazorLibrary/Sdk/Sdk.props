@@ -1,0 +1,23 @@
+﻿<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
+  <PropertyGroup>
+    <UseRazorV4Editor>false</UseRazorV4Editor>
+    <AppConfig>web.config</AppConfig>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <OverwriteAppConfigWithBindingRedirects Condition="'$(OverwriteAppConfigWithBindingRedirects)'==''">true</OverwriteAppConfigWithBindingRedirects>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectCapability Include="SupportsSystemWeb" />
+    <ProjectCapability Include="LegacyRazorEditor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <RazorAppConfigFiles Include="$(AppConfig)" />
+    <RazorAppConfigFiles Include="Views/web.config" Condition="EXISTS('Views/web.config')" />
+  </ItemGroup>
+
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.props"/>
+</Project>
