@@ -1,0 +1,9 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OverwriteAppConfigWithBindingRedirects Condition="'$(OverwriteAppConfigWithBindingRedirects)'==''">true</OverwriteAppConfigWithBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(OverwriteAppConfigWithBindingRedirects)'=='true'">
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+  </PropertyGroup>
+</Project>

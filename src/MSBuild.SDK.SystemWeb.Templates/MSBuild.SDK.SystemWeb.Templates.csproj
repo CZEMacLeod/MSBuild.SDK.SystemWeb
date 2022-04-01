@@ -1,44 +1,41 @@
 ﻿<Project Sdk="Microsoft.Build.NoTargets">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
 
-	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
+    <PackageType>Template</PackageType>
+    <Description>Provides templates for projects that target System.Web using the MSBuild.SDK.SystemWeb SDK.</Description>
+    <PackageTags>MSBuild;MSBuildSdk;System.Web;Templates</PackageTags>
 
-		<PackageType>Template</PackageType>
-		<Description>Provides templates for projects that target System.Web using the MSBuild.SDK.SystemWeb SDK.</Description>
-		<PackageTags>MSBuild;MSBuildSdk;System.Web;Templates</PackageTags>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>content</ContentTargetFolders>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
 
-		<IncludeContentInPack>true</IncludeContentInPack>
-		<IncludeBuildOutput>false</IncludeBuildOutput>
-		<ContentTargetFolders>content</ContentTargetFolders>
-		<NoWarn>$(NoWarn);NU5128</NoWarn>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
 
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-	</PropertyGroup>
+  <ItemGroup>
+    <Content Include="templates\**\*" />
+    <Compile Remove="**\*" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<Content Include="templates\**\*" />
-		<Compile Remove="**\*" />
-	</ItemGroup>
+  <ItemGroup>
+    <None Include="images\*" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<None Include="images\*" />
-	</ItemGroup>
+  <ItemGroup>
+    <Content Remove="templates\RazorLibrary.SystemWeb.CS\App_Start\RazorGeneratorMvcStart.cs" />
+    <Content Remove="templates\RazorLibrary.SystemWeb.VB\App_Start\RazorGeneratorMvcStart.vb" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <Content Remove="templates\RazorLibrary.SystemWeb.CS\App_Start\RazorGeneratorMvcStart.cs" />
-	  <Content Remove="templates\RazorLibrary.SystemWeb.VB\App_Start\RazorGeneratorMvcStart.vb" />
-	</ItemGroup>
+  <ItemGroup>
+    <Compile Include="templates\RazorLibrary.SystemWeb.CS\App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="templates\RazorLibrary.SystemWeb.VB\App_Start\RazorGeneratorMvcStart.vb" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <Compile Include="templates\RazorLibrary.SystemWeb.CS\App_Start\RazorGeneratorMvcStart.cs" />
-	  <Compile Include="templates\RazorLibrary.SystemWeb.VB\App_Start\RazorGeneratorMvcStart.vb" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="version.json" />
-
-		<None Include="README.md" Pack="true" PackagePath="\" />
-	</ItemGroup>
-
+  <ItemGroup>
+    <None Include="version.json" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,6 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\web.config</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);web.config</DefaultItemExcludes>
+  </PropertyGroup>
+</Project>

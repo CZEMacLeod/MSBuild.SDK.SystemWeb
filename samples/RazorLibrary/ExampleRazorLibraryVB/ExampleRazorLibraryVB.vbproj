@@ -27,4 +27,7 @@
   <ItemGroup>
     <None Include="My Project\launchSettings.json" />
   </ItemGroup>
+  <ItemGroup>
+    <RazorAppConfigFiles Include="Views\web.config" />
+  </ItemGroup>
 </Project>

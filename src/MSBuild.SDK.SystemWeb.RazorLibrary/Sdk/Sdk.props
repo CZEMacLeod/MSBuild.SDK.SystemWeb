@@ -1,15 +1,17 @@
 ﻿<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.props"/>
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.BindingRedirects.props"/>
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultItems.props"/>
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.RazorGeneratorDirectives.props" />
+  
   <PropertyGroup>
     <UseRazorV4Editor>false</UseRazorV4Editor>
     <AppConfig>web.config</AppConfig>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
-    <OverwriteAppConfigWithBindingRedirects Condition="'$(OverwriteAppConfigWithBindingRedirects)'==''">true</OverwriteAppConfigWithBindingRedirects>
-    <ExcludeDefaultRazorPackages>false</ExcludeDefaultRazorPackages>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <ProjectCapability Include="SupportsSystemWeb" />
     <ProjectCapability Include="LegacyRazorEditor" />
@@ -18,18 +20,4 @@
   <ItemGroup Condition="'$(BuildingInsideVisualStudio)'=='true'">
     <AvailableItemName Include="RazorAppConfigFiles" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\web.config</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);web.config</DefaultItemExcludes>
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <None Include="web.config" />
-    <RazorAppConfigFiles Include="Views/web.config" Condition="EXISTS('Views/web.config')" />
-    <RazorAppConfigFiles Include="Areas/**/web.config" />
-  </ItemGroup>
-
-  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.props"/>
-  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.RazorGeneratorDirectives.props" />
 </Project>

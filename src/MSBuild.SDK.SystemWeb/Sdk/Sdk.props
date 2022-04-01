@@ -10,8 +10,6 @@
 
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
-    
-    <ExcludeASPNetCompilers>false</ExcludeASPNetCompilers>
   </PropertyGroup>
   <ItemGroup>
     <ProjectCapability Include="DotNetCoreWeb" />
