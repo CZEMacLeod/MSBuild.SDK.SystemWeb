@@ -21,6 +21,14 @@ This is the basic SDK that enables Visual Studio 2019 to work with an ASP.Net 4.
 
 This is a set of templates that allow for the easy creation of projects based on the MSBuild.SDK.SystemWeb project SDK type.
 
+### [MSBuild.SDK.SystemWeb.RazorLibrary](RazorLibrary.md)
+
+[![NuGet package](https://img.shields.io/nuget/v/MSBuild.SDK.SystemWeb.RazorLibrary.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb.Templates)
+[![NuGet downloads](https://img.shields.io/nuget/dt/MSBuild.SDK.SystemWeb.RazorLibrary.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb.Templates)
+
+This is an SDK that allows Visual Studio to work with an ASP.Net 4.x / MVC 5 based Razor Library.
+This makes it easy to use the [RazorGenerator](https://github.com/RazorGenerator/RazorGenerator) system with an SDK type project.
+
 ## How can I use these SDKs?
 
 When using an MSBuild Project SDK obtained via NuGet (such as the SDKs in this repo) a specific version **must** be specified.

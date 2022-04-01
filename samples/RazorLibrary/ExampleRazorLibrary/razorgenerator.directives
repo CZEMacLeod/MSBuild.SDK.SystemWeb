@@ -1,0 +1,6 @@
+RazorVersion: 3
+Generator: MvcView
+GeneratePrettyNames : true
+GenerateAbsolutePathLinePragmas : true
+ExcludeForCodeCoverage : true
+Namespace : ASP

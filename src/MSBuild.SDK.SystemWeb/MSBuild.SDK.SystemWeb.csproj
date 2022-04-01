@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.Build.NoTargets">
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
-		<Description>Provides targets for projects that that target System.Web.</Description>
+		<Description>Provides targets for projects that target System.Web.</Description>
 		<PackageTags>MSBuild;MSBuildSdk;System.Web</PackageTags>
 		<ArtifactsPath>$(BaseArtifactsPath)$(MSBuildProjectName)\</ArtifactsPath>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>

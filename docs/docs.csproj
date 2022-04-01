@@ -9,4 +9,10 @@
   <ItemGroup>
     <Folder Include="Known_Limitations\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="RazorLibrary.md">
+      <PackagePath>\</PackagePath>
+      <Pack>true</Pack>
+    </None>
+  </ItemGroup>
 </Project>

@@ -26,6 +26,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Remove="templates\RazorLibrary.SystemWeb.CS\App_Start\RazorGeneratorMvcStart.cs" />
+	  <Content Remove="templates\RazorLibrary.SystemWeb.VB\App_Start\RazorGeneratorMvcStart.vb" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="templates\RazorLibrary.SystemWeb.CS\App_Start\RazorGeneratorMvcStart.cs" />
+	  <Compile Include="templates\RazorLibrary.SystemWeb.VB\App_Start\RazorGeneratorMvcStart.vb" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Include="version.json" />
 
 		<None Include="README.md" Pack="true" PackagePath="\" />

@@ -12,7 +12,7 @@ This MSBuild SDK is designed to allow for the easy creation and use of SDK (shor
 [![NuGet package](https://img.shields.io/nuget/v/MSBuild.SDK.SystemWeb.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb)
 [![NuGet downloads](https://img.shields.io/nuget/dt/MSBuild.SDK.SystemWeb.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb)
 
-This is the basic SDK that enables Visual Studio 2019 to work with an ASP.Net 4.x based project using a short form project file.
+This is the basic SDK that enables Visual Studio to work with an ASP.Net 4.x based project using a short form project file.
 
 ### [MSBuild.SDK.SystemWeb.Templates](src/MSBuild.SDK.SystemWeb.Templates)
 
@@ -20,6 +20,14 @@ This is the basic SDK that enables Visual Studio 2019 to work with an ASP.Net 4.
 [![NuGet downloads](https://img.shields.io/nuget/dt/MSBuild.SDK.SystemWeb.Templates.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb.Templates)
 
 This is a set of templates that allow for the easy creation of projects based on the MSBuild.SDK.SystemWeb project SDK type.
+
+### [MSBuild.SDK.SystemWeb.RazorLibrary](src/MSBuild.SDK.SystemWeb.RazorLibrary)
+
+[![NuGet package](https://img.shields.io/nuget/v/MSBuild.SDK.SystemWeb.RazorLibrary.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb.Templates)
+[![NuGet downloads](https://img.shields.io/nuget/dt/MSBuild.SDK.SystemWeb.RazorLibrary.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb.Templates)
+
+This is an SDK that allows Visual Studio to work with an ASP.Net 4.x / MVC 5 based Razor Library.
+This makes it easy to use the [RazorGenerator](https://github.com/RazorGenerator/RazorGenerator) system with an SDK type project.
 
 ## Read The Docs
 
@@ -54,7 +62,7 @@ For more information, [read the documentation](https://docs.microsoft.com/visual
 MSBuild 15.0 introduced new project XML for .NET Core that we refer to as SDK-style.  These SDK-style projects looks like:
 
 ```xml
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.SystemWeb">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
@@ -64,13 +72,13 @@ MSBuild 15.0 introduced new project XML for .NET Core that we refer to as SDK-st
 At evaluation time, MSBuild adds implicit imports at the top and bottom of the project like this:
 
 ```xml
-<Project Sdk="MSBuild.SDK.SystemWeb">
-  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+<Project>
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.SystemWeb" />
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
 
-  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.SystemWeb" />
 </Project>
 ```

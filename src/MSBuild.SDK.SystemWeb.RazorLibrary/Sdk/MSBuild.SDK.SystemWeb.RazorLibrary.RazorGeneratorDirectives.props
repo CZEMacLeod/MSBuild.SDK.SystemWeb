@@ -1,0 +1,17 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <RazorGeneratorVersion Condition="'$(RazorGeneratorVersion)'==''">3</RazorGeneratorVersion>
+    <RazorGeneratorGenerator Condition="'$(RazorGeneratorGenerator)'==''">MvcView</RazorGeneratorGenerator>
+    <RazorGeneratorPrettyNames Condition="'$(RazorGeneratorPrettyNames)'==''">true</RazorGeneratorPrettyNames>
+    <RazorGeneratorExcludeForCodeCoverage Condition="'$(RazorGeneratorExcludeForCodeCoverage)'==''">true</RazorGeneratorExcludeForCodeCoverage>
+    <RazorGeneratorAbsolutePathLinePragmas Condition="'$(RazorGeneratorAbsolutePathLinePragmas)'==''">true</RazorGeneratorAbsolutePathLinePragmas>
+  </PropertyGroup>
+  <ItemGroup>
+    <RazorGeneratorDirective Include="RazorVersion: $(RazorGeneratorVersion)" />
+    <RazorGeneratorDirective Include="Generator: $(RazorGeneratorGenerator)" />
+    <RazorGeneratorDirective Include="GeneratePrettyNames : $(RazorGeneratorPrettyNames)" />
+    <RazorGeneratorDirective Include="GenerateAbsolutePathLinePragmas : $(RazorGeneratorAbsolutePathLinePragmas)" />
+    <RazorGeneratorDirective Include="ExcludeForCodeCoverage : $(RazorGeneratorExcludeForCodeCoverage)" />
+    <RazorGeneratorDirective Include="Namespace : $(RazorGeneratorNamespace)" Condition="'$(RazorGeneratorNamespace)'!=''" />
+  </ItemGroup>
+</Project>
