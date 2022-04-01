@@ -27,6 +27,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A4372060
 		Test.snk = Test.snk
 		version.json = version.json
 	EndProjectSection
+	ProjectSection(FolderGlobals) = preProject
+		C_5_4Users_4Cynth_4source_4repos_4MSBuild_1SDK_1SystemWeb_4global_1json__JsonSchema = 
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleEmptyWebApplication", "samples\ExampleEmptyWebApplication\ExampleEmptyWebApplication.csproj", "{BA8C0E69-87E1-46F8-A871-F1CDD8760A75}"
 EndProject
