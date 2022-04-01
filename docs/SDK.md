@@ -32,7 +32,7 @@ You can also use the [templates](Templates.md) to easily create new projects.
 ## Properties
 
 | Property | Default value | Description |
-| - | - |
+| -------- | ------------- | ----------- |
 | ExcludeASPNetCompilers | false | Do not include the default packages `Microsoft.Net.Compilers.Toolset` and `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` |
 | MicrosoftNetCompilersToolset_Version | 3.8.0 | Version number of the package `Microsoft.Net.Compilers.Toolset` to include* |
 | MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version | 3.6.0 | Version number of the packge `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` to include* |
