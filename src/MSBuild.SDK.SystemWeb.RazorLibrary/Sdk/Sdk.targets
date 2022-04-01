@@ -43,7 +43,7 @@
      Query="/configuration/runtime/asm:assemblyBinding"
      Value="$(Bindings)" 
      Condition="'$(_DllConfigHash)'!='$(_AppConfigHash)'"/>
-    <!--<Copy SourceFiles="$(OutDir)$(AssemblyName).dll.config" DestinationFiles="%(RazorAppConfigFiles.Identity)" Condition="'$(_DllConfigHash)'!='$(_AppConfigHash)'" />-->
+    <Copy SourceFiles="$(OutDir)$(AssemblyName).dll.config" DestinationFiles="web.config" Condition="'$(_DllConfigHash)'!='$(_AppConfigHash)'" />
   </Target>
 
   <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.targets" />
