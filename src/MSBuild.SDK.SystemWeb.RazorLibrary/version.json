@@ -2,5 +2,5 @@
   "$schema": "https://raw.githubusercontent.com/dotnet/Nerdbank.GitVersioning/v3.3.37/src/NerdBank.GitVersioning/version.schema.json",
   "inherit": true,
   "version": "4.0",
-  "buildNumberOffset": 0
+  "buildNumberOffset": 21
 } 
