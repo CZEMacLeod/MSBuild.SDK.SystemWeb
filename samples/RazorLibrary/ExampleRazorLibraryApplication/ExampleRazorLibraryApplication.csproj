@@ -1,0 +1,42 @@
+﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.69">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Copyright>Copyright © 2022</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+    <Content Include="lib\**\*.*" />
+    <Content Include="Content\**\*.*" />
+    <Content Include="Views\**\*.cshtml" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libman.json" />
+    <None Include="Properties\launchSettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Antlr" Version="3.5.0.2" />
+    <PackageReference Include="Microsoft.AspNet.Mvc">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.Web.Optimization">
+      <Version>1.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="WebGrease" Version="1.6.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExampleRazorLibrary\ExampleRazorLibrary.csproj" />
+  </ItemGroup>
+</Project>

@@ -5,18 +5,39 @@
 [![NuGet downloads](https://img.shields.io/nuget/dt/MSBuild.SDK.SystemWeb.Templates.svg)](https://nuget.org/packages/MSBuild.SDK.SystemWeb.Templates)
 
 ## Installation
-
-`dotnet new -i MSBuild.SDK.SystemWeb.Templates`
+```cmd
+dotnet new -i MSBuild.SDK.SystemWeb.Templates
+```
 
 ## Usage
 
 ### CLI
-`dotnet new systemweb`
+
+#### Web Applications
+```cmd
+dotnet new systemweb
+```
 or
-`dotnet new systemwebfull`
+```cmd
+dotnet new systemwebfull
+```
 
 To select the VB.Net version use the flag `-lang VB`
-e.g. `dotnet new systemweb -lang VB`
+e.g. 
+```cmd
+dotnet new systemweb -lang VB
+```
+
+#### Razor Class Libraries
+```cmd
+dotnet new systemwebrazorlib
+```
+
+To select the VB.Net version use the flag `-lang VB`
+e.g.
+```cmd
+dotnet new systemwebrazorlib -lang VB
+```
 
 ### Visual Studio
 

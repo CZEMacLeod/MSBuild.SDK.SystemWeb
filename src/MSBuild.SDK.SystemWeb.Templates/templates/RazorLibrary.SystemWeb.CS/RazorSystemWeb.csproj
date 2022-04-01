@@ -1,0 +1,21 @@
+﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.69">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Copyright>Copyright © (copyrightYear)</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <RazorSrcFiles Include="Views\**\*.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+
+    <PackageReference Include="Antlr" Version="3.5.0.2" />
+    <PackageReference Include="Microsoft.AspNet.Web.Optimization" Version="1.1.3" />
+    <PackageReference Include="WebGrease" Version="1.6.0" />
+  </ItemGroup>
+</Project>
