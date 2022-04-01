@@ -47,6 +47,7 @@
   </Target>
 
   <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.targets" />
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.RazorGeneratorDirectives.targets" />
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
 
 </Project>

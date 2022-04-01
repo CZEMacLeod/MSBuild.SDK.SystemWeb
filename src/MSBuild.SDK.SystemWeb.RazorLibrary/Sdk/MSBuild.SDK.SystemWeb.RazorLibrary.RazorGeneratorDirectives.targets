@@ -1,0 +1,5 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="CreateRazorGeneratorDirectives" BeforeTargets="PrecompileRazorFiles">
+    <WriteLinesToFile File="$(MsBuildProjectDirectory)\razorgenerator.directives" Lines="@(RazorGeneratorDirective)" WriteOnlyWhenDifferent="true" Overwrite="true" />
+  </Target>
+</Project>

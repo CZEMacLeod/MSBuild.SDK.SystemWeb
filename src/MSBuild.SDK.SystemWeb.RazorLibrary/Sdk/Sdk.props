@@ -15,10 +15,21 @@
     <ProjectCapability Include="LegacyRazorEditor" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(BuildingInsideVisualStudio)'=='true'">
+    <AvailableItemName Include="RazorAppConfigFiles" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\web.config</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);web.config</DefaultItemExcludes>
+  </PropertyGroup>
+  
   <ItemGroup>
     <RazorAppConfigFiles Include="$(AppConfig)" />
     <RazorAppConfigFiles Include="Views/web.config" Condition="EXISTS('Views/web.config')" />
+    <RazorAppConfigFiles Include="Areas/**/web.config" />
   </ItemGroup>
 
   <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.props"/>
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.RazorGeneratorDirectives.props" />
 </Project>
