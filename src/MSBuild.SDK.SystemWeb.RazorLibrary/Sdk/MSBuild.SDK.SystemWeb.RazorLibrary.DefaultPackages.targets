@@ -7,8 +7,9 @@
   <ItemGroup Condition="'$(ExcludeDefaultRazorPackages)'=='false' AND '$(UsingMicrosoftCentralPackageVersionsSdk)'!='true'">
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="$(MicrosoftNetCompilersToolset_Version)" PrivateAssets="All" Condition="'$(MicrosoftNetCompilersToolset_Version)'!=''"/>
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)" Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'!=''" />
-    <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="All" Version="$(RazorGenerator_Version)" Condition="'$(RazorGenerator_Version)'!=''" />
+    <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="All" Version="$(RazorGeneratorMSBuild_Version)" Condition="'$(RazorGeneratorMSBuild_Version)'!=''" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="$(MicrosoftAspNetMvc_Version)" Condition="'$(MicrosoftAspNetMvc_Version)'!=''" />
+    <PackageReference Include="RazorGenerator.MVC" Version="$(RazorGeneratorMVC_Version)" Condition="'$(RazorGeneratorMVC_Version)'!=''" />
   </ItemGroup>
 
   <!-- Include unversioned compilers unless ExcludeASPNetCompilers property is set if we are using Microsoft.Build.CentralPackageVersions -->
@@ -18,6 +19,7 @@
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" PrivateAssets="All"/>
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
     <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="All"/>
+    <PackageReference Include="RazorGenerator.MVC" />
     <PackageReference Include="Microsoft.AspNet.Mvc"/>
   </ItemGroup>
    
