@@ -10,7 +10,7 @@
       <_AppConfig Remove="@(_AppConfig)" />
       <_ConfigFile Remove="@(_ConfigFileHash)" />
       <_DllConfig Include="$(OutDir)$(AssemblyName).dll.config" />
-      <_AppConfig Include="$(AppConfig)" />
+      <_AppConfig Include="web.config" />
     </ItemGroup>
     <GetFileHash Files="@(_DllConfig)">
       <Output TaskParameter="Hash" PropertyName="_DllConfigHash" />
@@ -24,20 +24,25 @@
       <_ConfigFileHash Include="@(_DllConfigFileHash)" />
       <_ConfigFileHash Include="@(_AppConfigFileHash)" />
     </ItemGroup>
-    <Message Text="%(_ConfigFileHash.Identity): %(_ConfigFileHash.FileHash)" />
+    <Message Text="%(_ConfigFileHash.Identity): %(_ConfigFileHash.FileHash)" Importance="high" />
     <Warning Text="Replacing web.config due to changes during compile - This should clear warning MSB3276 on next compile" File="web.config" Condition="'$(_DllConfigHash)'!='$(_AppConfigHash)'" />
     <PropertyGroup>
       <ConfigNameSpaces>&lt;Namespace Prefix='asm' Uri='urn:schemas-microsoft-com:asm.v1' /&gt;</ConfigNameSpaces>
     </PropertyGroup>
     <XmlPeek XmlInputPath="$(OutDir)$(AssemblyName).dll.config"
              Namespaces="$(ConfigNameSpaces)"
-             Query="/configuration/runtime/asm:assemblyBinding">
+             Query="/configuration/runtime/asm:assemblyBinding/asm:dependentAssembly" Condition="'$(_DllConfigHash)'!='$(_AppConfigHash)'">
       <Output TaskParameter="Result" ItemName="_bindings" />
     </XmlPeek>
+    <Message Text="New Bindings: %(_bindings.Indentity)" Importance="high" />
+    <PropertyGroup>
+      <Bindings>@(_bindings ,'')</Bindings>
+    </PropertyGroup>
     <XmlPoke XmlInputPath="%(RazorAppConfigFiles.Identity)"
      Namespaces="$(ConfigNameSpaces)"
      Query="/configuration/runtime/asm:assemblyBinding"
-     Value="$(_bindings)" />
+     Value="$(Bindings)" 
+     Condition="'$(_DllConfigHash)'!='$(_AppConfigHash)'"/>
     <!--<Copy SourceFiles="$(OutDir)$(AssemblyName).dll.config" DestinationFiles="%(RazorAppConfigFiles.Identity)" Condition="'$(_DllConfigHash)'!='$(_AppConfigHash)'" />-->
   </Target>
 
