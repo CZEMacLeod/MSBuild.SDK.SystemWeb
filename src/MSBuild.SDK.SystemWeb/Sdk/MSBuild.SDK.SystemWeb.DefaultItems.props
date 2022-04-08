@@ -9,10 +9,10 @@
   <ItemGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
     <Content Include="Web.config" />
     <_WebConfigConfigurations Include="$(Configurations)" />
-    <None Include="@(_WebConfigConfigurations->'Web.%(Identity).config')">
+    <None Include="@(_WebConfigConfigurations->'Web.%(Identity).config');Web.BindingRedirects.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Web.*.config" Exclude="@(_WebConfigConfigurations->'Web.%(Identity).config')">
+    <Content Include="Web.*.config" Exclude="@(None)">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
