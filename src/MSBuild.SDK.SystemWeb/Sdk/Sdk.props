@@ -8,8 +8,6 @@
     <PublishProfileImported>true</PublishProfileImported>
     <AppConfig>web.config</AppConfig>
 
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
   <ItemGroup>
     <ProjectCapability Include="DotNetCoreWeb" />
@@ -17,10 +15,6 @@
     <!-- Force 'legacy' mode for razor files (no LSP) so that we can handle ASP.NET 4.x Intellisense - Closes #27 -->
     <ProjectCapability Include="LegacyRazorEditor" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <OverwriteAppConfigWithBindingRedirects Condition="'$(OverwriteAppConfigWithBindingRedirects)'==''">false</OverwriteAppConfigWithBindingRedirects>
-  </PropertyGroup>
 
   <Import Project="MSBuild.SDK.SystemWeb.DefaultPackages.props" />
   <!-- Default item includes -->

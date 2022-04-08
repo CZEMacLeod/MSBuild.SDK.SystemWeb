@@ -1,0 +1,82 @@
+﻿<!--
+    ====================================================================================================
+
+                                        GenerateBindingRedirects Behaviors
+										
+      Traditionally (Microsoft.Common.CurrentVersion.targets) only Performs BindingRedirect calculations when 
+        Project type is deemed to "need" redirects -> when OutputType == 'exe' or OutputType == 'winexe' (Microsoft.Common.CurrentVersion.targets)
+        AND
+        Not an "old" project, aka either
+          An SDK project type that incorporates Microsoft.NET.Sdk (Microsoft.NET.Sdk.BeforeCommon.targets)
+          OR
+          A newer Full Framework project TargetFrameworkIdentifier == '.NETFramework' and '$(TargetFrameworkVersion.TrimStart(vV))' >= '4.7.2' (Microsoft.Common.CurrentVersion.targets)
+      Additionally it chooses the filename of the config file to be updated as what exe projects want... 
+        $(IntermediateOutputPath)$(TargetFileName).config -> the config file named after the assembly and in the IntermediateOutputPath
+  
+        https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/34
+      This SDK Project Type will override these settings so that we can facilitate developers working with BindingRedirects in the web.config
+        Enable the Build Process to calculate Binding Redirects
+          GenerateBindingRedirectsOutputType(true - even though this project is not an .exe or .winexe)
+          AutoGenerateBindingRedirects (true - set explictly even though should be set by Microsoft.NET.Sdk.BeforeCommon.targets)
+        Take an action
+          OverwriteAppConfigWithBindingRedirects -> this is the SystemWeb Sdk Legacy property
+          GeneratedBindingRedirectsAction (Overwrite) -> this will conditionally change wich config file is written to
+    ====================================================================================================
+  -->
+
+<Project>
+
+  <PropertyGroup Label="Change the default BindingRedirects behavior for projects of this SDK type">
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <AutoGenerateBindingRedirects Condition=" '$(AutoGenerateBindingRedirects)' == '' ">true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Set the desire default behavior of what to do with SuggestedBindingRedirects if not yet set"
+                 Condition=" '$(GeneratedBindingRedirectsAction)' == ''">
+    <GeneratedBindingRedirectsAction>None</GeneratedBindingRedirectsAction>
+    <GeneratedBindingRedirectsAction Condition=" '$(OverwriteAppConfigWithBindingRedirects)' != 'true' ">Preview</GeneratedBindingRedirectsAction>
+    <GeneratedBindingRedirectsAction Condition=" '$(OverwriteAppConfigWithBindingRedirects)' == 'true' ">Overwrite</GeneratedBindingRedirectsAction>
+  </PropertyGroup>
+
+
+  <!--
+    ====================================================================================================
+
+                                        SystemWebProject_ChooseConfigFileForGenerateBindingRedirects
+										
+      This target should executes between 
+	      ResolveAssmblyReferences (where the "@(SuggestedBindingRedirects)" itemgroup is populated... based on the logic that resolves assemblies being referenced
+	      and
+	      GenerateBindingRedirects (where the suggestedBindingRedirects are written to disk into a config file at $(_GenerateBindingRedirectsIntermediateAppConfig)
+	
+      Then we can choose where the suggestedBindingRedirects are written, if at all (Default Value is Overwrite unless set by project)
+        '$(GeneratedBindingRedirectsAction)' == 'Preview' -> Creates new Web.BindingRedirects.config file showing proposed changes
+        '$(GeneratedBindingRedirectsAction)' == 'Overwrite' -> Updates the $(AppConfig) aka web.config in the project root
+        '$(GeneratedBindingRedirectsAction)' == Something Unknown -> Prints message giving options of what the developer can choose from
+    
+      In general we want to emit a "warning" whenever we either do, or don't do something to help developers find the property that drives this behavior
+    ====================================================================================================
+  -->
+  <Target Name="SystemWebProject_ChooseConfigFileForGenerateBindingRedirects" 
+          BeforeTargets="GenerateBindingRedirects"
+	        Condition="'$(AutoGenerateBindingRedirects)' == 'true' and '$(GenerateBindingRedirectsOutputType)' == 'true' and @(SuggestedBindingRedirects->Count()) > 0 ">
+
+    <PropertyGroup Label="Set the location of the file to which the suggestedBindingRedirects should be written during the GenerateBindingRedirects Target">
+      <_GenerateBindingRedirectsIntermediateAppConfig Condition="'$(GeneratedBindingRedirectsAction)' == 'Preview' " >Web.BindingRedirects.config</_GenerateBindingRedirectsIntermediateAppConfig>
+      <_GenerateBindingRedirectsIntermediateAppConfig Condition="'$(GeneratedBindingRedirectsAction)' == 'Overwrite' " >$(AppConfig)</_GenerateBindingRedirectsIntermediateAppConfig>
+    </PropertyGroup>
+
+    <Warning Condition="'$(GeneratedBindingRedirectsAction)' != 'Preview' and '$(GeneratedBindingRedirectsAction)' != 'Overwrite'"
+      Text="Generated Binding Redirects have been applied only to the $(TargetFileName).config. You should incorporate them into the web.config. Consider setting &lt;GeneratedBindingRedirectsAction&gt;Preview&lt;/GeneratedBindingRedirectsAction&gt; to create a file containing the proposals. Consider setting &lt;GeneratedBindingRedirectsAction&gt;Overwrite&lt;/GeneratedBindingRedirectsAction&gt; to automatically update web.config with proposals."  />
+
+    <Warning Condition="'$(GeneratedBindingRedirectsAction)' == 'Preview'"
+      Text="Generated Binding Redirects have been applied only to the Web.BindingRedirects.config. You should incorporate them into the web.config. Consider setting &lt;GeneratedBindingRedirectsAction&gt;Overwrite&lt;/GeneratedBindingRedirectsAction&gt; to automatically update web.config with proposals." />
+
+    <Warning Condition="'$(GeneratedBindingRedirectsAction)' == 'Overwrite'"
+      Text="Generated Binding Redirects have been applied automatically to the web.config. This warning will disappear on the next build." />
+
+  </Target>
+
+
+
+</Project>
