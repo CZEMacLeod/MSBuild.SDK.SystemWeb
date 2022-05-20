@@ -1,18 +1,19 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <!-- Exclude WebForms items from default items -->
-  <PropertyGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.asax;*.asax</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.ascx;*.ascx</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.ashx;*.ashx</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.asmx;*.asmx</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.aspx;*.aspx</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.master;*.master</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.svc;*.svc</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);web.config;web.*.config</DefaultItemExcludes>
-    <!-- DefaultWebFormsItemExcludes prevents including build and publish outputs - Closes #25 -->
-    <DefaultWebFormsItemExcludes Condition="'$(DefaultWebFormsItemExcludes)'!=''">$(DefaultWebFormsItemExcludes);</DefaultWebFormsItemExcludes>
-    <DefaultWebFormsItemExcludes>$(DefaultWebFormsItemExcludes)$([MSBuild]::EnsureTrailingSlash($(OutputPath)))**</DefaultWebFormsItemExcludes>
-    <DefaultWebFormsItemExcludes Condition="'$(PackageLocation)'!=''">$(DefaultWebFormsItemExcludes);$([MSBuild]::EnsureTrailingSlash($(PackageLocation)))**</DefaultWebFormsItemExcludes>
-    <DefaultWebFormsItemExcludes Condition="'$(BaseIntermediateOutputPath)'!=''">$(DefaultWebFormsItemExcludes);$([MSBuild]::EnsureTrailingSlash($(BaseIntermediateOutputPath)))**</DefaultWebFormsItemExcludes>
-  </PropertyGroup>
+
+  <PropertyGroup>
+
+    <EnableDefaultContentItems Condition="'$(EnableDefaultContentItems)'==''">true</EnableDefaultContentItems>
+
+    <EnableDefaultAspNet20Items Condition="'$(EnableDefaultAspNet20Items)' == ''">true</EnableDefaultAspNet20Items>
+
+    <!-- EnableWebFormsDefaultItems follows EnableSystemWebDefaultItems and adds WebForms items as content - Closes #24 -->
+    <EnableWebFormsDefaultItems Condition="'$(EnableWebFormsDefaultItems)'==''">$(EnableDefaultItems)</EnableWebFormsDefaultItems>
+    <EnableWebFormsDefaultItems Condition="'$(EnableWebFormsDefaultItems)'==''">true</EnableWebFormsDefaultItems>
+    <!-- If $(EnableDefaultItems) is undefined-->
+
+    <EnableDefaultRazorItems Condition="'$(EnableDefaultRazorItems)'==''">true</EnableDefaultRazorItems>
+
+    <EnableDefaultWebStaticItems Condition="'$(EnableDefaultWebStaticItems)'==''">true</EnableDefaultWebStaticItems>
+  </PropertyGroup>  
+  
 </Project>

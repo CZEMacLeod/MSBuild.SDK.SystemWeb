@@ -1,76 +1,203 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-  <!-- EnableWebFormsDefaultItems follows EnableSystemWebDefaultItems and adds WebForms items as content - Closes #24 -->
-  <PropertyGroup>
-    <EnableWebFormsDefaultItems Condition="'$(EnableWebFormsDefaultItems)'==''">$(EnableDefaultItems)</EnableWebFormsDefaultItems>
-    <EnableWebFormsDefaultItems Condition="'$(EnableWebFormsDefaultItems)'==''">true</EnableWebFormsDefaultItems> <!-- If $(EnableDefaultItems) is undefined-->
-  </PropertyGroup>
   
-  <ItemGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
-    <Content Include="Web.config" />
-    <_WebConfigConfigurations Include="$(Configurations)" />
-    <None Include="@(_WebConfigConfigurations->'Web.%(Identity).config')">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.BindingRedirects.config" Condition="EXISTS('Web.BindingRedirects.config')">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <Content Include="Web.*.config" Exclude="@(None)">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-  </ItemGroup>
-
-  <!-- Support App_GlobalResources folder
-      https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/3
-      https://github.com/dotnet/project-system/issues/2670#issuecomment-820581558
-   -->
-  <ItemGroup>
-    <EmbeddedResource Remove="App_GlobalResources\*.resx" />
-    <Content Include="App_GlobalResources\*.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>%(Filename).Designer$(DefaultLanguageSourceExtension)</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup Condition="'$(Language)'=='C#'">
-    <Compile Update="App_GlobalResources\*.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace('%(Filename)', '\.Designer$', '')).resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup Condition="'$(Language)'=='VB'">
-    <Compile Update="App_GlobalResources\*.Designer.vb">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace('%(Filename)', '\.Designer$', '')).resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <!-- Support App_Code folder https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/4 -->
-  <ItemGroup Condition="'$(Language)'=='VB'">
-    <Compile Remove="App_Code\*.vb" />
-    <Content Include="App_Code\*.vb" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(Language)'=='C#'">
-    <Compile Remove="App_Code\*.cs" />
-    <Content Include="App_Code\*.cs" />
-  </ItemGroup>
-
+  
   <!-- Exclude node_modules and similar folders from default globbing - Closes #19 -->
   <PropertyGroup>
     <DefaultItemExcludes>$(DefaultItemExcludes);**\node_modules\**;node_modules\**</DefaultItemExcludes>
     <DefaultItemExcludes>$(DefaultItemExcludes);**\jspm_packages\**;jspm_packages\**</DefaultItemExcludes>
     <DefaultItemExcludes>$(DefaultItemExcludes);**\bower_components\**;bower_components\**</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.binlog</DefaultItemExcludes>
   </PropertyGroup>
 
-  <!-- Include WebForms items as content -->
-  <ItemGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
-    <Content Include="**\*.asax" Exclude="$(DefaultWebFormsItemExcludes)" />
-    <Content Include="**\*.ascx" Exclude="$(DefaultWebFormsItemExcludes)" />
-    <Content Include="**\*.ashx" Exclude="$(DefaultWebFormsItemExcludes)" />
-    <Content Include="**\*.asmx" Exclude="$(DefaultWebFormsItemExcludes)" />
-    <Content Include="**\*.aspx" Exclude="$(DefaultWebFormsItemExcludes)" />
-    <Content Include="**\*.master" Exclude="$(DefaultWebFormsItemExcludes)" />
-    <Content Include="**\*.svc" Exclude="$(DefaultWebFormsItemExcludes)" />
+  
+  
+  
+  
+  
+  
+  
+  <!--  *******************************************************************************************************
+              This ItemGroup is Inspired by Sdk.Razor.CurrentVersion.props and Sdk.Razor.StaticAssets.ProjectSystem.props
+        Remove things from the various ItemGroup that should instead be treated as Content
+        Include items from the various AspNet2.0 folders)
+
+        ******************************************************************************************************* -->
+  <PropertyGroup>
+  <!-- 
+      Support App_Code folder https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/4
+      Support App_GlobalResources folder
+      https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/3
+      https://github.com/dotnet/project-system/issues/2670#issuecomment-820581558
+   -->    
+    <DefaultAspNetFolderItemFilter>App_Code/**/*.cs;App_Code/**/*.vb</DefaultAspNetFolderItemFilter>
+    <DefaultAspNetFolderItemFilter>$(DefaultAspNetFolderItemFilter);App_Data/**/*.*</DefaultAspNetFolderItemFilter>
+    <DefaultAspNetFolderItemFilter>$(DefaultAspNetFolderItemFilter);App_Browsers/**/*.*</DefaultAspNetFolderItemFilter>
+    <DefaultAspNetFolderItemFilter>$(DefaultAspNetFolderItemFilter);App_Themes/**/*.*</DefaultAspNetFolderItemFilter>
+    <DefaultAspNetFolderItemFilter>$(DefaultAspNetFolderItemFilter);App_GlobalResources/**/*.resx</DefaultAspNetFolderItemFilter>
+    <DefaultAspNetFolderItemFilter>$(DefaultAspNetFolderItemFilter);**/App_LocalResources/**/*.resx</DefaultAspNetFolderItemFilter>
+
+    <!--
+      App_WebReferences AspNet2.0 folder nolonger supported in Web Application Project
+      However there are also some other folders "Connected Services" and "Web References"... and these might need to remain manual 
+    -->
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(EnableDefaultItems)'=='true' And '$(EnableDefaultAspNet20Items)'=='true' And '$(EnableDefaultContentItems)' == 'true' "
+             Label="Explicitly include content from ASPNet 2.0 folders in case people are still using them">
+    <_AspNetFolderArtifacts Include="$(DefaultAspNetFolderItemFilter)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+    
+    <Compile Remove="@(_AspNetFolderArtifacts)" Condition=" '$(EnableDefaultCompileItems)'=='true' " />
+    <None Remove="@(_AspNetFolderArtifacts)" Condition=" '$(EnableDefaultNoneItems)'=='true' " />
+    <EmbeddedResource Remove="@(_AspNetFolderArtifacts)" Condition=" '$(EnableDefaultNoneItems)'=='true' " />
+  
+    <_AspNetFolderArtifacts Update="App_GlobalResources/**/*.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>%(Filename).Designer$(DefaultLanguageSourceExtension)</LastGenOutput>
+    </_AspNetFolderArtifacts> 
+
+    <Content Include="@(_AspNetFolderArtifacts)" />
+    
+      
+    <Compile Update="App_GlobalResources/**/*.Designer$(DefaultLanguageSourceExtension)" Condition=" '$(EnableDefaultCompileItems)'=='true' " >
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace('%(Filename)', '\.Designer$', '')).resx</DependentUpon>
+    </Compile>  
   </ItemGroup>
+
+
+  
+  
+  
+  
+  
+  
+  <!--  *******************************************************************************************************
+              This ItemGroup is Inspired by Sdk.Razor.CurrentVersion.props and Sdk.Razor.StaticAssets.ProjectSystem.props
+        Remove things from the None ItemGroup that should be treated as WebForms
+        Include all known WebFormsExtensions
+
+        ******************************************************************************************************* -->
+  <!-- EnableWebFormsDefaultItems follows EnableSystemWebDefaultItems and adds WebForms items as content - Closes #24 -->
+  <!-- DefaultWebFormsItemExcludes prevents including build and publish outputs - Closes #25 - changing exclusion to use the default exclusion mechanisms -->
+  <PropertyGroup>
+    <DefaultWebFormsItemFilter>**/*.asax</DefaultWebFormsItemFilter>
+    <DefaultWebFormsItemFilter>$(DefaultWebFormsItemFilter);**/*.ascx</DefaultWebFormsItemFilter>
+    <DefaultWebFormsItemFilter>$(DefaultWebFormsItemFilter);**/*.ashx</DefaultWebFormsItemFilter>
+    <DefaultWebFormsItemFilter>$(DefaultWebFormsItemFilter);**/*.asmx</DefaultWebFormsItemFilter>
+    <DefaultWebFormsItemFilter>$(DefaultWebFormsItemFilter);**/*.aspx</DefaultWebFormsItemFilter>
+    <DefaultWebFormsItemFilter>$(DefaultWebFormsItemFilter);**/*.master</DefaultWebFormsItemFilter>
+    <DefaultWebFormsItemFilter>$(DefaultWebFormsItemFilter);**/*.svc</DefaultWebFormsItemFilter>
+  </PropertyGroup>
+  
+  <ItemGroup Condition=" '$(EnableDefaultItems)'=='true' And '$(EnableWebFormsDefaultItems)'=='true' And '$(EnableDefaultContentItems)' == 'true' "
+             Label="Explicitly include WebForms content under the assumption that they have been converted to codebehind and are not codefile">
+    <_WebFormsArtifacts Include="$(DefaultWebFormsItemFilter)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+    
+    <None Remove="@(_WebFormsArtifacts)" Condition=" '$(EnableDefaultNoneItems)'=='true' "/>
+
+    <Content Include="@(_WebFormsArtifacts)" />
+  </ItemGroup>
+
+  
+  
+  
+  
+  
+  
+  <!--  *******************************************************************************************************
+              This ItemGroup is Inspired by Sdk.Razor.CurrentVersion.props and Sdk.Razor.StaticAssets.ProjectSystem.props
+        Remove things from the None ItemGroup that should be treated as Content
+        Include all Mvc Razor views (.cshtml and/or .vbhtml since these are ASPNet runtime compiled... even if compiled at build time, they can be intermixed)
+
+        ******************************************************************************************************* -->
+  <PropertyGroup>
+    <DefaultMvcRazorItemFilter>**/*.cshtml</DefaultMvcRazorItemFilter>
+    <DefaultMvcRazorItemFilter>$(DefaultMvcRazorItemFilter);**/*.vbhtml</DefaultMvcRazorItemFilter>
+  </PropertyGroup>
+  
+  <ItemGroup Condition=" '$(EnableDefaultItems)'=='true' And '$(EnableDefaultRazorItems)'=='true' And '$(EnableDefaultContentItems)' == 'true' ">
+    <_RazorArtifacts Include="$(DefaultMvcRazorItemFilter)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+
+    <None Remove="$(DefaultMvcRazorItemFilter)" Condition=" '$(EnableDefaultNoneItems)'=='true' "/>
+
+    <Content Include="@(_RazorArtifacts)" />
+  </ItemGroup>
+
+  
+  
+  
+  
+  
+  
+  <!--  *******************************************************************************************************
+              This ItemGroup is Inspired by Sdk.Razor.CurrentVersion.props and Sdk.Razor.StaticAssets.ProjectSystem.props
+        Remove things from the None ItemGroup that should be treated as Content
+        Include all things that are not MsBuild Compile or EmbeddedResource
+
+        ******************************************************************************************************* -->  
+  <ItemGroup Condition=" '$(EnableDefaultItems)'=='true' And '$(EnableDefaultContentItems)' == 'true' And '$(EnableDefaultWebStaticItems)' == 'true' ">
+    <_WebStaticArtifacts Include="@(None)" Condition=" '$(EnableDefaultNoneItems)'=='true' " />
+    <_WebStaticArtifacts Include="**/*"
+                         Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);@(Compile);@(EmbeddedResource);@(Content)"
+                         Condition=" '$(EnableDefaultNoneItems)'!='true' " />
+
+    <_WebStaticArtifacts Update="Web.*.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </_WebStaticArtifacts>    
+    
+    <None Remove="@(_WebStaticArtifacts)" Condition=" '$(EnableDefaultNoneItems)'=='true' " />
+
+    <Content Include="@(_WebStaticArtifacts)" />
+
+  </ItemGroup>  
+
+  
+  
+<!--  *******************************************************************************************************
+              This item Group mimics the Microsoft.NET.Sdk.Web.DefaultItems.props
+        We want to let the web application know that many items in the project are just to organize a web project
+          Should not be copied to publish directory, etc
+        We want this to be the "Last" includer of content... at least the last of those of this SDK type
+        ******************************************************************************************************* -->
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'true'
+             And '$(EnableDefaultContentItems)' == 'true'
+             And '$(EnableDefaultNoneItems)' == 'true'
+             And '$(AppDesignerFolder)' != ''">
+
+    <_WebConfigConfigurations Include="$(Configurations)" />
+    <_WebToolingArtifacts Include="@(_WebConfigConfigurations->'Web.%(Identity).config')">
+      <DependentUpon>Web.config</DependentUpon>
+    </_WebToolingArtifacts>
+
+
+
+    <_WebToolingArtifacts Include="$(AppDesignerFolder)\launchSettings*.json;
+                          $(AppDesignerFolder)\serviceDependencies*.json;
+                          $(AppDesignerFolder)\serviceDependencies.*.json;
+                          $(AppDesignerFolder)\ServiceDependencies\**;
+                          $(AppDesignerFolder)\PublishProfiles\**;
+                          Web*.BindingRedirects.config"
+                          
+                          Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
+    <_WebToolingArtifacts Update="Web*.BindingRedirects.config">
+        <DependentUpon>Web.config</DependentUpon>
+    </_WebToolingArtifacts>
+    
+    <!-- Removing the tooling artifacts from all other globs and adding it to the none glob. This ensures that the
+         up-to-date check is unimpacted by the changes to the tooling artifacts -->
+    <None Remove="@(_WebToolingArtifacts)" />
+    <None Include="@(_WebToolingArtifacts)"
+          CopyToOutputDirectory="Never"
+          CopyToPublishDirectory="Never"
+          ExcludeFromSingleFile="true" />
+
+    <Content Remove="@(_WebToolingArtifacts)" />
+    <Compile Remove="@(_WebToolingArtifacts)" />
+    <EmbeddedResource Remove="@(_WebToolingArtifacts)" />
+
+    <!-- Keep track of the default content items for later to distinguish them from newly generated content items -->
+    <_ContentIncludedByDefault Remove="@(_ContentIncludedByDefault)" />
+    <_ContentIncludedByDefault Include="@(Content)" />
+
+  </ItemGroup>  
 </Project>

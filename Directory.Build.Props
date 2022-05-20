@@ -1,10 +1,6 @@
 <Project>
   <PropertyGroup>
-    <DefaultItemExcludes>*log</DefaultItemExcludes>
-    <MSBuildTreatWarningsAsErrors>true</MSBuildTreatWarningsAsErrors>
-    <LangVersion>Latest</LangVersion>
-    <PackageOutputPath Condition="'$(PackageOutputPath)'==''">$(MSBuildThisFileDirectory)packages\</PackageOutputPath>
-    <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
-    <NoWarn>$(NoWarn);NU5128;SA0001</NoWarn>
+    <RepoRootDirectoryPath>$(MSBuildThisFileDirectory)</RepoRootDirectoryPath>
   </PropertyGroup>
+
 </Project>

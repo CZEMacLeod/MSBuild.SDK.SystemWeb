@@ -29,16 +29,7 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(IsPackable)' == 'true'">
-    <None Include="Sdk\**"
-          Pack="true"
-          PackagePath="Sdk\" />
-    <None Include="README.md" Condition="EXISTS('README.md')" />
-    <None Include="$(PackageLicensePath)"
-          Pack="true"
-          PackagePath="$(PackageLicenseFile)"
-          Visible="false" />
-  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37" PrivateAssets="All" />

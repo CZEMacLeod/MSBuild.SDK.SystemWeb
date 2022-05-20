@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.31912.275
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSBuild.SDK.SystemWeb", "src\MSBuild.SDK.SystemWeb\MSBuild.SDK.SystemWeb.csproj", "{D9DD78A9-4E97-4339-B809-6A2CC28B071A}"
 EndProject
@@ -56,6 +56,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleRazorLibrary", "samples\RazorLibrary\ExampleRazorLibrary\ExampleRazorLibrary.csproj", "{A699C2E4-43C7-409D-BC2B-1197E61FD9BC}"
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "ExampleRazorLibraryVB", "samples\RazorLibrary\ExampleRazorLibraryVB\ExampleRazorLibraryVB.vbproj", "{AD80B3C1-916E-4E46-BF07-6AEE8606AB00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C0B6F25C-A27D-453E-8366-9347713B9BC6}"
+	ProjectSection(SolutionItems) = preProject
+		samples\Directory.Build.props = samples\Directory.Build.props
+		samples\Directory.Build.targets = samples\Directory.Build.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{54787AA7-0AF5-45FF-A3E2-BB0FB3365013}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+		src\Directory.Build.targets = src\Directory.Build.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +127,8 @@ Global
 		{3BC6F60B-0AC5-4300-9DFD-4B65D97FFD12} = {26AD80FE-B7CD-457A-B03A-90A5B395759E}
 		{A699C2E4-43C7-409D-BC2B-1197E61FD9BC} = {26AD80FE-B7CD-457A-B03A-90A5B395759E}
 		{AD80B3C1-916E-4E46-BF07-6AEE8606AB00} = {26AD80FE-B7CD-457A-B03A-90A5B395759E}
+		{C0B6F25C-A27D-453E-8366-9347713B9BC6} = {4A37969E-D8DB-4AAA-A382-D6E733B6185B}
+		{54787AA7-0AF5-45FF-A3E2-BB0FB3365013} = {B91408ED-7A59-4890-8CB2-5A011DD62B1C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E5FBE1CF-A73C-4BFD-BBA5-95488B7930D9}

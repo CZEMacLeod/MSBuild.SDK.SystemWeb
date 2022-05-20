@@ -1,0 +1,16 @@
+<Project>
+  <!--  *******************************************************************************************************
+              This is the /samples directory specific Directory.Build.props
+              We will set values specifically for the samples projects that do not apply to the nugetPackage projects
+              
+              We will also look to import the "repo" Directory.Build.props file
+        ******************************************************************************************************* -->
+  <PropertyGroup>
+    <RepoDirectoryBuildPropsPath>$([MSBuild]::GetPathOfFileAbove('$(MSBuildThisFile)', '$(MSBuildThisFileDirectory)../'))</RepoDirectoryBuildPropsPath>
+  </PropertyGroup>
+    <Import Label="Look for a higher/repo version of this file and import it"
+          Project="$(RepoDirectoryBuildPropsPath)" 
+          Condition="exists('$(RepoDirectoryBuildPropsPath)')"/>
+
+
+</Project>
