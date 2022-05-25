@@ -1,0 +1,37 @@
+<Project>
+  <!--  *******************************************************************************************************
+              This is the /src directory specific Directory.Build.props
+              We will set values specifically for the nugetPackage projects that do not apply to the sample projects
+              
+              We will also look to import the "repo" Directory.Build.props file
+        ******************************************************************************************************* -->
+  <PropertyGroup>
+    <RepoDirectoryBuildPropsPath>$([MSBuild]::GetPathOfFileAbove('$(MSBuildThisFile)', '$(MSBuildThisFileDirectory)../'))</RepoDirectoryBuildPropsPath>
+  </PropertyGroup>
+    <Import Label="Look for a higher/repo version of this file and import it"
+          Project="$(RepoDirectoryBuildPropsPath)" 
+          Condition="exists('$(RepoDirectoryBuildPropsPath)')"/>
+
+
+  <PropertyGroup>
+    <DefaultItemExcludes>*log</DefaultItemExcludes>
+    <MSBuildTreatWarningsAsErrors>true</MSBuildTreatWarningsAsErrors>
+    <LangVersion>Latest</LangVersion>
+    <PackageOutputPath Condition="'$(PackageOutputPath)'==''">$(RepoRootDirectoryPath)packages\</PackageOutputPath>
+    <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
+    <NoWarn>$(NoWarn);NU5128;SA0001</NoWarn>
+  </PropertyGroup>
+
+
+  <ItemGroup Condition="'$(IsPackable)' == 'true'">
+    <None Include="Sdk\**"
+          Pack="true"
+          PackagePath="Sdk\" />
+    <None Include="README.md" Condition="EXISTS('README.md')" />
+    <None Include="$(PackageLicensePath)"
+          Pack="true"
+          PackagePath="$(PackageLicenseFile)"
+          Visible="false" />
+  </ItemGroup>
+  
+</Project>

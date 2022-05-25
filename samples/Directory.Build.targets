@@ -1,0 +1,15 @@
+<Project>
+  <!--  *******************************************************************************************************
+              This is the /samples directory specific Directory.Build.targets
+              We will set values specifically for the samples projects that do not apply to the nugetPackage projects
+              
+              We will also look to import the "repo" Directory.Build.targets file
+        ******************************************************************************************************* -->
+  <PropertyGroup>
+    <RepoDirectoryBuildTargetsPath>$([MSBuild]::GetPathOfFileAbove('$(MSBuildThisFile)', '$(MSBuildThisFileDirectory)../'))</RepoDirectoryBuildTargetsPath>
+  </PropertyGroup>
+  <Import Label="Look for a higher/repo version of this file and import it"
+        Project="$(RepoDirectoryBuildTargetsPath)"
+        Condition="exists('$(RepoDirectoryBuildTargetsPath)')"/>
+
+</Project>
