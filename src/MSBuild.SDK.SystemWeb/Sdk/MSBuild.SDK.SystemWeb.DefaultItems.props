@@ -15,9 +15,12 @@
     <None Include="Web.BindingRedirects.config" Condition="EXISTS('Web.BindingRedirects.config')">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Web.*.config" Exclude="@(None)">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
+    
+    <!-- Altered web.*.config inclusion so these items will be in the WebDeploy Package 
+    Where they can be used at deployment time for Environment Specific Transformation
+    https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/43 
+    -->
+    <Content Include="Web.*.config" Exclude="@(None)" />
   </ItemGroup>
 
   <!-- Support App_GlobalResources folder
