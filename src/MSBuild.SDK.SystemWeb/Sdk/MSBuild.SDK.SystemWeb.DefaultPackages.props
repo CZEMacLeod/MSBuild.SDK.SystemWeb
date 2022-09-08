@@ -3,7 +3,7 @@
     <ExcludeASPNetCompilers Condition="'$(ExcludeASPNetCompilers)'==''">false</ExcludeASPNetCompilers>
   </PropertyGroup>
   <PropertyGroup Condition="'$(ExcludeASPNetCompilers)'=='false'">
-    <MicrosoftNetCompilersToolset_Version Condition="'$(MicrosoftNetCompilersToolset_Version)'==''">3.8.0</MicrosoftNetCompilersToolset_Version>
+    <MicrosoftNetCompilersToolset_Version Condition="'$(MicrosoftNetCompilersToolset_Version)'==''">4.3.0</MicrosoftNetCompilersToolset_Version>
     <MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'==''">3.6.0</MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version>
   </PropertyGroup>
 </Project>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.SDK.SystemWeb">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <MicrosoftNetCompilersToolset_Version>4.1.0</MicrosoftNetCompilersToolset_Version>
+    <MicrosoftNetCompilersToolset_Version>4.3.0</MicrosoftNetCompilersToolset_Version>
     <LangVersion>10</LangVersion>
   </PropertyGroup>
   <PropertyGroup>

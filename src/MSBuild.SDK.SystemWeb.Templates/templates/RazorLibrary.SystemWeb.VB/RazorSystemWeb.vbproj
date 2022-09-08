@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.SDK.SystemWeb.RazorLibrary/4.0.76">
+﻿<Project Sdk="MSBuild.SDK.SystemWeb.RazorLibrary/4.0.82">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 
     <PackageReference Include="Antlr" Version="3.5.0.2" />
     <PackageReference Include="Microsoft.AspNet.Web.Optimization" Version="1.1.3" />

@@ -1,15 +1,16 @@
-﻿<Project Sdk="MSBuild.SDK.SystemWeb.RazorLibrary/4.0.60-gd680654f18">
+﻿<Project Sdk="MSBuild.SDK.SystemWeb.RazorLibrary">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <Copyright>Copyright © 2022</Copyright>
     <RazorGeneratorNamespace>ASP</RazorGeneratorNamespace>
+    <MicrosoftAspNetMvc_Version>5.2.9</MicrosoftAspNetMvc_Version>
   </PropertyGroup>
   <ItemGroup>
     <RazorSrcFiles Include="Views\**\*.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 
     <PackageReference Include="Antlr" Version="3.5.0.2" />
     <PackageReference Include="Microsoft.AspNet.Web.Optimization" Version="1.1.3" />

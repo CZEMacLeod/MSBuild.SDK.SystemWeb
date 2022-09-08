@@ -1,9 +1,8 @@
-﻿<Project Sdk="MSBuild.SDK.SystemWeb.RazorLibrary/4.0.60-gd680654f18">
+﻿<Project Sdk="MSBuild.SDK.SystemWeb.RazorLibrary">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-  </PropertyGroup>
-  <PropertyGroup>
     <Copyright>Copyright © 2022</Copyright>
+    <MicrosoftAspNetMvc_Version>5.2.9</MicrosoftAspNetMvc_Version>
   </PropertyGroup>
   <ItemGroup>
     <Import Include="System.Collections.Specialized" />

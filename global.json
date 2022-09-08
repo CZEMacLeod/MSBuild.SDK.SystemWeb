@@ -1,11 +1,12 @@
 {
   "sdk": {
-    "version": "5.0.100-preview",
+    "version": "6.0.100",
     "rollForward": "latestMajor",
     "allowPrerelease": true
   },
     "msbuild-sdks": {
         "Microsoft.Build.NoTargets": "2.0.1",
-        "MSBuild.SDK.SystemWeb": "4.0.69"
+        "MSBuild.SDK.SystemWeb": "4.0.81",
+        "MSBuild.SDK.SystemWeb.RazorLibrary": "4.0.81"
     }
 }
