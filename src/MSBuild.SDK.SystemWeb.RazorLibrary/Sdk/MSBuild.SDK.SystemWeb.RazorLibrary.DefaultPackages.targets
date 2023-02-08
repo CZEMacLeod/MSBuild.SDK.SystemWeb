@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Include versioned compilers unless ExcludeDefaultRazorPackages property is set or we are using Microsoft.Build.CentralPackageVersions -->
-  <ItemGroup Condition="'$(ExcludeDefaultRazorPackages)'=='false' AND '$(UsingMicrosoftCentralPackageVersionsSdk)'!='true'">
+  <ItemGroup Condition="'$(ExcludeDefaultRazorPackages)'=='false' AND ('$(UsingMicrosoftCentralPackageVersionsSdk)' != 'true' AND '$(ManagePackageVersionsCentrally)' != 'true')">
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="$(MicrosoftNetCompilersToolset_Version)" PrivateAssets="All" Condition="'$(MicrosoftNetCompilersToolset_Version)'!=''" />
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)" Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'!=''" />
     <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="All" Version="$(RazorGeneratorMSBuild_Version)" Condition="'$(RazorGeneratorMSBuild_Version)'!=''" />
