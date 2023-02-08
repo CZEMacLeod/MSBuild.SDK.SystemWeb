@@ -1,6 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ExcludeDefaultRazorPackages Condition="'$(ExcludeDefaultRazorPackages)'==''">false</ExcludeDefaultRazorPackages>    
+    <ExcludeDefaultRazorPackages Condition="'$(ExcludeDefaultRazorPackages)'==''">false</ExcludeDefaultRazorPackages>
+    <ExcludeDefaultRazorPackageVersions Condition="'$(ExcludeDefaultRazorPackageVersions)'==''">false</ExcludeDefaultRazorPackageVersions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(ExcludeDefaultRazorPackages)'=='false'">
     <MicrosoftAspNetMvc_Version Condition="'$(MicrosoftAspNetMvc_Version)'==''">5.2.9</MicrosoftAspNetMvc_Version>
@@ -9,4 +10,16 @@
     <MicrosoftNetCompilersToolset_Version Condition="'$(MicrosoftNetCompilersToolset_Version)'==''">4.3.0</MicrosoftNetCompilersToolset_Version>
     <MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'==''">3.6.0</MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version>
   </PropertyGroup>
+  <!--
+    Adding support for CPM without defined PackageVersions.
+    If specific versions need to be overridden from here, use Update instead of Include in the solution's Directory.Build.props or Directory.Packages.props file.
+    Alternatively, flags from ExcludeDefaultRazorPackages or ExcludeDefaultRazorPackageVersions will enable/disable including PackageVersion properties.
+  -->
+  <ItemGroup Condition=" ('$(ExcludeDefaultRazorPackages)' == 'false' AND '$(ExcludeDefaultRazorPackageVersions)' == 'false') AND ('$(UsingMicrosoftCentralPackageVersionsSdk)' == 'true' OR '$(ManagePackageVersionsCentrally)' == 'true')">
+    <PackageVersion Include="Microsoft.AspNet.Mvc" Version="$(MicrosoftAspNetMvc_Version)" />
+    <PackageVersion Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)" />
+    <PackageVersion Include="Microsoft.Net.Compilers.Toolset" Version="$(MicrosoftNetCompilersToolset_Version)" />
+    <PackageVersion Include="RazorGenerator.MsBuild" Version="$(RazorGeneratorMSBuild_Version)" />
+    <PackageVersion Include="RazorGenerator.Mvc" Version="$(RazorGeneratorMVC_Version)" />
+  </ItemGroup>
 </Project>
