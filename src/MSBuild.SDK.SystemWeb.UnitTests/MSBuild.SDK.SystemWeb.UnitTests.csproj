@@ -32,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\MSBuild.SDK.SystemWeb\Sdk\MSBuild.SDK.SystemWeb.DefaultPackageControlledVersions.targets" Link="TestableSdkComponents\Sdk\MSBuild.SDK.SystemWeb.DefaultPackageControlledVersions.targets">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="..\MSBuild.SDK.SystemWeb\Sdk\MSBuild.SDK.SystemWeb.DefaultPackages.props" Link="TestableSdkComponents\Sdk\MSBuild.SDK.SystemWeb.DefaultPackages.props">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
