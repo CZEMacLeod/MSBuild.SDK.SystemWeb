@@ -11,4 +11,6 @@
 
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
 
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackageControlledVersions.targets"/>
+
 </Project>
