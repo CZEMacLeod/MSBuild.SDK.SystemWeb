@@ -21,12 +21,12 @@ MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackageControlledVersions.targets
     Provide the appropriate mimic of a Controlled Version for our PackageReference items when using Centralized Control
         - https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/46
         - https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/49
-    Only do this When Configured '$(ExcludeASPNetCompilers)'=='false' and '$(EnableMimicPackageVersionControl)' != 'false'
+    Only do this When Configured '$(ExcludeASPNetCompilers)'=='false' and '$(EnablePackageVersionDefaultsFromSdk)' != 'false'
     *  Use a PackageReference Item "Update" style manipulation mimicing those found in a Packages.targets
     *  Use a PackageVersion Item "Include" style manipulation mimicing those found in a Directory.Packages.props
   *************************************************************************************************************************
   -->
-  <ItemGroup Condition="'$(ExcludeDefaultRazorPackages)'=='false' AND '$(EnableMimicControlPackageVersion)' != 'false'">
+  <ItemGroup Condition="'$(ExcludeDefaultRazorPackages)'=='false' AND '$(EnablePackageVersionDefaultsFromSdk)' != 'false'">
 
     <PackageReference
       Update="@(PackageReference->WithMetadataValue('SystemWebSdkIncludedPackage','true')->HasMetadata('SystemWebSdkIncludedPackageVersion'))"
@@ -82,7 +82,7 @@ MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackageControlledVersions.targets
   </PropertyGroup>
 
   <Target Name="SystemWebSdkProvidedPackageVersionDefaultWarning" BeforeTargets="$(SystemWebSdkProvidedPackageVersionDefaultWarningBeforeTargets)"
-          Condition=" '$(ExcludeDefaultRazorPackages)'=='false' AND '$(EnableMimicControlPackageVersion)' != 'false' AND @(SystemWebSdkProvidedPackageVersionDefault->Count()) != 0 ">
+          Condition=" '$(ExcludeDefaultRazorPackages)'=='false' AND '$(EnablePackageVersionDefaultsFromSdk)' != 'false' AND @(SystemWebSdkProvidedPackageVersionDefault->Count()) != 0 ">
     <PropertyGroup>
       <SystemWebSdkProvidedPackageVersionDefault_LinkedFile Condition=" '$(ManagePackageVersionsCentrally)' == 'true' AND '$(ImportDirectoryPackagesProps)' == 'true' and '$(DirectoryPackagesPropsPath)' != '' and Exists('$(DirectoryPackagesPropsPath)') ">$(DirectoryPackagesPropsPath)</SystemWebSdkProvidedPackageVersionDefault_LinkedFile>
       <SystemWebSdkProvidedPackageVersionDefault_LinkedFile Condition=" '$(UsingMicrosoftCentralPackageVersionsSdk)'=='true' AND '$(EnableCentralPackageVersions)' != 'false' AND '$(ManagePackageVersionsCentrally)' != 'true' and '$(CentralPackagesFile)' != '' and Exists('$(CentralPackagesFile)') ">$(CentralPackagesFile)</SystemWebSdkProvidedPackageVersionDefault_LinkedFile>

@@ -39,5 +39,6 @@ You can also use the [templates](Templates.md) to easily create new projects.
 | OverwriteAppConfigWithBindingRedirects | false | If set, then any [automatically generated binding redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md) will be copied into your web.config file. |
 | MvcBuildViews | true if Configuration is Release<br/>false otherwise | Whether to invoke the AspNetCompiler automatically after build |
 | EnableWebFormsDefaultItems | Same as `EnableDefaultItems` | Whether to automatically include WebForms files as content<br><ul><li> *.asax</li><li> *.ascx</li><li> *.ashx</li><li> *.asmx</li><li> *.aspx</li><li> *.master</li><li> *.svc</li></ul> |
+| EnablePackageVersionDefaultsFromSdk | true | Whether this Sdk will attempt to provide reasonable defaults for PackageReference Version Metadata when a CentralPackageVersionSdk or CentralPackageManagement is detected. This Sdk will never overwrite version values set by Central mechanism, only provide default when not already provided. |
 
-*Version numbers are not applied if you are using `Microsoft.Build.CentralPackageVersions` version 2.1.1 or higher. Remember to include the packages in your central package versions file.
+*Version numbers will be applied if not provided in central management mechanism, but warnings will be generated reminding that entries for these packages should be added to your central package versions file.
