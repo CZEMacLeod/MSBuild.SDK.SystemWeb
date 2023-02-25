@@ -1,0 +1,8 @@
+﻿<Project>
+
+  <Import Project="$(MSBuildProjectDirectory)\BeforeMS_NET_SDk_props.props" Condition="Exists('$(MSBuildProjectDirectory)\BeforeMS_NET_SDk_props.props')"/>
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+  <Import Project="$(MSBuildProjectDirectory)\AfterMS_NET_SDk_props.props" Condition="Exists('$(MSBuildProjectDirectory)\AfterMS_NET_SDk_props.props')"/>
+
+  
+</Project>
