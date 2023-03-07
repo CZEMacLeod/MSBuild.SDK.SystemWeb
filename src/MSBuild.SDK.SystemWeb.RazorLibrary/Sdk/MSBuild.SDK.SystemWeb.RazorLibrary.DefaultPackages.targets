@@ -1,20 +1,19 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <!-- Include versioned compilers unless ExcludeDefaultRazorPackages property is set or we are using Microsoft.Build.CentralPackageVersions -->
-  <ItemGroup Condition="'$(ExcludeDefaultRazorPackages)'=='false' AND '$(UsingMicrosoftCentralPackageVersionsSdk)'!='true'">
-    <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="$(MicrosoftNetCompilersToolset_Version)" PrivateAssets="All" Condition="'$(MicrosoftNetCompilersToolset_Version)'!=''"/>
-    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)" Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'!=''" />
-    <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="All" Version="$(RazorGeneratorMSBuild_Version)" Condition="'$(RazorGeneratorMSBuild_Version)'!=''" />
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="$(MicrosoftAspNetMvc_Version)" Condition="'$(MicrosoftAspNetMvc_Version)'!=''" />
-    <PackageReference Include="RazorGenerator.MVC" Version="$(RazorGeneratorMVC_Version)" Condition="'$(RazorGeneratorMVC_Version)'!=''" />
-  </ItemGroup>
 
-  <!-- Include unversioned compilers unless ExcludeDefaultRazorPackages property is set if we are using Microsoft.Build.CentralPackageVersions -->
-  <!-- Requires Microsoft.Build.CentralPackageVersions Version 2.1.1 or higher -->
-  <ItemGroup Condition="'$(ExcludeDefaultRazorPackages)'=='false' AND '$(UsingMicrosoftCentralPackageVersionsSdk)'=='true'">
-    <PackageReference Include="Microsoft.Net.Compilers.Toolset" PrivateAssets="All"/>
-    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
-    <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="All"/>
+  <Import Project="MSBuild.SDK.SystemWeb.Common.DefaultPackages.props"/>
+  
+  <!-- Include packages unless ExcludeDefaultSDKPackages property is set -->
+  <ItemGroup Condition="'$(ExcludeDefaultSDKPackages)'=='false' AND '$(ApplySDKDefaultPackageVersions)'!='true'">
+    <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="All" />
     <PackageReference Include="RazorGenerator.MVC" />
     <PackageReference Include="Microsoft.AspNet.Mvc"/>
   </ItemGroup>
+
+  <!-- Set package versions if ApplySDKDefaultPackageVersions is true -->
+  <ItemGroup Condition="'$(ExcludeDefaultSDKPackages)'=='false' AND '$(ApplySDKDefaultPackageVersions)'=='true'">
+    <PackageReference Update="RazorGenerator.MsBuild" Version="$(RazorGeneratorMSBuild_Version)" Condition="'$(RazorGeneratorMSBuild_Version)'!=''" />
+    <PackageReference Update="RazorGenerator.MVC" Version="$(RazorGeneratorMVC_Version)" Condition="'$(RazorGeneratorMVC_Version)'!=''" />
+    <PackageReference Update="Microsoft.AspNet.Mvc" Version="$(MicrosoftAspNetMvc_Version)" Condition="'$(MicrosoftAspNetMvc_Version)'!=''" />
+  </ItemGroup>
+
 </Project>

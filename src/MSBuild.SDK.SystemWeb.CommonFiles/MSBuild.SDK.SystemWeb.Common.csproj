@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.Build.NoTargets">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <OutputItemType>None</OutputItemType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Sdk\**"
+      Pack="true"
+      PackagePath="Sdk\" />
+  </ItemGroup>
+
+</Project>
