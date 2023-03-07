@@ -9,7 +9,7 @@
 
   <!-- Include compilers unless ExcludeDefaultSDKPackages property is set -->
   <ItemGroup Condition="'$(ExcludeDefaultSDKPackages)'=='false'">
-    <PackageReference Include="Microsoft.Net.Compilers.Toolset" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Net.Compilers.Toolset" PrivateAssets="All" GeneratePathProperty="true"/>
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
   </ItemGroup>
 
