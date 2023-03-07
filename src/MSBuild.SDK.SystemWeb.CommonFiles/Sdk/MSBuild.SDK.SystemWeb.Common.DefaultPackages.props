@@ -1,5 +1,5 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(ExcludeDefaultSDKPackages)'=='false'">
+  <PropertyGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false'">
     <MicrosoftNetCompilersToolset_Version Condition="'$(MicrosoftNetCompilersToolset_Version)'==''">4.5.0</MicrosoftNetCompilersToolset_Version>
     <MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'==''">3.6.0</MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version>
   </PropertyGroup>

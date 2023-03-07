@@ -1,16 +1,16 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="MSBuild.SDK.SystemWeb.Common.DefaultPackages.props"/>
+  <Import Project="MSBuild.SDK.SystemWeb.Common.DefaultPackages.targets" />
   
-  <!-- Include packages unless ExcludeDefaultSDKPackages property is set -->
-  <ItemGroup Condition="'$(ExcludeDefaultSDKPackages)'=='false' AND '$(ApplySDKDefaultPackageVersions)'!='true'">
+  <!-- Include packages unless ExcludeSDKDefaultPackages property is set -->
+  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false'">
     <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="All" />
     <PackageReference Include="RazorGenerator.MVC" />
     <PackageReference Include="Microsoft.AspNet.Mvc"/>
   </ItemGroup>
 
   <!-- Set package versions if ApplySDKDefaultPackageVersions is true -->
-  <ItemGroup Condition="'$(ExcludeDefaultSDKPackages)'=='false' AND '$(ApplySDKDefaultPackageVersions)'=='true'">
+  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false' AND '$(ApplySDKDefaultPackageVersions)'=='true'">
     <PackageReference Update="RazorGenerator.MsBuild" Version="$(RazorGeneratorMSBuild_Version)" Condition="'$(RazorGeneratorMSBuild_Version)'!=''" />
     <PackageReference Update="RazorGenerator.MVC" Version="$(RazorGeneratorMVC_Version)" Condition="'$(RazorGeneratorMVC_Version)'!=''" />
     <PackageReference Update="Microsoft.AspNet.Mvc" Version="$(MicrosoftAspNetMvc_Version)" Condition="'$(MicrosoftAspNetMvc_Version)'!=''" />

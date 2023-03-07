@@ -14,7 +14,7 @@ When using an MSBuild Project SDK obtained via NuGet (such as the SDKs in this r
 Either append the version to the package name:
 
 ```xml
-<Project Sdk="MSBuild.SDK.SystemWeb.RazorLibrary/4.0.82">
+<Project Sdk="MSBuild.SDK.SystemWeb.RazorLibrary/4.0.87">
   ...
 ```
 
@@ -23,7 +23,7 @@ Or omit the version from the SDK attribute and specify it in the version in `glo
 ```json
 {
   "msbuild-sdks": {
-    "MSBuild.SDK.SystemWeb.RazorLibrary" : "4.0.82"
+    "MSBuild.SDK.SystemWeb.RazorLibrary" : "4.0.87"
   }
 }
 ```
@@ -43,7 +43,7 @@ For more information see
 
 | Property | Default value | Description |
 | -------- | ------------- | ----------- |
-| `ExcludeDefaultSDKPackages` | false | Do not include the default packages `Microsoft.Net.Compilers.Toolset` and `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` |
+| `ExcludeSDKDefaultPackages` | false | Do not include the default packages `Microsoft.Net.Compilers.Toolset` and `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` |
 | `ApplySDKDefaultPackageVersions` | true* | Apply default version numbers to packages unless using a Central Package Management system |
 
 *Version numbers are not applied if you are using `Microsoft.Build.CentralPackageVersions` version 2.1.1 or higher. Remember to include the packages in your central package versions file.
@@ -60,7 +60,7 @@ For more information see
 ### Deprecated Properties
 | Property | Default value | Description |
 | -------- | ------------- | ----------- |
-| `ExcludeDefaultRazorPackages` | false | Use `ExcludeDefaultSDKPackages` instead  |
+| `ExcludeDefaultRazorPackages` | false | Use `ExcludeSDKDefaultPackages` instead  |
 
 ## Automatic Default Packages
 

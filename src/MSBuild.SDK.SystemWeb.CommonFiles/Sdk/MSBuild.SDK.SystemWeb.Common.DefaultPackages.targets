@@ -11,14 +11,14 @@
     <ApplySDKDefaultPackageVersions Condition="'$(ApplySDKDefaultPackageVersions)'==''">true</ApplySDKDefaultPackageVersions>
   </PropertyGroup>
 
-  <!-- Include compilers unless ExcludeDefaultSDKPackages property is set -->
-  <ItemGroup Condition="'$(ExcludeDefaultSDKPackages)'=='false'">
+  <!-- Include compilers unless ExcludeSDKDefaultPackages property is set -->
+  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false'">
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" PrivateAssets="All" GeneratePathProperty="true"/>
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
   </ItemGroup>
 
   <!-- Set package versions if ApplySDKDefaultPackageVersions is true -->
-  <ItemGroup Condition="'$(ExcludeDefaultSDKPackages)'=='false' AND '$(ApplySDKDefaultPackageVersions)'=='true'">
+  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false' AND '$(ApplySDKDefaultPackageVersions)'=='true'">
     <PackageReference Update="Microsoft.Net.Compilers.Toolset" Version="$(MicrosoftNetCompilersToolset_Version)" Condition="'$(MicrosoftNetCompilersToolset_Version)'!=''"/>
     <PackageReference Update="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)" Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'!=''" />
   </ItemGroup>

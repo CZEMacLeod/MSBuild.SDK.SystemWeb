@@ -13,7 +13,7 @@ When using an MSBuild Project SDK obtained via NuGet (such as the SDKs in this r
 Either append the version (as shown in the nuget shield above) to the package name:
 
 ```xml
-<Project Sdk="MSBuild.SDK.SystemWeb/4.0.83">
+<Project Sdk="MSBuild.SDK.SystemWeb/4.0.87">
   ...
 ```
 
@@ -22,7 +22,7 @@ Or omit the version from the SDK attribute and specify it in the version in `glo
 ```json
 {
   "msbuild-sdks": {
-    "MSBuild.SDK.SystemWeb" : "4.0.83"
+    "MSBuild.SDK.SystemWeb" : "4.0.87"
   }
 }
 ```
@@ -35,7 +35,7 @@ You can also use the [templates](Templates.md) to easily create new projects.
 
 | Property | Default value | Description |
 | -------- | ------------- | ----------- |
-| `ExcludeDefaultSDKPackages` | false | Do not include the default packages `Microsoft.Net.Compilers.Toolset` and `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` |
+| `ExcludeSDKDefaultPackages` | false | Do not include the default packages `Microsoft.Net.Compilers.Toolset` and `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` |
 | `ApplySDKDefaultPackageVersions` | true* | Apply default version numbers to packages unless using a Central Package Management system |
 | `GeneratedBindingRedirectsAction` | None | Set the desired default behavior of what to do with SuggestedBindingRedirects if not yet set.<br>See [automatically generated binding redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md)<br><ul><li>`None` - Do nothing except show the warning</li><li>`Preview` - Creates new Web.BindingRedirects.config file showing proposed changes</li><li>`Overwrite` - Updates the $(AppConfig) aka web.config in the project root</li></ul> |
 
@@ -54,7 +54,7 @@ You can also use the [templates](Templates.md) to easily create new projects.
 ### Deprecated Properties
 | Property | Default value | Description |
 | -------- | ------------- | ----------- |
-| `ExcludeASPNetCompilers` | false | Use `ExcludeDefaultSDKPackages` instead |
+| `ExcludeASPNetCompilers` | false | Use `ExcludeSDKDefaultPackages` instead |
 | `OverwriteAppConfigWithBindingRedirects` | false | If set, will set `GeneratedBindingRedirectsAction` to `Overwrite` then any  will be copied into your web.config file. |
 
 ## Automatic Default Packages

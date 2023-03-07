@@ -1,5 +1,5 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="MSBuild.SDK.SystemWeb.Common.DefaultPackages.props"/>
+  <Import Project="MSBuild.SDK.SystemWeb.Common.DefaultPackages.targets" />
 
   <PropertyGroup>
     <!-- SetRoslynToolPath is true by default unless an explicit RoslynToolPath is already set -->
