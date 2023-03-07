@@ -4,6 +4,10 @@
     <!-- Requires Microsoft.Build.CentralPackageVersions Version 2.1.1 or higher
          See https://github.com/microsoft/MSBuildSdks/tree/main/src/CentralPackageVersions  -->
     <ApplySDKDefaultPackageVersions Condition="'$(UsingMicrosoftCentralPackageVersionsSdk)'=='true'">false</ApplySDKDefaultPackageVersions>
+    <!-- Turn of if using Nuget 6.2.0+ CPM 
+         See https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management
+         Addresses #49 -->
+    <ApplySDKDefaultPackageVersions Condition="'$(ManagePackageVersionsCentrally)'=='true'">false</ApplySDKDefaultPackageVersions>
     <ApplySDKDefaultPackageVersions Condition="'$(ApplySDKDefaultPackageVersions)'==''">true</ApplySDKDefaultPackageVersions>
   </PropertyGroup>
 
