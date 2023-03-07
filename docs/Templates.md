@@ -77,3 +77,6 @@ You need to have enabled the Preview feature to show [.NET CLI Templates in Visu
 ![Visual Studio New Project Dialog](https://raw.githubusercontent.com/CZEMacLeod/MSBuild.SDK.SystemWeb/main/src/MSBuild.SDK.SystemWeb.Templates/images/create-new-project.png)
 
 You can find the new templates easily by selecting `System.Web` from the Project Type dropdown.
+
+### Visual Studio 2022
+Same as VS2019 except the feature should automatically be enabled as it is no longer in preview.

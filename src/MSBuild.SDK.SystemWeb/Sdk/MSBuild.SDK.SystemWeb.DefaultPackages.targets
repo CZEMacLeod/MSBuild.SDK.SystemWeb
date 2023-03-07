@@ -1,4 +1,4 @@
-﻿<!-- 
+<!-- 
 *************************************************************************************************************************
 MSBuild.SDK.SystemWeb.DefaultPackages.targets
     Ensure that the desirable PackageReference items are present if configured to do so 
@@ -12,6 +12,18 @@ MSBuild.SDK.SystemWeb.DefaultPackages.targets
 *************************************************************************************************************************
 -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="MSBuild.SDK.SystemWeb.Common.DefaultPackages.targets" />
+
+  <PropertyGroup>
+    <!-- SetRoslynToolPath is true by default unless an explicit RoslynToolPath is already set -->
+    <SetRoslynToolPath Condition="'$(RoslynToolPath)'!=''">false</SetRoslynToolPath>
+    <SetRoslynToolPath Condition="'$(SetRoslynToolPath)'==''">true</SetRoslynToolPath>
+    <!-- This uses the version of Roslyn in Microsoft.Net.Compilers.Toolset to be used in ASP Compilation -->
+    <!-- Unless SetRoslynToolPath is set to false -->
+    <!-- Addresses #55 -->
+    <RoslynToolPath Condition="'$(SetRoslynToolPath)'=='true'">$(PkgMicrosoft_Net_Compilers_Toolset)\tasks\net472</RoslynToolPath>
+  </PropertyGroup>
+
 
   <!-- 
   *************************************************************************************************************************
@@ -53,6 +65,4 @@ MSBuild.SDK.SystemWeb.DefaultPackages.targets
     </PackageReference>
 
   </ItemGroup>
-
-   
 </Project>

@@ -1,0 +1,26 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- If we are using a central package management system such as Microsoft.Build.CentralPackageVersions do not include package versions -->
+  <PropertyGroup>
+    <!-- Requires Microsoft.Build.CentralPackageVersions Version 2.1.1 or higher
+         See https://github.com/microsoft/MSBuildSdks/tree/main/src/CentralPackageVersions  -->
+    <ApplySDKDefaultPackageVersions Condition="'$(UsingMicrosoftCentralPackageVersionsSdk)'=='true'">false</ApplySDKDefaultPackageVersions>
+    <!-- Turn of if using Nuget 6.2.0+ CPM 
+         See https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management
+         Addresses #49 -->
+    <ApplySDKDefaultPackageVersions Condition="'$(ManagePackageVersionsCentrally)'=='true'">false</ApplySDKDefaultPackageVersions>
+    <ApplySDKDefaultPackageVersions Condition="'$(ApplySDKDefaultPackageVersions)'==''">true</ApplySDKDefaultPackageVersions>
+  </PropertyGroup>
+
+  <!-- Include compilers unless ExcludeSDKDefaultPackages property is set -->
+  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false'">
+    <PackageReference Include="Microsoft.Net.Compilers.Toolset" PrivateAssets="All" GeneratePathProperty="true"/>
+    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
+  </ItemGroup>
+
+  <!-- Set package versions if ApplySDKDefaultPackageVersions is true -->
+  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false' AND '$(ApplySDKDefaultPackageVersions)'=='true'">
+    <PackageReference Update="Microsoft.Net.Compilers.Toolset" Version="$(MicrosoftNetCompilersToolset_Version)" Condition="'$(MicrosoftNetCompilersToolset_Version)'!=''"/>
+    <PackageReference Update="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)" Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'!=''" />
+  </ItemGroup>
+
+</Project>

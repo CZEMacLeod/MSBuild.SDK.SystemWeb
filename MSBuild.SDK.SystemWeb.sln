@@ -60,6 +60,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.SDK.SystemWeb.UnitTests", "src\MSBuild.SDK.SystemWeb.UnitTests\MSBuild.SDK.SystemWeb.UnitTests.csproj", "{7EF08C1D-DA34-4914-9D8D-BCDF0E4F5723}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TestingShared", "src\TestingShared\TestingShared.shproj", "{A68AB20E-383F-4D41-BDB3-94411C643BF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSBuild.SDK.SystemWeb.Common", "src\MSBuild.SDK.SystemWeb.CommonFiles\MSBuild.SDK.SystemWeb.Common.csproj", "{EEEE3759-9ACC-426D-BCDB-E33838C9D024}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -110,6 +111,10 @@ Global
 		{7EF08C1D-DA34-4914-9D8D-BCDF0E4F5723}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EF08C1D-DA34-4914-9D8D-BCDF0E4F5723}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EF08C1D-DA34-4914-9D8D-BCDF0E4F5723}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEEE3759-9ACC-426D-BCDB-E33838C9D024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEEE3759-9ACC-426D-BCDB-E33838C9D024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEEE3759-9ACC-426D-BCDB-E33838C9D024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEEE3759-9ACC-426D-BCDB-E33838C9D024}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -129,6 +134,7 @@ Global
 		{AD80B3C1-916E-4E46-BF07-6AEE8606AB00} = {26AD80FE-B7CD-457A-B03A-90A5B395759E}
 		{7EF08C1D-DA34-4914-9D8D-BCDF0E4F5723} = {B91408ED-7A59-4890-8CB2-5A011DD62B1C}
 		{A68AB20E-383F-4D41-BDB3-94411C643BF8} = {B91408ED-7A59-4890-8CB2-5A011DD62B1C}
+		{EEEE3759-9ACC-426D-BCDB-E33838C9D024} = {B91408ED-7A59-4890-8CB2-5A011DD62B1C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E5FBE1CF-A73C-4BFD-BBA5-95488B7930D9}
