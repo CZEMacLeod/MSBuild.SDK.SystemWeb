@@ -158,6 +158,7 @@ steps:
     packagesToPush: $(Build.ArtifactStagingDirectory)\*.nupkg
     verbosityPush: 'Detailed'
     nuGetFeedType: 'external'
+    allowPackageConflicts: true
 
 - powershell: |
     Write-Host "Tagging Build: $env:BuildNumber"
