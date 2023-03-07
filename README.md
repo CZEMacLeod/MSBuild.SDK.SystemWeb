@@ -2,6 +2,7 @@
 
 [![Build Status](https://dev.azure.com/flexviews/MSBuild.SDKs.SystemWeb/_apis/build/status/CZEMacLeod.MSBuild.SDK.SystemWeb?branchName=main)](https://dev.azure.com/flexviews/MSBuild.SDKs.SystemWeb/_build/latest?definitionId=69&branchName=main)
 [![Docs](https://img.shields.io/badge/Documentation-docs-lightgrey?logo=github)](https://czemacleod.github.io/MSBuild.SDK.SystemWeb/)
+[![pages-build-deployment](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/actions/workflows/pages/pages-build-deployment)
 
 This MSBuild SDK is designed to allow for the easy creation and use of SDK (shortform) projects targeting ASP.NET 4.x using System.Web.
 
