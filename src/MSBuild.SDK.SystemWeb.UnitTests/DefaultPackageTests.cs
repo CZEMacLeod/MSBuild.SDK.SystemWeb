@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
+using System;
 
 namespace MSBuild.SDK.SystemWeb.UnitTests
 {
@@ -14,7 +15,7 @@ namespace MSBuild.SDK.SystemWeb.UnitTests
     {
         private readonly ITestOutputHelper output;
 
-        private static readonly string ThisAssemblyDirectory = Path.GetDirectoryName(typeof(UnitTest1).Assembly.Location);
+        private static readonly string ThisAssemblyDirectory = AppDomain.CurrentDomain.BaseDirectory; // Path.GetDirectoryName(typeof(UnitTest1).Assembly.CodeBase);
 
         public DefaultPackageTests(ITestOutputHelper output)
         {
@@ -26,6 +27,10 @@ namespace MSBuild.SDK.SystemWeb.UnitTests
         //[InlineData(false, ".vbproj")]
         public void DefaultPacakges_WhenNoCentralManagement_VersionMetadataIsPresent(string extension)
         {
+            string test0 = AppDomain.CurrentDomain.BaseDirectory;
+            string test1 = Path.Combine(ThisAssemblyDirectory, @"TestableSdkComponents\Sdk");
+            string test2 = Path.Combine(ThisAssemblyDirectory, @"TestHarnessInjectionSdk");
+
             ProjectCreator.Create()
                 .Save(Path.Combine(TestRootPath, "Directory.Build.props"));
 
@@ -45,7 +50,7 @@ namespace MSBuild.SDK.SystemWeb.UnitTests
                 .Save(Path.Combine(TestRootPath, "BeforeMS_NET_SDk_targets.targets"));
 
             ProjectCreator.Create()
-                .Import(Path.Combine(ThisAssemblyDirectory, @"TestableSdkComponents\Sdk\MSBuild.SDK.SystemWeb.DefaultPackageControlledVersions.targets"))
+                .Import(Path.Combine(ThisAssemblyDirectory, @"TestableSdkComponents\Sdk\MSBuild.SDK.SystemWeb.Common.DefaultPackageVersions.targets"))
                 .Save(Path.Combine(TestRootPath, "AfterMS_NET_SDk_targets.targets"));
 
             var projVal = ProjectCreator.Templates
@@ -91,7 +96,7 @@ namespace MSBuild.SDK.SystemWeb.UnitTests
                 .Save(Path.Combine(TestRootPath, "Directory.Build.targets"));
 
             ProjectCreator.Create()
-                .Import(Path.Combine(ThisAssemblyDirectory, @"TestableSdkComponents\Sdk\MSBuild.SDK.SystemWeb.DefaultPackageControlledVersions.targets"))
+                .Import(Path.Combine(ThisAssemblyDirectory, @"TestableSdkComponents\Sdk\MSBuild.SDK.SystemWeb.Common.DefaultPackageVersions.targets"))
                 .ItemGroup().ItemInclude("PackageReferencesAfterSdkUpdatedVersionMetadata", "@(PackageReference)")
                 .ItemGroup().ItemInclude("SystemWebSdkProvidedPackageVersionDefault_Audit", "@(SystemWebSdkProvidedPackageVersionDefault)")
                 .Save(Path.Combine(TestRootPath, "AfterMS_NET_SDk_targets.targets"));
@@ -159,7 +164,7 @@ namespace MSBuild.SDK.SystemWeb.UnitTests
                 .Save(Path.Combine(TestRootPath, "Directory.Build.targets"));
 
             ProjectCreator.Create()
-                .Import(Path.Combine(ThisAssemblyDirectory, @"TestableSdkComponents\Sdk\MSBuild.SDK.SystemWeb.DefaultPackageControlledVersions.targets"))
+                .Import(Path.Combine(ThisAssemblyDirectory, @"TestableSdkComponents\Sdk\MSBuild.SDK.SystemWeb.Common.DefaultPackageVersions.targets"))
                 .ItemGroup().ItemInclude("PackageVersionAfterSdkUpdatedVersionMetadata", "@(PackageVersion)")
                 .ItemGroup().ItemInclude("SystemWebSdkProvidedPackageVersionDefault_Audit", "@(SystemWebSdkProvidedPackageVersionDefault)")
                 .Save(Path.Combine(TestRootPath, "AfterMS_NET_SDk_targets.targets"));

@@ -36,10 +36,8 @@ You can also use the [templates](Templates.md) to easily create new projects.
 | Property | Default value | Description |
 | -------- | ------------- | ----------- |
 | `ExcludeSDKDefaultPackages` | false | Do not include the default packages `Microsoft.Net.Compilers.Toolset` and `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` |
-| `ApplySDKDefaultPackageVersions` | true* | Apply default version numbers to packages unless using a Central Package Management system |
+| `ApplySDKDefaultPackageVersions` |  | Gets set to CPV/CPM/true automatically to control how we will attempt to apply Version metadata to small list of Applications. Can be explicitly set to 'false' to completey prevent this Sdk from setting Version metadata. Note: `Microsoft.Build.CentralPackageVersions` version 2.1.1 or Nuget CentralPackageManagement are supported|
 | `GeneratedBindingRedirectsAction` | None | Set the desired default behavior of what to do with SuggestedBindingRedirects if not yet set.<br>See [automatically generated binding redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md)<br><ul><li>`None` - Do nothing except show the warning</li><li>`Preview` - Creates new Web.BindingRedirects.config file showing proposed changes</li><li>`Overwrite` - Updates the $(AppConfig) aka web.config in the project root</li></ul> |
-
-*Version numbers are not applied if you are using `Microsoft.Build.CentralPackageVersions` version 2.1.1 or higher. Remember to include the packages in your central package versions file.
 
 ### Specific Properties
 

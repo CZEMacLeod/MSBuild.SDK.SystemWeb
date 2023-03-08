@@ -3,7 +3,8 @@
 MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.targets
     Ensure that the desirable PackageReference items are present if configured to do so 
     * Do this After the "ProjectFile" so we can detect if the project has already explicitly included these packages
-    * Do this Before the "Directory.Build.targets" which means before the entire import chain
+    * Do this Before the "Directory.Build.targets" so CentralPackageVersions can act on these packages
+    * Which means before the entire import chain
       Microsoft.NET.Sdk/Sdk/Sdk.props
         -> Microsoft.CSharp.targets 
           -> Microsoft.CSharp.CurrentVersion.targets 
@@ -15,53 +16,7 @@ MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.targets
   <Import Project="MSBuild.SDK.SystemWeb.Common.DefaultPackages.targets" />
   
   <!-- Include packages unless ExcludeSDKDefaultPackages property is set -->
-  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false'">
-    <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="All" />
-    <PackageReference Include="RazorGenerator.MVC" />
-    <PackageReference Include="Microsoft.AspNet.Mvc"/>
-  </ItemGroup>
-
-  <!-- Set package versions if ApplySDKDefaultPackageVersions is true -->
-  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false' AND '$(ApplySDKDefaultPackageVersions)'=='true'">
-    <PackageReference Update="RazorGenerator.MsBuild" Version="$(RazorGeneratorMSBuild_Version)" Condition="'$(RazorGeneratorMSBuild_Version)'!=''" />
-    <PackageReference Update="RazorGenerator.MVC" Version="$(RazorGeneratorMVC_Version)" Condition="'$(RazorGeneratorMVC_Version)'!=''" />
-    <PackageReference Update="Microsoft.AspNet.Mvc" Version="$(MicrosoftAspNetMvc_Version)" Condition="'$(MicrosoftAspNetMvc_Version)'!=''" />
-  </ItemGroup>
-
-  <!-- 
-  *************************************************************************************************************************
-    Add PackageReference items when desired... when '$(ExcludeDefaultRazorPackages)'=='false'
-    *  Use "Exclude="@(PackageReference)" to prevent adding duplicates if project already has PackageReference
-    
-    Conditionally set the Version Metadata when no detection of central management of Package Version
-    *  CentralPackageVersions Sdk from MSbuildSdks
-        - See https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/26
-        - Look for the property "UsingMicrosoftCentralPackageVersionsSdk" https://github.com/microsoft/MSBuildSdks/issues/320
-        - Requires Microsoft.Build.CentralPackageVersions Version 2.1.1 or higher
-    *  CentralPackageManagement (NuGet Capability)
-        - https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/46
-        - https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/49
-        - Look for the property "ManagePackageVersionsCentrally" 
-        
-  *************************************************************************************************************************
-  -->
-  <ItemGroup Condition=" '$(ExcludeDefaultRazorPackages)'=='false' ">
-
-    <PackageReference Include="Microsoft.Net.Compilers.Toolset"
-                      Condition="'$(MicrosoftNetCompilersToolset_Version)'!=''"
-                      Exclude="@(PackageReference)" >
-      <SystemWebSdkIncludedPackage>true</SystemWebSdkIncludedPackage>
-      <SystemWebSdkIncludedPackageVersion>$(MicrosoftNetCompilersToolset_Version)</SystemWebSdkIncludedPackageVersion>
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
-
-    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform"
-                      Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'!=''"
-                      Exclude="@(PackageReference)" >
-      <SystemWebSdkIncludedPackage>true</SystemWebSdkIncludedPackage>
-      <SystemWebSdkIncludedPackageVersion>$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)</SystemWebSdkIncludedPackageVersion>
-    </PackageReference>
-
+  <ItemGroup Condition=" '$(ExcludeSDKDefaultPackages)'=='false' ">
     <PackageReference Include="RazorGenerator.MsBuild"
                       Condition="'$(RazorGeneratorMSBuild_Version)'!=''"
                       Exclude="@(PackageReference)" >
@@ -69,27 +24,18 @@ MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.targets
       <SystemWebSdkIncludedPackageVersion>$(RazorGeneratorMSBuild_Version)</SystemWebSdkIncludedPackageVersion>
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-
     <PackageReference Include="Microsoft.AspNet.Mvc"
                       Condition="'$(MicrosoftAspNetMvc_Version)'!=''"
                       Exclude="@(PackageReference)" >
       <SystemWebSdkIncludedPackage>true</SystemWebSdkIncludedPackage>
       <SystemWebSdkIncludedPackageVersion>$(MicrosoftAspNetMvc_Version)</SystemWebSdkIncludedPackageVersion>
     </PackageReference>
-
     <PackageReference Include="RazorGenerator.MVC"
                       Condition="'$(RazorGeneratorMVC_Version)'!=''"
                       Exclude="@(PackageReference)" >
       <SystemWebSdkIncludedPackage>true</SystemWebSdkIncludedPackage>
       <SystemWebSdkIncludedPackageVersion>$(RazorGeneratorMVC_Version)</SystemWebSdkIncludedPackageVersion>
     </PackageReference>
+  </ItemGroup>  
 
-    
-    <PackageReference Update="@(PackageReference->WithMetadataValue('SystemWebSdkIncludedPackage','true')->HasMetadata('SystemWebSdkIncludedPackageVersion'))"
-                      Condition=" '$(UsingMicrosoftCentralPackageVersionsSdk)' != 'true' AND '$(ManagePackageVersionsCentrally)' != 'true' ">
-      <Version>%(SystemWebSdkIncludedPackageVersion)</Version>
-    </PackageReference>
-
-
-  </ItemGroup>
 </Project>

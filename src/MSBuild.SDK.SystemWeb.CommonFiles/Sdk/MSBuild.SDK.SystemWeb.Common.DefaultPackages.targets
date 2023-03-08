@@ -1,26 +1,37 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <!-- If we are using a central package management system such as Microsoft.Build.CentralPackageVersions do not include package versions -->
-  <PropertyGroup>
-    <!-- Requires Microsoft.Build.CentralPackageVersions Version 2.1.1 or higher
-         See https://github.com/microsoft/MSBuildSdks/tree/main/src/CentralPackageVersions  -->
-    <ApplySDKDefaultPackageVersions Condition="'$(UsingMicrosoftCentralPackageVersionsSdk)'=='true'">false</ApplySDKDefaultPackageVersions>
-    <!-- Turn of if using Nuget 6.2.0+ CPM 
-         See https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management
-         Addresses #49 -->
-    <ApplySDKDefaultPackageVersions Condition="'$(ManagePackageVersionsCentrally)'=='true'">false</ApplySDKDefaultPackageVersions>
-    <ApplySDKDefaultPackageVersions Condition="'$(ApplySDKDefaultPackageVersions)'==''">true</ApplySDKDefaultPackageVersions>
-  </PropertyGroup>
+﻿<!-- 
+*************************************************************************************************************************
+MSBuild.SDK.SystemWeb.CommonFiles.DefaultPackages.targets
+    Ensure that the desirable PackageReference items are present if configured to do so 
+    * Do this After the "ProjectFile" so we can detect if the project has already explicitly included these packages
+    * Do this Before the "Directory.Build.targets" so CentralPackageVersions can act on these packages
+    * Which means before the entire import chain
+      Microsoft.NET.Sdk/Sdk/Sdk.props
+        -> Microsoft.CSharp.targets 
+          -> Microsoft.CSharp.CurrentVersion.targets 
+              -> Microsoft.Common.targets 
+                  -> Directory.Build.targets
+*************************************************************************************************************************
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <!-- Include compilers unless ExcludeSDKDefaultPackages property is set -->
-  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false'">
-    <PackageReference Include="Microsoft.Net.Compilers.Toolset" PrivateAssets="All" GeneratePathProperty="true"/>
-    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
-  </ItemGroup>
+  <ItemGroup Condition=" '$(ExcludeSDKDefaultPackages)'=='false' ">
+    <PackageReference Include="Microsoft.Net.Compilers.Toolset"
+                      Condition="'$(MicrosoftNetCompilersToolset_Version)'!=''"
+                      Exclude="@(PackageReference)" >
+      <SystemWebSdkIncludedPackage>true</SystemWebSdkIncludedPackage>
+      <SystemWebSdkIncludedPackageVersion>$(MicrosoftNetCompilersToolset_Version)</SystemWebSdkIncludedPackageVersion>
+      <PrivateAssets>All</PrivateAssets>
+      <GeneratePathProperty>true</GeneratePathProperty>
+    </PackageReference>
 
-  <!-- Set package versions if ApplySDKDefaultPackageVersions is true -->
-  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false' AND '$(ApplySDKDefaultPackageVersions)'=='true'">
-    <PackageReference Update="Microsoft.Net.Compilers.Toolset" Version="$(MicrosoftNetCompilersToolset_Version)" Condition="'$(MicrosoftNetCompilersToolset_Version)'!=''"/>
-    <PackageReference Update="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)" Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'!=''" />
+    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform"
+                      Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'!=''"
+                      Exclude="@(PackageReference)" >
+      <SystemWebSdkIncludedPackage>true</SystemWebSdkIncludedPackage>
+      <SystemWebSdkIncludedPackageVersion>$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)</SystemWebSdkIncludedPackageVersion>
+    </PackageReference>
+
   </ItemGroup>
 
 </Project>

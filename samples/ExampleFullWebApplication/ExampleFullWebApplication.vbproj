@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.SDK.SystemWeb">
+﻿<Project Sdk="MSBuild.SDK.SystemWeb/4.0.88">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <Copyright>Copyright ©  2021</Copyright>

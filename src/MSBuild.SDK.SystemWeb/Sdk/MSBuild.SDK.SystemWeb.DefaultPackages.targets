@@ -3,7 +3,8 @@
 MSBuild.SDK.SystemWeb.DefaultPackages.targets
     Ensure that the desirable PackageReference items are present if configured to do so 
     * Do this After the "ProjectFile" so we can detect if the project has already explicitly included these packages
-    * Do this Before the "Directory.Build.targets" which means before the entire import chain
+    * Do this Before the "Directory.Build.targets" so CentralPackageVersions can act on these packages
+    * Which means before the entire import chain
       Microsoft.NET.Sdk/Sdk/Sdk.props
         -> Microsoft.CSharp.targets 
           -> Microsoft.CSharp.CurrentVersion.targets 
@@ -24,45 +25,4 @@ MSBuild.SDK.SystemWeb.DefaultPackages.targets
     <RoslynToolPath Condition="'$(SetRoslynToolPath)'=='true'">$(PkgMicrosoft_Net_Compilers_Toolset)\tasks\net472</RoslynToolPath>
   </PropertyGroup>
 
-
-  <!-- 
-  *************************************************************************************************************************
-    Add PackageReference items when desired... when '$(ExcludeASPNetCompilers)'=='false'
-    *  Use "Exclude="@(PackageReference)" to prevent adding duplicates if project already has PackageReference
-    
-    Conditionally set the Version Metadata when no detection of central management of Package Version
-    *  CentralPackageVersions Sdk from MSbuildSdks
-        - See https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/26
-        - Look for the property "UsingMicrosoftCentralPackageVersionsSdk" https://github.com/microsoft/MSBuildSdks/issues/320
-        - Requires Microsoft.Build.CentralPackageVersions Version 2.1.1 or higher
-    *  CentralPackageManagement (NuGet Capability)
-        - https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/46
-        - https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/49
-        - Look for the property "ManagePackageVersionsCentrally" 
-        
-  *************************************************************************************************************************
-  -->
-  <ItemGroup Condition=" '$(ExcludeASPNetCompilers)'=='false' ">
-
-    <PackageReference Include="Microsoft.Net.Compilers.Toolset"
-                      Condition="'$(MicrosoftNetCompilersToolset_Version)'!=''"
-                      Exclude="@(PackageReference)" >
-      <SystemWebSdkIncludedPackage>true</SystemWebSdkIncludedPackage>
-      <SystemWebSdkIncludedPackageVersion>$(MicrosoftNetCompilersToolset_Version)</SystemWebSdkIncludedPackageVersion>
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
-
-    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform"
-                      Condition="'$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)'!=''"
-                      Exclude="@(PackageReference)" >
-      <SystemWebSdkIncludedPackage>true</SystemWebSdkIncludedPackage>
-      <SystemWebSdkIncludedPackageVersion>$(MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version)</SystemWebSdkIncludedPackageVersion>
-    </PackageReference>
-
-    <PackageReference Update="@(PackageReference->WithMetadataValue('SystemWebSdkIncludedPackage','true')->HasMetadata('SystemWebSdkIncludedPackageVersion'))"
-                      Condition=" '$(UsingMicrosoftCentralPackageVersionsSdk)' != 'true' AND '$(ManagePackageVersionsCentrally)' != 'true' ">
-      <Version>%(SystemWebSdkIncludedPackageVersion)</Version>
-    </PackageReference>
-
-  </ItemGroup>
 </Project>

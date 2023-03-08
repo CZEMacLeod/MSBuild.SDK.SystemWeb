@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-
+    <TargetFramework>net472</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -32,15 +30,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\MSBuild.SDK.SystemWeb\Sdk\MSBuild.SDK.SystemWeb.DefaultPackageControlledVersions.targets" Link="TestableSdkComponents\Sdk\MSBuild.SDK.SystemWeb.DefaultPackageControlledVersions.targets">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="..\MSBuild.SDK.SystemWeb\Sdk\MSBuild.SDK.SystemWeb.DefaultPackages.props" Link="TestableSdkComponents\Sdk\MSBuild.SDK.SystemWeb.DefaultPackages.props">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\MSBuild.SDK.SystemWeb\Sdk\MSBuild.SDK.SystemWeb.DefaultPackages.targets" Link="TestableSdkComponents\Sdk\MSBuild.SDK.SystemWeb.DefaultPackages.targets">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="..\MSBuild.SDK.SystemWeb.CommonFiles\Sdk\**">
+      <Link>TestableSdkComponents\Sdk\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="..\TestingShared\Sdk\**">
+      <Link>TestableSdkComponents\Sdk\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>    
   </ItemGroup>
 
   <Import Project="..\TestingShared\TestingShared.projitems" Label="Shared" />

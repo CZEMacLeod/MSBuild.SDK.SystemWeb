@@ -1,0 +1,123 @@
+﻿<!-- 
+*************************************************************************************************************************
+MSBuild.SDK.SystemWeb.Common.DefaultPackageVersions.targets
+    Allowing project owners to apply Central Control of Package Versions, and this Sdk is capable of providing reasonable default version numbers 
+    when not set by the project owner
+    * Do this After the "ProjectFile" so we can detect if the project has already explicitly included these packages
+    * Do this After the "Directory.Build.targets" so CentralPackageVersions->Sdk.targets/Packages.props have already acted
+    * Which means AFTER the entire import chain
+      Microsoft.NET.Sdk/Sdk/Sdk.props
+*************************************************************************************************************************
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!-- Set to CPM if using Nuget 6.2.0+ CPM 
+         See https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management
+         Addresses #49 -->
+    <ApplySDKDefaultPackageVersions Condition="'$(ManagePackageVersionsCentrally)'=='true' AND '$(ApplySDKDefaultPackageVersions)' == '' ">CPM</ApplySDKDefaultPackageVersions>
+
+    <!-- Set to CPV if using Microsoft.Build.CentralPackageVersions Requires Version 2.1.1 or higher
+         See https://github.com/microsoft/MSBuildSdks/tree/main/src/CentralPackageVersions  -->
+    <ApplySDKDefaultPackageVersions Condition="'$(UsingMicrosoftCentralPackageVersionsSdk)'=='true' AND '$(EnableCentralPackageVersions)' != 'false'  AND '$(ApplySDKDefaultPackageVersions)' == ''">CPV</ApplySDKDefaultPackageVersions>
+
+    <!-- Set to true if not using known Centralized logic and not already set -->
+    <ApplySDKDefaultPackageVersions Condition="'$(ApplySDKDefaultPackageVersions)'==''">true</ApplySDKDefaultPackageVersions>
+  </PropertyGroup>
+
+  <!-- 
+  *************************************************************************************************************************
+    Provide the appropriate mechanism to set Version for our PackageReference items when using Centralized Control
+        - https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/46
+        - https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/49
+    Only do this When Configured '$(ExcludeSDKDefaultPackages)'=='false' and '$(ApplySDKDefaultPackageVersions )' != 'false'
+    *  Use a PackageVersion Item "Include" style manipulation like those found in a Directory.Packages.props
+    *  Use a PackageReference Item "Update" style manipulation like those found in a Packages.targets
+    *  Use a PackageReference Item "Update" style manipulation when no central logic
+  *************************************************************************************************************************
+  -->
+  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false' AND '$(ApplySDKDefaultPackageVersions)' != 'false'">
+
+    <!-- Find any PackageReferences added by this SDK, and provide Version when using Central Package Management -->
+    <PackageVersion
+      Include="@(PackageReference->WithMetadataValue('SystemWebSdkIncludedPackage','true')->HasMetadata('SystemWebSdkIncludedPackageVersion'))"
+      Exclude="@(PackageVersion)"
+      Condition=" '$(ApplySDKDefaultPackageVersions)' == 'CPM' "
+         >
+      <SystemWebSdkProvidedDefaultVersion>true</SystemWebSdkProvidedDefaultVersion>
+      <Version>%(SystemWebSdkIncludedPackageVersion)</Version>
+    </PackageVersion>
+    
+    <!-- Find any PackageReferences added by this SDK, and provide Version when using Central Package Versions -->
+    <PackageReference
+      Update="@(PackageReference->WithMetadataValue('SystemWebSdkIncludedPackage','true')->HasMetadata('SystemWebSdkIncludedPackageVersion'))"
+      Condition=" '$(ApplySDKDefaultPackageVersions)' == 'CPV' "
+         >
+      <SystemWebSdkProvidedDefaultVersion Condition="'%(Version)' == '' ">true</SystemWebSdkProvidedDefaultVersion>
+      <Version Condition="'%(Version)' == '' ">%(SystemWebSdkIncludedPackageVersion)</Version>
+    </PackageReference>
+    
+    <!-- Find any PackageReferences added by this SDK, and provide Version when not using any Centralized -->
+    <PackageReference 
+      Update="@(PackageReference->WithMetadataValue('SystemWebSdkIncludedPackage','true')->HasMetadata('SystemWebSdkIncludedPackageVersion'))"
+      Condition=" '$(ApplySDKDefaultPackageVersions)' == 'true' ">
+      <Version Condition="'%(Version)' == '' ">%(SystemWebSdkIncludedPackageVersion)</Version>
+    </PackageReference>
+
+
+
+
+    <!-- Collect those items that this SDK has had to set so we can share some warnings later -->
+    <SystemWebSdkProvidedPackageVersionDefault
+        Include="@(PackageReference->HasMetadata('SystemWebSdkProvidedDefaultVersion')->WithMetadataValue('SystemWebSdkProvidedDefaultVersion','true'))"
+        >
+      <Suggestion>&lt;PackageReference Update="%(Identity)" Version="%(Version)" /&gt;</Suggestion>
+    </SystemWebSdkProvidedPackageVersionDefault>
+    <SystemWebSdkProvidedPackageVersionDefault
+      Include="@(PackageVersion->HasMetadata('SystemWebSdkProvidedDefaultVersion')->WithMetadataValue('SystemWebSdkProvidedDefaultVersion','true'))"
+        >
+      <Suggestion>&lt;PackageVersion Include="%(Identity)" Version="%(Version)" /&gt;</Suggestion>
+    </SystemWebSdkProvidedPackageVersionDefault>
+
+  </ItemGroup>
+
+
+
+
+  <!-- 
+  *************************************************************************************************************************
+    Target SystemWebSdkProvidedPackageVersionDefaultWarning
+    *  Emit Warnings (not errors) whenever 
+      - a system of central management for package versions is detected
+      - AND
+      - an SDK applied default version for the Package Reference was provided
+  *************************************************************************************************************************
+  -->
+  <PropertyGroup>
+    <SystemWebSdkProvidedPackageVersionDefaultWarningBeforeTargets>
+      $(SystemWebSdkProvidedPackageVersionDefaultWarningBeforeTargets);
+      ResolvePackageAssets
+    </SystemWebSdkProvidedPackageVersionDefaultWarningBeforeTargets>
+  
+  <SystemWebSdkProvidedPackageVersionDefaultWarningBeforeTargets Condition=" '$(ApplySDKDefaultPackageVersions)' == 'CPV' ">
+      $(SystemWebSdkProvidedPackageVersionDefaultWarningBeforeTargets);
+      CheckPackageReferences
+    </SystemWebSdkProvidedPackageVersionDefaultWarningBeforeTargets>
+  </PropertyGroup>
+
+  <Target Name="SystemWebSdkProvidedPackageVersionDefaultWarning" BeforeTargets="$(SystemWebSdkProvidedPackageVersionDefaultWarningBeforeTargets)"
+          Condition=" '$(ExcludeSDKDefaultPackages)'=='false' AND '$(ApplySDKDefaultPackageVersions)' != 'false' AND @(SystemWebSdkProvidedPackageVersionDefault->Count()) != 0 ">
+    <PropertyGroup>
+      <SystemWebSdkProvidedPackageVersionDefault_LinkedFile Condition=" '$(ApplySDKDefaultPackageVersions)' == 'CPM' AND '$(ImportDirectoryPackagesProps)' == 'true' and '$(DirectoryPackagesPropsPath)' != '' and Exists('$(DirectoryPackagesPropsPath)') ">$(DirectoryPackagesPropsPath)</SystemWebSdkProvidedPackageVersionDefault_LinkedFile>
+      <SystemWebSdkProvidedPackageVersionDefault_LinkedFile Condition=" '$(ApplySDKDefaultPackageVersions)' == 'CPV' AND '$(CentralPackagesFile)' != '' and Exists('$(CentralPackagesFile)') ">$(CentralPackagesFile)</SystemWebSdkProvidedPackageVersionDefault_LinkedFile>
+      <SystemWebSdkProvidedPackageVersionDefault_LinkedFile Condition=" '$(SystemWebSdkProvidedPackageVersionDefault_LinkedFile)' == '' ">$(MSBuildProjectFullPath)</SystemWebSdkProvidedPackageVersionDefault_LinkedFile>
+    </PropertyGroup>
+    <Warning
+      Text="The PackageReference '%(SystemWebSdkProvidedPackageVersionDefault.Identity)' was included by the SystemWeb Sdk defaulting to Version='%(SystemWebSdkProvidedPackageVersionDefault.Version)'. Centralized management of package versions was detected, consider adding this entry '%(SystemWebSdkProvidedPackageVersionDefault.Suggestion)' to your centralized package version listing."
+      File="$(SystemWebSdkProvidedPackageVersionDefault_LinkedFile)"
+      />
+  </Target>
+
+
+
+
+</Project>

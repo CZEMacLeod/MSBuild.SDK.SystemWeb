@@ -44,10 +44,7 @@ For more information see
 | Property | Default value | Description |
 | -------- | ------------- | ----------- |
 | `ExcludeSDKDefaultPackages` | false | Do not include the default packages `Microsoft.Net.Compilers.Toolset` and `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` |
-| `ApplySDKDefaultPackageVersions` | true* | Apply default version numbers to packages unless using a Central Package Management system |
-
-*Version numbers are not applied if you are using `Microsoft.Build.CentralPackageVersions` version 2.1.1 or higher. Remember to include the packages in your central package versions file.
-
+| `ApplySDKDefaultPackageVersions` |  | Gets set to CPV/CPM/true automatically to control how we will attempt to apply Version metadata to small list of Applications. Can be explicitly set to 'false' to completey prevent this Sdk from setting Version metadata. Note: `Microsoft.Build.CentralPackageVersions` version 2.1.1 or Nuget CentralPackageManagement are supported|
 
 ### Specific Properties
 

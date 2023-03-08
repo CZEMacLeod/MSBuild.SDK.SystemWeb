@@ -57,9 +57,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleRazorLibrary", "samp
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "ExampleRazorLibraryVB", "samples\RazorLibrary\ExampleRazorLibraryVB\ExampleRazorLibraryVB.vbproj", "{AD80B3C1-916E-4E46-BF07-6AEE8606AB00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.SDK.SystemWeb.UnitTests", "src\MSBuild.SDK.SystemWeb.UnitTests\MSBuild.SDK.SystemWeb.UnitTests.csproj", "{7EF08C1D-DA34-4914-9D8D-BCDF0E4F5723}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSBuild.SDK.SystemWeb.UnitTests", "src\MSBuild.SDK.SystemWeb.UnitTests\MSBuild.SDK.SystemWeb.UnitTests.csproj", "{7EF08C1D-DA34-4914-9D8D-BCDF0E4F5723}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TestingShared", "src\TestingShared\TestingShared.shproj", "{A68AB20E-383F-4D41-BDB3-94411C643BF8}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSBuild.SDK.SystemWeb.Common", "src\MSBuild.SDK.SystemWeb.CommonFiles\MSBuild.SDK.SystemWeb.Common.csproj", "{EEEE3759-9ACC-426D-BCDB-E33838C9D024}"
 EndProject
 Global
