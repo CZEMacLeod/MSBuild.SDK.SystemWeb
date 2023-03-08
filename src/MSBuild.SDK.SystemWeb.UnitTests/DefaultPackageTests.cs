@@ -15,7 +15,7 @@ namespace MSBuild.SDK.SystemWeb.UnitTests
     {
         private readonly ITestOutputHelper output;
 
-        private static readonly string ThisAssemblyDirectory = AppDomain.CurrentDomain.BaseDirectory; // Path.GetDirectoryName(typeof(UnitTest1).Assembly.CodeBase);
+        private static readonly string ThisAssemblyDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
         public DefaultPackageTests(ITestOutputHelper output)
         {

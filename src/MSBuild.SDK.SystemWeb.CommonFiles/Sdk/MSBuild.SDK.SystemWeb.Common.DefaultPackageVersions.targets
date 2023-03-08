@@ -69,12 +69,13 @@ MSBuild.SDK.SystemWeb.Common.DefaultPackageVersions.targets
     <!-- Collect those items that this SDK has had to set so we can share some warnings later -->
     <SystemWebSdkProvidedPackageVersionDefault
         Include="@(PackageReference->HasMetadata('SystemWebSdkProvidedDefaultVersion')->WithMetadataValue('SystemWebSdkProvidedDefaultVersion','true'))"
+        Condition=" '$(ApplySDKDefaultPackageVersions)' == 'CPV' " 
         >
       <Suggestion>&lt;PackageReference Update="%(Identity)" Version="%(Version)" /&gt;</Suggestion>
     </SystemWebSdkProvidedPackageVersionDefault>
     <SystemWebSdkProvidedPackageVersionDefault
       Include="@(PackageVersion->HasMetadata('SystemWebSdkProvidedDefaultVersion')->WithMetadataValue('SystemWebSdkProvidedDefaultVersion','true'))"
-        >
+      Condition=" '$(ApplySDKDefaultPackageVersions)' == 'CPM' " >
       <Suggestion>&lt;PackageVersion Include="%(Identity)" Version="%(Version)" /&gt;</Suggestion>
     </SystemWebSdkProvidedPackageVersionDefault>
 

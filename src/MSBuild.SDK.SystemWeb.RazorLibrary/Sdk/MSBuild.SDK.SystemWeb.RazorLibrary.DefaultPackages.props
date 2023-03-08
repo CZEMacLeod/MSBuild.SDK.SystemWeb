@@ -4,6 +4,11 @@
     <ExcludeDefaultRazorPackages Condition="'$(ExcludeDefaultRazorPackages)'==''">false</ExcludeDefaultRazorPackages>
     <ExcludeSDKDefaultPackages Condition="'$(ExcludeSDKDefaultPackages)'==''">$(ExcludeDefaultRazorPackages)</ExcludeSDKDefaultPackages>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false'">
+    <MicrosoftAspNetMvc_Version Condition="'$(MicrosoftAspNetMvc_Version)'==''">5.2.9</MicrosoftAspNetMvc_Version>
 
+    <RazorGeneratorMSBuild_Version Condition="'$(RazorGeneratorMSBuild_Version)'==''">2.5.0</RazorGeneratorMSBuild_Version>
+    <RazorGeneratorMVC_Version Condition="'$(RazorGeneratorMVC_Version)'==''">2.4.9</RazorGeneratorMVC_Version>
+  </PropertyGroup>
   <Import Project="MSBuild.SDK.SystemWeb.Common.DefaultPackages.props"/>
 </Project>
