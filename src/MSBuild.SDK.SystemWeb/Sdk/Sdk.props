@@ -9,22 +9,6 @@
     <AppConfig>web.config</AppConfig>
 
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectCapability Include="DotNetCoreWeb" />
-    <ProjectCapability Include="SupportsSystemWeb" />
-    <!-- Force 'legacy' mode for razor files (no LSP) so that we can handle ASP.NET 4.x Intellisense - Closes #27 -->
-    <ProjectCapability Include="LegacyRazorEditor" />
-  </ItemGroup>
-
-  <!-- Support for making items "appear" nested in the solution explorer even when the DependentUpon metadata not set
-    https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/43 
-    Added because desire to support Environment Specific Transformation of config files
-  -->
-  <ItemGroup
-    Condition=" '$(BuildingInsideVisualStudio)' == 'true' and '$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' >= '15.0' "
-    Label="This Capability is included by the .net core web projects and tells the solution Explorer to render certain items as nesting under others ">
-    <ProjectCapability Include="DynamicFileNesting"/>
-  </ItemGroup>
 
   <Import Project="MSBuild.SDK.SystemWeb.DefaultPackages.props" />
   <!-- Default item includes -->

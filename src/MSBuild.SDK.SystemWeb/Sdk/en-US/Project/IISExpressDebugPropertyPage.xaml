@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Based on code originally Copyright (c) Microsoft Corporation. -->
+<!-- Adapted to match only properties supported by ASP.Net V4.x for the MSBuild.SDK.SystemWeb project -->
+<!-- Notes:
+     Name: Uniquely identifies this page. Should be unique across all property pages in a given project.
+     DisplayName: The name shown in the UI. Localizable.
+     Description: A brief description of the page suitable for showing in the UI. Localizable.
+     PageTemplate: Identifies what kind of page this is. Most pages will use "generic", but pages associated
+         with a particular debug command/launch target (such as this one) should use "commandNameBasedDebugger". -->
+<Rule Name="IISExpressDebugPropertyPageSystemWeb"
+      Description="Properties associated with launching and debugging an ASP.NET web site under IIS Express"
+      DisplayName="IIS Express"
+      PageTemplate="commandNameBasedDebugger"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns="http://schemas.microsoft.com/build/2009/properties"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="checkXaml"
+      xmlns:checkXaml="WebTools.CheckXaml"
+      checkXaml:NoTextNodes="">
+
+    <!-- Notes:
+         A dictionary of additional, arbitrary metadata associated with this property page. In this case
+         the page is associated with the "IISExpress" debugger command name/launch target, and specifies the
+         ImageMoniker to use as an icon in the Launch Profiles UI. -->
+    <Rule.Metadata>
+        <sys:String x:Key="CommandName">IISExpress</sys:String>
+
+        <!-- KnownImageIds.ImageCatalogGuid -->
+        <sys:Guid x:Key="ImageMonikerGuid">AE27A6B0-E345-4288-96DF-5EAF394EE369</sys:Guid>
+
+        <!-- KnownImageIds.WebServer -->
+        <sys:Int32 x:Key="ImageMonikerId">3503</sys:Int32>
+    </Rule.Metadata>
+
+    <!-- Notes:
+         Properties may belong to categories, and categories are displayed in the order defined. Here we
+         create two categories: one for the general debug settings, and one for settings for the web server. -->
+    <Rule.Categories>
+        <Category Name="General"
+                  Description="General"
+                  DisplayName="General" />
+        <Category Name="WebServer"
+                  Description="Web Server Settings"
+                  DisplayName="Web Server Settings" />
+    </Rule.Categories>
+
+    <!-- Notes:
+         Defines the default data source for the properties on this page. Individual properties may override
+         these settings with their own. Here we specify that this Rule only applies to "LaunchProfile" items
+         (via the ItemType) and that by default properties should be routed through the "LaunchProfile"
+         persistence scheme (the "Persistence" attribute). Also, the values are not specific to a particular
+         project configuration (e.g., Debug, Release, etc.). -->
+    <Rule.DataSource>
+        <DataSource Persistence="LaunchProfile"
+                    HasConfigurationCondition="False"
+                    ItemType="LaunchProfile" />
+    </Rule.DataSource>
+
+    <!-- Notes:
+         Next we start defining the properties that appear on the page, including the name as known by the
+         system, the name displayed to users (localizable) and the category. The order they appear here is the
+         order they will appear within their categories. The first group all belong to the "General" category
+         and inherit the default data source defined above. -->
+    
+    <StringProperty Name="CommandLineArguments"
+                    DisplayName="Command line arguments"
+                    Description="Command line arguments to pass to the executable."
+                    Category="General" />
+
+    <!-- Notes:
+         WorkingDirectory is a string, but the Subtype here provides a hint to the UI about how it should
+         display the data. For example, it may provide a directory picker as a property editor. -->
+    <StringProperty Name="WorkingDirectory"
+                    DisplayName="Working directory"
+                    Description="Path to the working directory where the process will be started."
+                    Subtype="folder"
+                    Category="General" />
+
+    <!-- Notes:
+         We don't currently have a control that can properly show the environment variables (e.g., in a table
+         of some sort) so for now we're showing it as a delimited string. -->
+    <StringProperty Name="EnvironmentVariables"
+                    DisplayName="Environment variables"
+                    Description="The environment variables to set prior to running the process. Variables are separated by a comma (,) and variables names and values are separated with an equal sign (=). Example: var1=value1,var2=value2,var3=value3. Commas and equal signs appearing within a variable can be escaped using a forward slash (/)."/>
+
+    <BoolProperty Name="LaunchBrowser"
+                  DisplayName="Launch browser"
+                  Description="Indicates that the web browser should automatically launch when debugging the project."
+                  Category="General" />
+
+    <StringProperty Name="LaunchUrl"
+                    DisplayName="Url"
+                    Description="The address of the web page to navigate to."
+                    Category="General" />
+
+    <BoolProperty Name="NativeDebugging"
+                  DisplayName="Enable native code debugging"
+                  Category="General" />
+
+    <BoolProperty Name="SqlDebugging"
+                  DisplayName="Enable SQL Server debugging"
+                  Category="General" />
+
+    <!-- Notes:
+         The next set of properties all belong to the WebServer category. -->
+
+    <StringProperty Name="AppUrl_IISExpress"
+                    DisplayName="App URL"
+                    Category="WebServer" />
+
+    <EnumProperty Name="IisExpressBitness"
+                  DisplayName="IIS Express Bitness"
+                  Category="WebServer">
+        <EnumValue Name="Default" DisplayName="Default" />
+        <EnumValue Name="x86" DisplayName="x86" />
+        <EnumValue Name="x64" DisplayName="x64" />
+    </EnumProperty>
+
+    <BoolProperty Name="UseSsl"
+                  DisplayName="Use SSL"
+                  Category="WebServer" />
+
+    <StringProperty Name="AppSslUrl"
+                    DisplayName="App SSL URL"
+                    Category="WebServer"
+                    ReadOnly="True" />
+
+    <BoolProperty Name="EnableAnonymousAuthentication"
+                  DisplayName="Enable Anonymous Authentication"
+                  Category="WebServer" />
+
+    <BoolProperty Name="EnableWindowsAuthentication"
+                  DisplayName="Enable Windows Authentication"
+                  Category="WebServer" />
+</Rule>

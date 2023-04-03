@@ -4,14 +4,19 @@
     <RazorGeneratorGenerator Condition="'$(RazorGeneratorGenerator)'==''">MvcView</RazorGeneratorGenerator>
     <RazorGeneratorPrettyNames Condition="'$(RazorGeneratorPrettyNames)'==''">true</RazorGeneratorPrettyNames>
     <RazorGeneratorExcludeForCodeCoverage Condition="'$(RazorGeneratorExcludeForCodeCoverage)'==''">true</RazorGeneratorExcludeForCodeCoverage>
+    <RazorGeneratorDisableLinePragmas Condition="'$(RazorGeneratorDisableLinePragmas)'==''">false</RazorGeneratorDisableLinePragmas>
     <RazorGeneratorAbsolutePathLinePragmas Condition="'$(RazorGeneratorAbsolutePathLinePragmas)'==''">true</RazorGeneratorAbsolutePathLinePragmas>
+    <RazorGeneratorTrimLeadingUnderscores Condition="'$(RazorGeneratorTrimLeadingUnderscores)'==''">false</RazorGeneratorTrimLeadingUnderscores>
   </PropertyGroup>
   <ItemGroup>
     <RazorGeneratorDirective Include="RazorVersion: $(RazorGeneratorVersion)" />
     <RazorGeneratorDirective Include="Generator: $(RazorGeneratorGenerator)" />
     <RazorGeneratorDirective Include="GeneratePrettyNames : $(RazorGeneratorPrettyNames)" />
-    <RazorGeneratorDirective Include="GenerateAbsolutePathLinePragmas : $(RazorGeneratorAbsolutePathLinePragmas)" />
+    <RazorGeneratorDirective Include="RazorGeneratorDisableLinePragmas : $(RazorGeneratorDisableLinePragmas)" />
+    <RazorGeneratorDirective Include="GenerateAbsolutePathLinePragmas : $(RazorGeneratorAbsolutePathLinePragmas)" Condition="'$(RazorGeneratorDisableLinePragmas)'=='false'" />
     <RazorGeneratorDirective Include="ExcludeForCodeCoverage : $(RazorGeneratorExcludeForCodeCoverage)" />
     <RazorGeneratorDirective Include="Namespace : $(RazorGeneratorNamespace)" Condition="'$(RazorGeneratorNamespace)'!=''" />
+    <RazorGeneratorDirective Include="ClassSuffix : $(RazorGeneratorClassSuffix)" Condition="'$(RazorGeneratorClassSuffix)'!=''" />
+    <RazorGeneratorDirective Include="TrimLeadingUnderscores : $(RazorGeneratorTrimLeadingUnderscores)" />
   </ItemGroup>
 </Project>

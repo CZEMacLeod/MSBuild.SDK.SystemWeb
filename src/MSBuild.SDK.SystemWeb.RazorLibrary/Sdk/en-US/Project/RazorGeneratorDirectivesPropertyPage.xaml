@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Based on code originally Copyright (c) Microsoft Corporation. -->
+<!-- Adapted to match only properties supported by ASP.Net V4.x for the MSBuild.SDK.SystemWeb project -->
+<Rule
+    Name="ConfigurationRazorGeneratorDirectives"
+    DisplayName="RazorGenerator"
+    PageTemplate="generic"
+    Description="RazorGenerator Directives"
+    xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+  <Rule.Categories>
+    <Category Name="General" DisplayName="General" Description="General Settings" />
+    <Category Name="ClassNames" DisplayName="Class Naming" Description="Class Naming Settings" />
+  </Rule.Categories>
+
+  <Rule.DataSource>
+    <DataSource Persistence="ProjectFile" SourceOfDefaultValue="AfterContext" HasConfigurationCondition="false" />
+  </Rule.DataSource>
+
+  <EnumProperty Name="RazorGeneratorVersion"
+              DisplayName="Language Version"
+              Description="Language Version"
+              Category="General"
+                >
+    <EnumProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="RazorGeneratorVersion" HasConfigurationCondition="False" />
+    </EnumProperty.DataSource>
+    <EnumValue Name="1" DisplayName="V1" />
+    <EnumValue Name="2" DisplayName="V2" />
+    <EnumValue Name="3" DisplayName="V3" IsDefault="true" />
+  </EnumProperty>
+
+  <EnumProperty Name="RazorGeneratorGenerator"
+              DisplayName="Language Version"
+              Description="Language Version"
+              Category="General"
+                >
+    <EnumProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="RazorGeneratorGenerator" HasConfigurationCondition="False" />
+    </EnumProperty.DataSource>
+    <EnumValue Name="MvcHelper" DisplayName="MvcView" Description="Creates a static type that is best suited for writing Mvc specific helper methods." />
+    <EnumValue Name="MvcView" DisplayName="MvcView" IsDefault="true" Description="Create a WebViewPage which allows the use of precompiled MVC views." />
+    <EnumValue Name="WebPage" DisplayName="WebPage" Description="Creates a WebPage type that can be used as WebPages Application Part (such as _Admin and RazorDebugger)." />
+    <EnumValue Name="WebPagesHelper" DisplayName="WebPagesHelper" Description="Creates a HelperPage type that is suited for precompiling and distributing WebPages helper." />
+    <EnumValue Name="Template" DisplayName="Template" Description="Generator based on T4 preprocessed template." />
+  </EnumProperty>
+
+  <BoolProperty Name="RazorGeneratorPrettyNames"
+            DisplayName="Pretty Names"
+            Description="Generate Pretty Names"
+            Category="ClassNames"
+            IsRequired="True"
+            Default="True">
+    <BoolProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="RazorGeneratorPrettyNames" HasConfigurationCondition="False" />
+    </BoolProperty.DataSource>
+  </BoolProperty>
+
+  <BoolProperty Name="RazorGeneratorDisableLinePragmas"
+        DisplayName="Line Pragmas"
+        Description="Generate Absolute Path Line Pragmas"
+        Category="General"
+        IsRequired="True"
+        Default="False">
+    <BoolProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="RazorGeneratorDisableLinePragmas" HasConfigurationCondition="False" />
+    </BoolProperty.DataSource>
+  </BoolProperty>
+
+  <BoolProperty Name="RazorGeneratorAbsolutePathLinePragmas"
+          DisplayName="Line Pragmas"
+          Description="Generate Absolute Path Line Pragmas"
+          Category="General"
+          IsRequired="True"
+          Default="True">
+    <BoolProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="RazorGeneratorAbsolutePathLinePragmas" HasConfigurationCondition="False" />
+    </BoolProperty.DataSource>
+    <BoolProperty.Metadata>
+      <NameValuePair Name="VisibilityCondition">
+        <NameValuePair.Value>(has-evaluated-value "ConfigurationRazorGeneratorDirectives" "RazorGeneratorDisableLinePragmas" false)</NameValuePair.Value>
+      </NameValuePair>
+      <NameValuePair Name="DependsOn" Value="ConfigurationRazorGeneratorDirectives::RazorGeneratorDisableLinePragmas" />
+    </BoolProperty.Metadata>
+  </BoolProperty>
+
+  <BoolProperty Name="RazorGeneratorExcludeForCodeCoverage"
+          DisplayName="Exclude For Code Coverage"
+          Description="Exclude For Code Coverage"
+          Category="General"
+          IsRequired="True"
+          Default="True">
+    <BoolProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="RazorGeneratorExcludeForCodeCoverage" HasConfigurationCondition="False" />
+    </BoolProperty.DataSource>
+  </BoolProperty>
+
+  <StringProperty Name="RazorGeneratorNamespace"
+          DisplayName="Namespace"
+          Description="Namespace for generated files"
+          Category="General"
+          IsRequired="False"
+          Default="">
+    <StringProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="RazorGeneratorNamespace" HasConfigurationCondition="False" />
+    </StringProperty.DataSource>
+  </StringProperty>
+
+  <StringProperty Name="RazorGeneratorClassSuffix"
+        DisplayName="Class Suffix"
+        Description="Suffix to append to class names (such as _) to avoid some conflicts"
+        Category="ClassNames"
+        IsRequired="False"
+        Default="">
+    <StringProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="RazorGeneratorClassSuffix" HasConfigurationCondition="False" />
+    </StringProperty.DataSource>
+  </StringProperty>
+
+  <BoolProperty Name="RazorGeneratorTrimLeadingUnderscores"
+        DisplayName="Trim Leading Underscores"
+        Description="Trimming leading underscores in generated class names"
+        Category="ClassNames"
+        IsRequired="True"
+        Default="True">
+    <BoolProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="RazorGeneratorTrimLeadingUnderscores" HasConfigurationCondition="False" />
+    </BoolProperty.DataSource>
+  </BoolProperty>
+</Rule>

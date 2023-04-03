@@ -3,7 +3,6 @@
     <TargetFramework>net48</TargetFramework>
     <Copyright>Copyright © 2022</Copyright>
     <RazorGeneratorNamespace>ASP</RazorGeneratorNamespace>
-    <MicrosoftAspNetMvc_Version>5.2.9</MicrosoftAspNetMvc_Version>
   </PropertyGroup>
   <ItemGroup>
     <RazorSrcFiles Include="Views\**\*.cshtml" />

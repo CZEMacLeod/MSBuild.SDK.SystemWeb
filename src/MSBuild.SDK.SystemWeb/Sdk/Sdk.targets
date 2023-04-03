@@ -3,6 +3,8 @@
     <Reference Include="System.Web" />
   </ItemGroup>
 
+  <Import Project="MSBuild.SDK.SystemWeb.Common.Designtime.targets" />
+  
   <!-- Default packages -->
   <Import Project="MSBuild.SDK.SystemWeb.DefaultPackages.targets" />
 

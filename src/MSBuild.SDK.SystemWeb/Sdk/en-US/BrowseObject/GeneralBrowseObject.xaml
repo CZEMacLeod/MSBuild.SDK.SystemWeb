@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Based on code originally Copyright (c) Microsoft Corporation. -->
+<!-- Adapted to match only properties supported by ASP.Net V4.x for the MSBuild.SDK.SystemWeb project -->
+<Rule
+    Name="ConfigurationGeneralBrowseObjectSystemWeb"
+    DisplayName="General"
+    PageTemplate="generic"
+    Description="General"
+    OverrideMode="Extend"
+    xmlns="http://schemas.microsoft.com/build/2009/properties">
+    
+    <Rule.Categories>
+        <Category Name="General" DisplayName="General" Description="General" />
+        <Category Name="DevelopmentServer" DisplayName="Development Server" Description="Development Server" />
+    </Rule.Categories>
+    
+    <Rule.DataSource>
+        <DataSource Persistence="ProjectFile" HasConfigurationCondition="false" />
+    </Rule.DataSource>
+     
+    <StringProperty Name="ProjectUrl" ReadOnly="True" Visible="False">
+        <StringProperty.DataSource>
+            <DataSource Persistence="DnxDynamic" PersistedName="ProjectUrl" HasConfigurationCondition="False" />
+        </StringProperty.DataSource>
+    </StringProperty>
+    
+    <StringProperty Name="SSLUrl" ReadOnly="True" Visible="False">
+        <StringProperty.DataSource>
+            <DataSource Persistence="DnxDynamic" PersistedName="SSLUrl" HasConfigurationCondition="False" />
+        </StringProperty.DataSource>
+    </StringProperty>
+    
+    <BoolProperty Name="WindowsAuthentication" Default="False" ReadOnly="False" Visible="False">
+        <BoolProperty.DataSource>
+            <DataSource Persistence="DnxDynamic" PersistedName="WindowsAuthentication" HasConfigurationCondition="False" />
+        </BoolProperty.DataSource>
+    </BoolProperty>
+    
+    <BoolProperty Name="AnonymousAuthentication" Default="True" ReadOnly="False" Visible="False">
+        <BoolProperty.DataSource>
+            <DataSource Persistence="DnxDynamic" PersistedName="AnonymousAuthentication" HasConfigurationCondition="False" />
+        </BoolProperty.DataSource>
+    </BoolProperty>
+    
+    <BoolProperty Name="SSLEnabled" ReadOnly="False" Visible="False">
+        <BoolProperty.DataSource>
+            <DataSource Persistence="DnxDynamic" PersistedName="SSLEnabled" HasConfigurationCondition="False"  />
+        </BoolProperty.DataSource>
+    </BoolProperty>
+    
+    <StringProperty Name="IISExpressLaunchUrl" ReadOnly="False" Visible="False">
+        <StringProperty.DataSource>
+            <DataSource Persistence="DnxDynamic" PersistedName="IISExpressLaunchUrl" HasConfigurationCondition="False"  />
+        </StringProperty.DataSource>
+    </StringProperty>
+    
+    <StringProperty Name="UserSecretsId" ReadOnly="False" Visible="True">
+        <StringProperty.DataSource>
+            <DataSource Persistence="ProjectFile" PersistedName="UserSecretsId" HasConfigurationCondition="False"  />
+        </StringProperty.DataSource>
+    </StringProperty>
+</Rule>

@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Based on code originally Copyright (c) Microsoft Corporation. -->
+<!-- Adapted to match only properties supported by ASP.Net V4.x for the MSBuild.SDK.SystemWeb project -->
+<Rule
+    Name="SystemWebAppPropertyPage"
+    DisplayName="ASP.NET V4.x"
+    PageTemplate="generic"
+    Description="ASP.NET V4.x Application"
+    xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+    <Rule.Categories>
+        <Category Name="General" DisplayName="General" Description="General Settings" />
+        <Category Name="BindingRedirects" DisplayName="Binding Redirects" Description="Binding Redirects" />
+        <Category Name="Roslyn" DisplayName="Roslyn Compiler" Description="Roslyn Compiler" />
+    </Rule.Categories>
+
+    <Rule.DataSource>
+        <DataSource Persistence="ProjectFile" SourceOfDefaultValue="AfterContext" HasConfigurationCondition="false" />
+    </Rule.DataSource>
+
+    <BoolProperty Name="EnableWebFormsDefaultItems"
+                DisplayName="Enable WebForms Default Items"
+                Description="Whether to automatically include WebForms files as content."
+                Category="General"
+                Default="true"
+                IsRequired="false"
+                >
+        <BoolProperty.DataSource>
+            <DataSource Persistence="ProjectFile" PersistedName="EnableWebFormsDefaultItems" HasConfigurationCondition="False" />
+        </BoolProperty.DataSource>
+    </BoolProperty>
+
+    <EnumProperty Name="MvcBuildViews"
+                DisplayName="Invoke AspNetCompiler"
+                Description="Whether to invoke the AspNetCompiler automatically after build"
+                Category="General"
+                Default=""
+                IsRequired="false"
+                >
+        <EnumProperty.DataSource>
+            <DataSource Persistence="ProjectFile" PersistedName="MvcBuildViews" HasConfigurationCondition="True" />
+        </EnumProperty.DataSource>
+        <EnumValue Name="" DisplayName="Auto" IsDefault="true" Description="true if Configuration is Release, false otherwise." />
+        <EnumValue Name="True" DisplayName="Always" Description="Always invoke the compiler." />
+        <EnumValue Name="False" DisplayName="Never" Description="Never invoke the compiler." />
+    </EnumProperty>
+
+    <BoolProperty Name="AutoGenerateBindingRedirects"
+                Category="BindingRedirects">
+        <BoolProperty.DataSource>
+            <DataSource HasConfigurationCondition="False"
+                  PersistedName="AutoGenerateBindingRedirects"
+                  Persistence="ProjectFile"
+                  SourceOfDefaultValue="AfterContext" />
+        </BoolProperty.DataSource>
+    </BoolProperty>
+
+    <EnumProperty Name="GeneratedBindingRedirectsAction"
+                DisplayName="Generated Binding Redirects Action"
+                Description="What to do with Binding Redirects"
+                Category="BindingRedirects"
+                >
+        <EnumProperty.DataSource>
+            <DataSource Persistence="ProjectFile" PersistedName="GeneratedBindingRedirectsAction" HasConfigurationCondition="False" />
+        </EnumProperty.DataSource>
+        <EnumProperty.Metadata>
+            <NameValuePair Name="VisibilityCondition">
+                <NameValuePair.Value>(has-evaluated-value "SystemWebAppPropertyPage" "AutoGenerateBindingRedirects" true)</NameValuePair.Value>
+            </NameValuePair>
+            <NameValuePair Name="DependsOn" Value="SystemWebAppPropertyPage::AutoGenerateBindingRedirects" />
+        </EnumProperty.Metadata>
+        <EnumValue Name="None" DisplayName="None" IsDefault="true" Description="Do nothing except show the warning." />
+        <EnumValue Name="Preview" DisplayName="Preview" Description="Creates new Web.BindingRedirects.config file showing proposed changes." />
+        <EnumValue Name="Overwrite" DisplayName="Overwrite" Description="Updates the $(AppConfig) aka web.config in the project root." />
+    </EnumProperty>
+
+    <BoolProperty Name="SetRoslynToolPath"
+              DisplayName="Set RoslynToolPath automatically"
+              Description="Sets RoslynToolPath to the version included in Microsoft.Net.Compilers.Toolset to allow compiling .aspx files etc. using a newer langversion."
+              Category="Roslyn"
+              Default="true"
+              IsRequired="false"
+                >
+        <BoolProperty.DataSource>
+            <DataSource Persistence="ProjectFile" PersistedName="SetRoslynToolPath" HasConfigurationCondition="False" />
+        </BoolProperty.DataSource>
+
+        <BoolProperty.Metadata>
+            <NameValuePair Name="VisibilityCondition">
+                <NameValuePair.Value>(has-evaluated-value "ConfigurationSDKPackagesSystemWeb" "ExcludeSDKDefaultPackages" false)</NameValuePair.Value>
+            </NameValuePair>
+            <NameValuePair Name="DependsOn" Value="ConfigurationSDKPackagesSystemWeb::ExcludeSDKDefaultPackages" />
+        </BoolProperty.Metadata>
+    </BoolProperty>
+
+    <StringProperty Name="RoslynToolPath"
+                  DisplayName="Custom Roslyn ToolPath"
+                  Description="Source location for the Roslyn compiler to copy"
+                  Category="Roslyn"
+                  Subtype="directory"
+                    >
+        <StringProperty.DataSource>
+            <DataSource Persistence="ProjectFile" PersistedName="RoslynToolPath" HasConfigurationCondition="False" />
+        </StringProperty.DataSource>
+        <StringProperty.Metadata>
+            <NameValuePair Name="VisibilityCondition">
+                <NameValuePair.Value>(and (has-evaluated-value "SystemWebAppPropertyPage" "SetRoslynToolPath" false) (has-evaluated-value "ConfigurationSDKPackagesSystemWeb" "ExcludeSDKDefaultPackages" false))</NameValuePair.Value>
+            </NameValuePair>
+            <NameValuePair Name="DependsOn" Value="SystemWebAppPropertyPage::SetRoslynToolPath" />
+            <NameValuePair Name="DependsOn" Value="ConfigurationSDKPackagesSystemWeb::ExcludeSDKDefaultPackages" />
+        </StringProperty.Metadata>
+    </StringProperty>
+</Rule>

@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Based on code originally Copyright (c) Microsoft Corporation. -->
+<!-- Adapted to match only properties supported by ASP.Net V4.x for the MSBuild.SDK.SystemWeb project -->
+<Rule
+    Name="ConfigurationSDKPackagesSystemWeb"
+    DisplayName="SDK Package Versions"
+    PageTemplate="generic"
+    Description="SDK Package Versions"
+    xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+  <Rule.Categories>
+    <Category Name="General" DisplayName="General" Description="General Settings" />
+    <Category Name="Common" DisplayName="Common Packages" Description="Common Packages" />
+    <Category Name="SDKSpecific" DisplayName="Additional Packages" Description="Additional Packages" />
+  </Rule.Categories>
+
+  <Rule.DataSource>
+    <DataSource Persistence="ProjectFile" SourceOfDefaultValue="AfterContext" HasConfigurationCondition="false" />
+  </Rule.DataSource>
+
+  <BoolProperty Name="ExcludeSDKDefaultPackages"
+                DisplayName="Exclude SDK Default Packages"
+                Description="Do not include the default packages like Microsoft.Net.Compilers.Toolset and Microsoft.CodeDom.Providers.DotNetCompilerPlatform"
+                Category="General"
+                Default="false"
+                IsRequired="false"
+                >
+    <BoolProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="ExcludeSDKDefaultPackages" HasConfigurationCondition="False" />
+    </BoolProperty.DataSource>
+  </BoolProperty>
+
+  <EnumProperty Name="ApplySDKDefaultPackageVersions"
+                DisplayName="Apply SDK Default Package Versions"
+                Description="Apply the default versions of packages"
+                Category="General"
+                >
+    <EnumProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="ApplySDKDefaultPackageVersions" HasConfigurationCondition="False" />
+    </EnumProperty.DataSource>
+    <EnumProperty.Metadata>
+      <NameValuePair Name="VisibilityCondition">
+        <NameValuePair.Value>(has-evaluated-value "ConfigurationSDKPackagesSystemWeb" "ExcludeSDKDefaultPackages" false)</NameValuePair.Value>
+      </NameValuePair>
+      <NameValuePair Name="DependsOn" Value="ConfigurationSDKPackagesSystemWeb::ExcludeSDKDefaultPackages" />
+    </EnumProperty.Metadata>
+    <EnumValue Name="" DisplayName="Auto" IsDefault="true" Description="Apply version numbers unless a central package management system of some sort has been detected." />
+    <EnumValue Name="true" DisplayName="Always" Description="Always apply the version numbers (overriding any CPM system)." />
+    <EnumValue Name="false" DisplayName="Never" Description="Never apply the version numbers. A CPM or manual &lt;PackageReference Update=&quot;...&quot; Version=&quot;...&quot; /&gt; lines must be added." />
+  </EnumProperty>
+
+  <StringProperty Name="Microsoft.Net.Compilers.Toolset"
+                  DisplayName="Microsoft.Net.Compilers.Toolset"
+                  Description="Microsoft.Net.Compilers.Toolset Version"
+                  Category="Common"
+                  IsRequired="True"
+                    >
+    <StringProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="MicrosoftNetCompilersToolset_Version" HasConfigurationCondition="False" />
+    </StringProperty.DataSource>
+    <StringProperty.Metadata>
+      <NameValuePair Name="VisibilityCondition">
+        <NameValuePair.Value>(has-evaluated-value "ConfigurationSDKPackagesSystemWeb" "ExcludeSDKDefaultPackages" false)</NameValuePair.Value>
+      </NameValuePair>
+      <NameValuePair Name="DependsOn" Value="ConfigurationSDKPackagesSystemWeb::ExcludeSDKDefaultPackages" />
+    </StringProperty.Metadata>
+  </StringProperty>
+
+  <StringProperty Name="Microsoft.CodeDom.Providers.DotNetCompilerPlatform"
+                  DisplayName="Microsoft.CodeDom.Providers.DotNetCompilerPlatform"
+                  Description="Microsoft.CodeDom.Providers.DotNetCompilerPlatform Version"
+                  Category="Common"
+                  IsRequired="True"
+                >
+    <StringProperty.DataSource>
+      <DataSource Persistence="ProjectFile" PersistedName="MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version" HasConfigurationCondition="False" />
+    </StringProperty.DataSource>
+    <StringProperty.Metadata>
+      <NameValuePair Name="VisibilityCondition">
+        <NameValuePair.Value>(has-evaluated-value "ConfigurationSDKPackagesSystemWeb" "ExcludeSDKDefaultPackages" false)</NameValuePair.Value>
+      </NameValuePair>
+      <NameValuePair Name="DependsOn" Value="ConfigurationSDKPackagesSystemWeb::ExcludeSDKDefaultPackages" />
+    </StringProperty.Metadata>
+  </StringProperty>
+</Rule>

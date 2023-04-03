@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Based on code originally Copyright (c) Microsoft Corporation. -->
+<!-- Adapted to match only properties supported by ASP.Net V4.x for the MSBuild.SDK.SystemWeb project -->
+<Rule
+    Name="ConfigurationSDKPackagesSystemWeb"
+    DisplayName="SDK Package Versions"
+    PageTemplate="generic"
+    Description="SDK Package Versions"
+    xmlns="http://schemas.microsoft.com/build/2009/properties"
+    OverrideMode="Extend">
+
+    <StringProperty Name="RazorGenerator.MsBuild"
+                  DisplayName="RazorGenerator.MsBuild"
+                  Description="RazorGenerator.MsBuild Version"
+                  Category="SDKSpecific"
+                  IsRequired="True"
+                    >
+        <StringProperty.DataSource>
+            <DataSource Persistence="ProjectFile" PersistedName="RazorGeneratorMSBuild_Version" HasConfigurationCondition="False" />
+        </StringProperty.DataSource>
+        <StringProperty.Metadata>
+            <NameValuePair Name="VisibilityCondition">
+                <NameValuePair.Value>(has-evaluated-value "ConfigurationSDKPackagesSystemWeb" "ExcludeSDKDefaultPackages" false)</NameValuePair.Value>
+            </NameValuePair>
+            <NameValuePair Name="DependsOn" Value="ConfigurationSDKPackagesSystemWeb::ExcludeSDKDefaultPackages" />
+        </StringProperty.Metadata>
+    </StringProperty>
+
+    <StringProperty Name="RazorGenerator.MVC"
+                  DisplayName="RazorGenerator.MVC"
+                  Description="RazorGenerator.MVC Version"
+                  Category="SDKSpecific"
+                  IsRequired="True"
+                    >
+        <StringProperty.DataSource>
+            <DataSource Persistence="ProjectFile" PersistedName="RazorGeneratorMVC_Version" HasConfigurationCondition="False" />
+        </StringProperty.DataSource>
+        <StringProperty.Metadata>
+            <NameValuePair Name="VisibilityCondition">
+                <NameValuePair.Value>(has-evaluated-value "ConfigurationSDKPackagesSystemWeb" "ExcludeSDKDefaultPackages" false)</NameValuePair.Value>
+            </NameValuePair>
+            <NameValuePair Name="DependsOn" Value="ConfigurationSDKPackagesSystemWeb::ExcludeSDKDefaultPackages" />
+        </StringProperty.Metadata>
+    </StringProperty>
+
+    <StringProperty Name="Microsoft.AspNet.Mvc"
+                  DisplayName="Microsoft.AspNet.Mvc"
+                  Description="Microsoft.AspNet.Mvc Version"
+                  Category="SDKSpecific"
+                  IsRequired="True"
+                    >
+        <StringProperty.DataSource>
+            <DataSource Persistence="ProjectFile" PersistedName="MicrosoftAspNetMvc_Version" HasConfigurationCondition="False" />
+        </StringProperty.DataSource>
+        <StringProperty.Metadata>
+            <NameValuePair Name="VisibilityCondition">
+                <NameValuePair.Value>(has-evaluated-value "ConfigurationSDKPackagesSystemWeb" "ExcludeSDKDefaultPackages" false)</NameValuePair.Value>
+            </NameValuePair>
+            <NameValuePair Name="DependsOn" Value="ConfigurationSDKPackagesSystemWeb::ExcludeSDKDefaultPackages" />
+        </StringProperty.Metadata>
+    </StringProperty>
+</Rule>

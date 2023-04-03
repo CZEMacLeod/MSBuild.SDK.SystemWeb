@@ -12,9 +12,12 @@
     <None Include="version.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\MSBuild.SDK.SystemWeb.CommonFiles\Sdk\**"
-      Pack="true"
-      PackagePath="Sdk\" />
+    <None Include="..\MSBuild.SDK.SystemWeb.CommonFiles\Sdk\**" Pack="true" PackagePath="Sdk\" />
     <None Update="..\MSBuild.SDK.SystemWeb.CommonFiles\Sdk\**" Link="Sdk\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Sdk\en-US\Project\SystemWebAppPropertyPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 </Project>

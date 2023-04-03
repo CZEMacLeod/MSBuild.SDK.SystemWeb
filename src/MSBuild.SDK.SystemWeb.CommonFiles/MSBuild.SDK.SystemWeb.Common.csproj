@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Sdk\**"
-      Pack="true"
-      PackagePath="Sdk\" />
+    <None Include="Sdk\**" Pack="true" PackagePath="Sdk\" />
   </ItemGroup>
 
 </Project>

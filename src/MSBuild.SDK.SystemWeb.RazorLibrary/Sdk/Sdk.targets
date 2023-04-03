@@ -4,6 +4,7 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
 
+  <Import Project="MSBuild.SDK.SystemWeb.Common.Designtime.targets" />
   <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.BindingRedirects.targets"/>
   <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.targets"/>
   <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.RazorGeneratorDirectives.targets" />
