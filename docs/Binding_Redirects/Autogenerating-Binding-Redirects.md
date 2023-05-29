@@ -28,3 +28,14 @@ If you want this to happen automatically, you can add the following to your proj
     <GeneratedBindingRedirectsAction>Overwrite</GeneratedBindingRedirectsAction>
   </PropertyGroup>
 ```
+
+# Razor Views
+MVC Views folders often contain a customized version of `web.config`, including a `system.web.webPages.razor` section and may include other settings to prevent serving files in the folder using the `BlockViewHandler`.
+
+Since views may reference models or components from assemblies which have/require binding redirects, the redirects from the main `web.config` should normally be copied to these files too.
+
+To facilitate this scenario, a new item group is added, and any `web.config` files in Views or Areas\*\Views folders are marked as `RazorAppConfigFiles`.
+
+The same rules and property (`GeneratedBindingRedirectsAction`) that affects the main `web.config` will also update these files.
+
+This applies to both the main SDK and the RazorLibrary SDK.
