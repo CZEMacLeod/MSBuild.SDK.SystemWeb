@@ -83,6 +83,8 @@ For more information see
 
 ## Items
 
+### Common Items
+
 | Item Name | Default | Description |
 | --------- | ------- | ----------- |
-| `RazorAppConfigFiles` | `Views/web.config`<br>`Areas/**/web.config` | List of config files that will be updated with binding redirects |
+| `RazorAppConfigFiles` | `Views/web.config`<br>`Areas/**/web.config` | List of config files that will be updated with binding redirects in addition to $(AppConfig) |
