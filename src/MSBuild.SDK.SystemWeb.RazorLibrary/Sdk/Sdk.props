@@ -3,7 +3,6 @@
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
   <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.props"/>
-  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.BindingRedirects.props"/>
   <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultItems.props"/>
   <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.RazorGeneratorDirectives.props" />
   
@@ -15,9 +14,5 @@
   <ItemGroup>
     <ProjectCapability Include="SupportsSystemWeb" />
     <ProjectCapability Include="LegacyRazorEditor" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(BuildingInsideVisualStudio)'=='true'">
-    <AvailableItemName Include="RazorAppConfigFiles" />
   </ItemGroup>
 </Project>

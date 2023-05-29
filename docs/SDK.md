@@ -65,3 +65,11 @@ You can also use the [templates](Templates.md) to easily create new projects.
 | ------- | --------------- | -------- |
 | `Microsoft.Net.Compilers.Toolset` | 4.5.0 | `MicrosoftNetCompilersToolset_Version` |
 | `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` | 3.6.0 | `MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version` |
+
+## Items
+
+### Common Items
+
+| Item Name | Default | Description |
+| --------- | ------- | ----------- |
+| `RazorAppConfigFiles` | `Views/web.config`<br>`Areas/**/web.config` | List of config files that will be updated with binding redirects in addition to $(AppConfig) |
