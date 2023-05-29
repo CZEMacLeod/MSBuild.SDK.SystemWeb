@@ -7,8 +7,12 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <PublishProfileImported>true</PublishProfileImported>
     <AppConfig>web.config</AppConfig>
-
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectCapability Include="DotNetCoreWeb" />
+  </ItemGroup>
+  <Import Project="MSBuild.SDK.SystemWeb.Common.Designtime.props" />
 
   <Import Project="MSBuild.SDK.SystemWeb.DefaultPackages.props" />
   <!-- Default item includes -->

@@ -12,10 +12,7 @@
     <AppConfig>web.config</AppConfig>
   </PropertyGroup>
   
-  <ItemGroup>
-    <ProjectCapability Include="SupportsSystemWeb" />
-    <ProjectCapability Include="LegacyRazorEditor" />
-  </ItemGroup>
+  <Import Project="MSBuild.SDK.SystemWeb.Common.Designtime.props" />
 
   <ItemGroup Condition="'$(BuildingInsideVisualStudio)'=='true'">
     <AvailableItemName Include="RazorAppConfigFiles" />

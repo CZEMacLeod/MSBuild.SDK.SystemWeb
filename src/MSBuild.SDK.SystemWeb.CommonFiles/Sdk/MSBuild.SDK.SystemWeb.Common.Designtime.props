@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+Based on Microsoft.Web.Designtime.targets but modified for ASP.NET V4.x
+
+  -->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ProjectCapability Include="SupportsSystemWeb" />
+    <!-- Force 'legacy' mode for razor files (no LSP) so that we can handle ASP.NET 4.x Intellisense - Closes #27 -->
+    <ProjectCapability Include="LegacyRazorEditor" />
+  </ItemGroup>
+
+  <!-- Support for making items "appear" nested in the solution explorer even when the DependentUpon metadata not set
+    https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/43 
+    Added because desire to support Environment Specific Transformation of config files
+  -->
+  <ItemGroup
+    Condition=" '$(BuildingInsideVisualStudio)' == 'true' and '$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' >= '15.0' "
+    Label="This Capability is included by the .net core web projects and tells the solution Explorer to render certain items as nesting under others ">
+    <ProjectCapability Include="DynamicFileNesting"/>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <MSBuildSDKSystemWebTargetsPath Condition="'$(MSBuildSDKSystemWebTargetsPath)'==''">$(MSBuildThisFileDirectory)</MSBuildSDKSystemWebTargetsPath>
+    <ActualLangName Condition="Exists('$(MSBuildSDKSystemWebTargetsPath)$(LangName)')">$(LangName)</ActualLangName>
+    <ActualLangName Condition="'$(ActualLangName)' == ''">en-us</ActualLangName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(MSBuildSDKSystemWebXamlResourcesDirectory)' == ''">
+    <MSBuildSDKSystemWebXamlResourcesDirectory>$(MSBuildThisFileDirectory)$(ActualLangName)</MSBuildSDKSystemWebXamlResourcesDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <MSBuildSDKSystemWebXamlResourcesDirectory Condition="!HasTrailingSlash('$(MSBuildSDKSystemWebXamlResourcesDirectory)')">$(MSBuildSDKSystemWebXamlResourcesDirectory)\</MSBuildSDKSystemWebXamlResourcesDirectory>
+  </PropertyGroup>
+
+</Project>

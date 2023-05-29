@@ -65,3 +65,7 @@ You can also use the [templates](Templates.md) to easily create new projects.
 | ------- | --------------- | -------- |
 | `Microsoft.Net.Compilers.Toolset` | 4.5.0 | `MicrosoftNetCompilersToolset_Version` |
 | `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` | 3.6.0 | `MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version` |
+
+## Project Configuration and Launch Profiles
+
+Most settings (such as those shown in `Properties` above), should now be configurable in the project 

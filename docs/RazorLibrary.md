@@ -84,3 +84,7 @@ For more information see
 | Item Name | Default | Description |
 | --------- | ------- | ----------- |
 | `RazorAppConfigFiles` | `Views/web.config`<br>`Areas/**/web.config` | List of config files that will be updated with binding redirects |
+
+## Project Configuration
+
+Most settings (such as those shown in `Properties` above), should now be configurable in the new [.NET Project Designer](https://learn.microsoft.com/en-us/visualstudio/ide/reference/project-properties-reference?view=vs-2022) available in VS 2022 V17.5 and higher.
