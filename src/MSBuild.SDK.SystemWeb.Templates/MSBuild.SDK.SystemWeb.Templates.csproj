@@ -4,7 +4,7 @@
 
     <PackageType>Template</PackageType>
     <Description>Provides templates for projects that target System.Web using the MSBuild.SDK.SystemWeb SDK.</Description>
-    <PackageTags>MSBuild;MSBuildSdk;System.Web;Templates</PackageTags>
+    <PackageTags>MSBuild;MSBuildSdk;System.Web;Templates;Web;Razor</PackageTags>
 
     <IncludeContentInPack>true</IncludeContentInPack>
     <IncludeBuildOutput>false</IncludeBuildOutput>
@@ -22,16 +22,6 @@
 
   <ItemGroup>
     <None Include="images\*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="templates\RazorLibrary.SystemWeb.CS\App_Start\RazorGeneratorMvcStart.cs" />
-    <Content Remove="templates\RazorLibrary.SystemWeb.VB\App_Start\RazorGeneratorMvcStart.vb" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="templates\RazorLibrary.SystemWeb.CS\App_Start\RazorGeneratorMvcStart.cs" />
-    <Compile Include="templates\RazorLibrary.SystemWeb.VB\App_Start\RazorGeneratorMvcStart.vb" />
   </ItemGroup>
 
   <ItemGroup>
