@@ -8,12 +8,22 @@
   
   <ItemGroup Condition="'$(EnableWebFormsDefaultItems)'=='true'">
     <Content Include="Web.config" />
-    <_WebConfigConfigurations Include="$(Configurations)" />
-    <None Include="@(_WebConfigConfigurations->'Web.%(Identity).config')">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
+    <!-- web.*.config where * is a Configuration type (used for transforms) fixes #67 -->
+    <_WebConfigConfiguration Include="$(Configurations)" Exclude="@ExcludeWebConfigConfiguration">
+      <Configuration>%(Identity)</Configuration>
+    </_WebConfigConfiguration>
+    <_WebConfigConfigurationFile Include="@(_WebConfigConfiguration->'Web.%(Identity).config')" >
+      <DependentUpon Condition="EXISTS('Web.config')">Web.config</DependentUpon>
+      <CurrentConfiguration>false</CurrentConfiguration>
+      <CurrentConfiguration Condition="'$(Configuration)'=='%(Configuration)'">true</CurrentConfiguration>
+      <!-- The following could be extended to allow applying transforms based on the configuration in a hierarchical way. See notes in PR #68 -->
+      <!--<ApplyConfiguration>false</ApplyConfiguration>
+      <ApplyConfiguration Condition="'$(Configuration)'=='%(Configuration)'">true</ApplyConfiguration>
+      <ApplyConfiguration Condition="$(Configuration.StartsWith('%(Configuration).'))">true</ApplyConfiguration>-->
+    </_WebConfigConfigurationFile>
+    <None Include="@(_WebConfigConfigurationFile->Exists())" />
     <None Include="Web.BindingRedirects.config" Condition="EXISTS('Web.BindingRedirects.config')">
-      <DependentUpon>Web.config</DependentUpon>
+      <DependentUpon Condition="EXISTS('Web.config')">Web.config</DependentUpon>
     </None>
     
     <!-- Altered web.*.config inclusion so these items will be in the WebDeploy Package 
