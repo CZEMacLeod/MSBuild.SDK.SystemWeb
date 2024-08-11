@@ -68,7 +68,9 @@ variables:
   value: '$(Agent.MachineName)'
 - name: buildUser
   value: '$(Build.QueuedBy)'
-
+- name: 'timestamper'
+  value: ${{ parameters.timestamper }}
+  
 steps:
 - checkout: self
   clean: true
