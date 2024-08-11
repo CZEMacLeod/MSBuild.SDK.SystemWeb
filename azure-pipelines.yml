@@ -1,7 +1,45 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+parameters:
+  - name: timestamper
+    type: string
+    displayName: Time Stamper URL
+    default: 'http://timestamp.acs.microsoft.com'
+    values:
+    - 'http://timestamp.acs.microsoft.com'
+    - 'http://timestamp.sectigo.com'
+    - 'http://timestamp.digicert.com'
+    - 'http://aatl-timestamp.globalsign.com/tsa/aohfewat2389535fnasgnlg5m23'
+    - 'http://timestamp.entrust.net/TSS/RFC3161sha2TS'
+    - 'http://kstamp.keynectis.com/KSign/'
+    - 'http://tsa.quovadisglobal.com/TSS/HttpTspServer'
+    - 'http://kstamp.keynectis.com/KSign/'
+    - 'http://tss.accv.es:8318/tsa'
+    - 'http://tsa.izenpe.com'
+    - 'http://timestamp.sectigo.com/qualified'
+    - 'http://timestamp.comodoca.com'
+  - name: packagesigninginterval
+    type: number
+    displayName: Package Signing Interval
+    default: 1
+  - name: git_commit_ids
+    type: string
+    displayName: Build Commit IDs
+    default: ' '
+  - name: project_to_build
+    type: string
+    displayName: Project(s) to Build
+    default: ' '
+  - name: build_sdk
+    type: boolean
+    displayName: Force build MSBuild.SDK.SystemWeb
+    default: false
+  - name: build_razor_sdk
+    type: boolean
+    displayName: Force build MSBuild.SDK.SystemWeb.RazorLibrary
+    default: false
+  - name: build_templates
+    type: boolean
+    displayName: Force build MSBuild.SDK.SystemWeb.Templates
+    default: false
 
 trigger:
   batch: true
@@ -30,14 +68,26 @@ variables:
   value: '$(Agent.MachineName)'
 - name: buildUser
   value: '$(Build.QueuedBy)'
-- name: 'timestamper'
-  value: 'http://timestamp.comodoca.com'
 
 steps:
 - checkout: self
   clean: true
   submodules: true
   persistCredentials: true
+  fetchDepth: 0
+  fetchTags: true
+
+- powershell: 'Write-Host ("##vso[task.setvariable variable=project_to_build;]$($ENV:project_to_build);MSBuild.SDK.SystemWeb")'
+  displayName: 'Force building MSBuild.SDK.SystemWeb'
+  condition: eq(variables['build_sdk'],true)
+
+- powershell: 'Write-Host ("##vso[task.setvariable variable=project_to_build;]$($env:project_to_build);MSBuild.SDK.SystemWeb.RazorLibrary")'
+  displayName: 'Force building MSBuild.SDK.SystemWeb.RazorLibrary'
+  condition: eq(variables['build_razor_sdk'],true)
+
+- powershell: 'Write-Host ("##vso[task.setvariable variable=project_to_build;]$($env:project_to_build);MSBuild.SDK.SystemWeb.Templates")'
+  displayName: 'Force building MSBuild.SDK.SystemWeb.Templates'
+  condition: eq(variables['build_templates'],true)
 
 - powershell: 'Write-Host ("##vso[task.setvariable variable=MSBuildEmitSolution;]0")'
   displayName: 'Ensure MSBuildEmitSolution is not set'
@@ -47,19 +97,20 @@ steps:
   name: snk
   inputs:
     secureFile: '61ad38e7-05ff-4421-aea8-e3241b75c7a1'
-
-- task: PowerShell@2
-  displayName: 'Install Certificate'
+    
+- task: NuGetToolInstaller@1
+  displayName: 'Use NuGet >=6.6.1'
   inputs:
-    targetType: 'filePath'
-    filePath: 'build/ImportCert.ps1'
-  env:
-    password: $(pfx-password)
-    pfx: $(c3d-codesign)
+    versionSpec: '>=6.6.1'
+    checkLatest: true
 
-- task: NuGetToolInstaller@0
+# Install the code signing tool
+- task: DotNetCoreCLI@2
   inputs:
-    versionSpec: 5.8.1
+    command: custom
+    custom: tool
+    arguments: update sign --global --version 0.9.1-beta.23530.1
+  displayName: Install SignTool tool
 
 - task: NuGetCommand@2
   inputs:
@@ -93,23 +144,37 @@ steps:
      Write-Host "Packages: $ids"
      Write-Host "Package Count: $($packages.Count)"
      Write-Host ("##vso[task.setvariable variable=package_count;]$($packages.Count)")
-
-- task: NuGetCommand@2
+     
+# Run the signing command
+- task: PowerShell@2
+  displayName: Sign packages
   condition: and(succeeded(), ne(variables['package_count'],0))
-  displayName: 'NuGet Sign'
   inputs:
-    command: custom
-    arguments: 'sign $(Build.ArtifactStagingDirectory)\*.nupkg -Timestamper $(timestamper) -CertificateFingerprint $(app_pfx_thumbprint)'
-
+    targetType: inline
+    script: |
+      sign code azure-key-vault `
+      "**/*.nupkg" `
+      --base-directory "$(Build.ArtifactStagingDirectory)" `
+      -d "Cynthia Z E MacLeod" `
+      -u "https://github.com/CZEMacLeod" `
+      -kvu "https://c3d-devops.vault.azure.net/" `
+      -kvc "c3d-codesign" `
+      -v information `
+      -t "$(timestamper)" `
+      --azure-key-vault-tenant-id "$(SignTenantId)" `
+      --azure-key-vault-client-id "$(SignClientId)" `
+      --azure-key-vault-client-secret '$(SignClientSecret)'
 
 - task: CopyFiles@2
+  condition: and(succeeded(), ne(variables['package_count'],0))
   displayName: Create nuget publish config
   inputs:
-    sourceFolder: $(Build.SourcesDirectory)
+    sourceFolder: '$(Build.SourcesDirectory)\build'
     contents: 'nuget.publish.config'
     targetFolder: $(Build.ArtifactStagingDirectory)
 
 - task: PowerShell@2
+  condition: and(succeeded(), ne(variables['package_count'],0))
   displayName: Build Nuget Source URL
   inputs:
     targetType: 'inline'
@@ -122,6 +187,7 @@ steps:
     GITHUB_OWNER: $(GITHUB_OWNER)
 
 - script: nuget.exe sources Add -NonInteractive -Name GitHub -Source "%NUGET_SOURCE%" -Username "%GITHUB_USERNAME%" -Password "%GITHUB_TOKEN%" -ConfigFile %NUGET_CONFIG%
+  condition: and(succeeded(), ne(variables['package_count'],0))
   displayName: Add github package source
   env:
     GITHUB_OWNER: $(GITHUB_OWNER)
@@ -132,33 +198,30 @@ steps:
 
 - script: nuget push -Source GitHub -ConfigFile %NUGET_CONFIG% -SkipDuplicate "%PACKAGES_DIR%\*.nupkg"
   displayName: Push Nuget Packages to $(GITHUB_PACKAGES)
+  condition: and(succeeded(), ne(variables['package_count'],0))
   env:
     PACKAGES_DIR: $(Build.ArtifactStagingDirectory)
     NUGET_CONFIG: $(Build.ArtifactStagingDirectory)\nuget.publish.config
 
-#- task: NuGetCommand@2
-#  displayName: Push Nuget Packages to $(GITHUB_PACKAGES)
-#  inputs:
-#    command: 'push'
-#    feedsToUse: 'config'
-#    publishFeedCredentials: 'github-czemacleod-packages'
-#    externalFeedCredentials: 'github-czemacleod-packages'
-#    packagesToPush: $(Build.ArtifactStagingDirectory)\*.nupkg
-#    verbosityPush: 'Detailed'
-#    nuGetFeedType: 'external'
+- script: nuget.exe sources Add -NonInteractive -Name NuGet -Source "https://api.nuget.org/v3/index.json" -ConfigFile %NUGET_CONFIG%
+  condition: and(succeeded(), ne(variables['package_count'],0))
+  displayName: Add nuget.org package source
+  env:
+    NUGET_CONFIG: $(Build.ArtifactStagingDirectory)\nuget.publish.config
 
-- task: NuGetCommand@2
+- script: nuget.exe setapikey %NUGET_API_KEY% -Source "https://api.nuget.org/v3/index.json" -ConfigFile %NUGET_CONFIG%
+  condition: and(succeeded(), ne(variables['package_count'],0))
+  displayName: Set nuget.org apikey
+  env:
+    NUGET_API_KEY: $(NUGET_API_KEY)
+    NUGET_CONFIG: $(Build.ArtifactStagingDirectory)\nuget.publish.config
+
+- script: nuget push -Source NuGet -ConfigFile %NUGET_CONFIG% -SkipDuplicate "%PACKAGES_DIR%\*.nupkg"
   displayName: Push Nuget Packages to nuget.org
-  inputs:
-    command: 'push'
-    feedsToUse: 'config'
-    includeNugetOrg: 'true'
-    publishFeedCredentials: 'NuGet.org'
-    externalFeedCredentials: 'NuGet.org'
-    packagesToPush: $(Build.ArtifactStagingDirectory)\*.nupkg
-    verbosityPush: 'Detailed'
-    nuGetFeedType: 'external'
-    allowPackageConflicts: true
+  condition: and(succeeded(), ne(variables['package_count'],0))
+  env:
+    PACKAGES_DIR: $(Build.ArtifactStagingDirectory)
+    NUGET_CONFIG: $(Build.ArtifactStagingDirectory)\nuget.publish.config
 
 - powershell: |
     Write-Host "Tagging Build: $env:BuildNumber"
@@ -171,17 +234,10 @@ steps:
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
 
 - task: GithubRelease@0 
-  displayName: 'Create GitHub Release'      
+  displayName: 'Create GitHub Release'
+  condition: and(succeeded(), ne(variables['package_count'],0))
   inputs:
     gitHubConnection: github-czemacleod
-    repositoryName: CZEMacLeod/MSBuild.SDK.SystemWeb           
+    repositoryName: CZEMacLeod/MSBuild.SDK.SystemWeb
     assets: $(Build.ArtifactStagingDirectory)/*.nupkg
     addChangeLog: true
-
-- task: PowerShell@2
-  displayName: 'Remove Cert'
-  inputs:
-    targetType: filePath
-    filePath: 'build/RemoveCert.ps1'
-    arguments: '-thumb $(app_pfx_thumbprint)'
-  condition: always()
