@@ -3,7 +3,6 @@
     <TargetFramework>net472</TargetFramework>
     <Description>Provides targets for projects that target System.Web.</Description>
     <PackageTags>MSBuild;MSBuildSdk;System.Web</PackageTags>
-    <ArtifactsPath>$(BaseArtifactsPath)$(MSBuildProjectName)\</ArtifactsPath>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageType>MSBuildSdk</PackageType>
     <PackageReadmeFile>README.md</PackageReadmeFile>

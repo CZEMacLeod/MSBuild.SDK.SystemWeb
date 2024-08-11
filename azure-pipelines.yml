@@ -77,18 +77,6 @@ steps:
   fetchDepth: 0
   fetchTags: true
 
-- powershell: 'Write-Host ("##vso[task.setvariable variable=project_to_build;]$($ENV:project_to_build);MSBuild.SDK.SystemWeb")'
-  displayName: 'Force building MSBuild.SDK.SystemWeb'
-  condition: eq(variables['build_sdk'],true)
-
-- powershell: 'Write-Host ("##vso[task.setvariable variable=project_to_build;]$($env:project_to_build);MSBuild.SDK.SystemWeb.RazorLibrary")'
-  displayName: 'Force building MSBuild.SDK.SystemWeb.RazorLibrary'
-  condition: eq(variables['build_razor_sdk'],true)
-
-- powershell: 'Write-Host ("##vso[task.setvariable variable=project_to_build;]$($env:project_to_build);MSBuild.SDK.SystemWeb.Templates")'
-  displayName: 'Force building MSBuild.SDK.SystemWeb.Templates'
-  condition: eq(variables['build_templates'],true)
-
 - powershell: 'Write-Host ("##vso[task.setvariable variable=MSBuildEmitSolution;]0")'
   displayName: 'Ensure MSBuildEmitSolution is not set'
 

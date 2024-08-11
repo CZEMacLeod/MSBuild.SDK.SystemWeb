@@ -3,7 +3,6 @@
     <TargetFramework>net472</TargetFramework>
     <Description>Provides targets for Razor Library projects that target System.Web.</Description>
     <PackageTags>MSBuild;MSBuildSdk;System.Web;Razor;MVC5</PackageTags>
-    <ArtifactsPath>$(BaseArtifactsPath)$(MSBuildProjectName)\</ArtifactsPath>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageType>MSBuildSdk</PackageType>
     <PackageReadmeFile>README.md</PackageReadmeFile>

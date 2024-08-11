@@ -6,5 +6,7 @@
     <PackageOutputPath Condition="'$(PackageOutputPath)'==''">$(MSBuildThisFileDirectory)packages\</PackageOutputPath>
     <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
     <NoWarn>$(NoWarn);NU5128;SA0001</NoWarn>
+
+    <ArtifactsPath>$(BaseArtifactsPath)$(MSBuildProjectName)\</ArtifactsPath>
   </PropertyGroup>
 </Project>
