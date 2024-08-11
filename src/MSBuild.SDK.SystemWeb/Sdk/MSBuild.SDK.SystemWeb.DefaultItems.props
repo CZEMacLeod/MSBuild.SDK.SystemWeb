@@ -76,4 +76,10 @@
     <Content Include="**\*.master" Exclude="$(DefaultWebFormsItemExcludes)" />
     <Content Include="**\*.svc" Exclude="$(DefaultWebFormsItemExcludes)" />
   </ItemGroup>
+
+  <!-- Support App_Browsers and App_Themes folders https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/79 -->
+  <ItemGroup>
+    <Content Include="App_Browsers\*.browser" Exclude="$(DefaultWebFormsItemExcludes)" Condition="Exists('App_Browsers')" />
+    <Content Include="App_Themes\**\*" Exclude="$(DefaultWebFormsItemExcludes)" Condition="Exists('App_Themes')" />
+  </ItemGroup>
 </Project>
