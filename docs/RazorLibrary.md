@@ -14,7 +14,7 @@ When using an MSBuild Project SDK obtained via NuGet (such as the SDKs in this r
 Either append the version to the package name:
 
 ```xml
-<Project Sdk="MSBuild.SDK.SystemWeb.RazorLibrary/4.0.88">
+<Project Sdk="MSBuild.SDK.SystemWeb.RazorLibrary/4.0.xx">
   ...
 ```
 
@@ -23,10 +23,12 @@ Or omit the version from the SDK attribute and specify it in the version in `glo
 ```json
 {
   "msbuild-sdks": {
-    "MSBuild.SDK.SystemWeb.RazorLibrary" : "4.0.88"
+    "MSBuild.SDK.SystemWeb.RazorLibrary" : "4.0.xx"
   }
 }
 ```
+
+Where `xx` is the latest release available on [nuget.org](https://nuget.org/packages/MSBuild.SDK.SystemWeb.RazorLibrary)
 
 You can also use the [templates](../MSBuild.SDK.SystemWeb.Templates) to easily create new projects.
 
