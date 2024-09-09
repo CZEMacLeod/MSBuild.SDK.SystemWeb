@@ -2,8 +2,6 @@
   
   <ItemGroup Condition="$(EnableDefaultItems)">
     <None Include="web.config" />
-    <RazorAppConfigFiles Include="Views/web.config" Condition="EXISTS('Views/web.config')" />
-    <RazorAppConfigFiles Include="Areas/**/web.config" />
   </ItemGroup>
   
 </Project>
