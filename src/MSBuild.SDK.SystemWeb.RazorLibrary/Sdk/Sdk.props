@@ -1,5 +1,7 @@
 ﻿<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
+  <PropertyGroup>
+    <UsingMSBuildSDKSystemWebRazor>true</UsingMSBuildSDKSystemWebRazor>
+  </PropertyGroup>
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
   <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.props"/>
