@@ -223,7 +223,7 @@ steps:
     BuildNumber: $(Build.BuildNumber)
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
 
-- task: GithubRelease@0 
+- task: GithubRelease@1
   displayName: 'Create GitHub Release'
   condition: and(succeeded(), ne(variables['package_count'],0))
   inputs:
