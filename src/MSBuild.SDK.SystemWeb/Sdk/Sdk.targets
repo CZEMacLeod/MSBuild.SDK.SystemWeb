@@ -1,4 +1,4 @@
-﻿<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Reference Include="System.Web" />
   </ItemGroup>
@@ -18,6 +18,7 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <WebApplicationsTargetPath Condition=" '$(WebApplicationsTargetPath)' == '' ">$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets</WebApplicationsTargetPath>
   </PropertyGroup>
 
   <!-- Default item excludes -->
@@ -28,5 +29,5 @@
   <!-- Inject BindingRedirects targets after Microsoft.NET.Sdk is injected -->
   <Import Project="MSBuild.SDK.SystemWeb.BindingRedirects.targets" />
 
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="$(WebApplicationsTargetPath)" />
 </Project>
