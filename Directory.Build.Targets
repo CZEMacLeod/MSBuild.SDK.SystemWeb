@@ -33,7 +33,7 @@
     <None Include="Sdk\**"
           Pack="true"
           PackagePath="Sdk\" />
-    <None Include="README.md" Condition="EXISTS('README.md')" Pack="true" PackagePath="\" />
+    <None Include="README.md" Condition="EXISTS('README.md')" Pack="true" PackagePath="\" ReplaceVersion="true" />
     <None Include="$(PackageLicensePath)"
           Pack="true"
           PackagePath="$(PackageLicenseFile)"
@@ -43,5 +43,36 @@
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37" PrivateAssets="All" />
   </ItemGroup>
+  
+  <Target Name="UpdateFiles" BeforeTargets="BeforeBuild" DependsOnTargets="GetBuildVersion">
+    <ItemGroup>
+      <_Temporary Remove="@(_Temporary)" />
+      <_Temporary Include="@(None->HasMetadata('ReplaceVersion'))">
+        <SourceGroup>None</SourceGroup>
+        <SourceFile>%(Identity)</SourceFile>
+        <VersionedFile>$([System.IO.Path]::Combine($(IntermediateOutputPath),%(Identity)))</VersionedFile>
+        <PackagePath>$([MSBuild]::ValueOrDefault('%(None.PackagePath)', '%(Identity)'))</PackagePath>
+      </_Temporary>
+      <_Temporary Include="@(Content->HasMetadata('ReplaceVersion'))">
+        <SourceGroup>Content</SourceGroup>
+        <SourceFile>%(Identity)</SourceFile>
+        <VersionedFile>$([System.IO.Path]::Combine($(IntermediateOutputPath),%(Identity)))</VersionedFile>
+        <PackagePath>$([MSBuild]::ValueOrDefault('%(Content.PackagePath)', 'content\%(Identity)'))</PackagePath>
+      </_Temporary>
+    </ItemGroup>
+    <Message Text="%(_Temporary.Identity)" Importance="high" />
+    <WriteLinesToFile
+        File="%(_Temporary.VersionedFile)"
+        Lines="$([System.IO.File]::ReadAllText('%(_Temporary.SourceFile)').Replace('$version$','$(Version)'))"
+        Overwrite="true"
+        Encoding="Unicode"/>
+    <ItemGroup>
+      <None Remove="@(_Temporary->WithMetadataValue('SourceGroup','None'))" />
+      <None Include="@(_Temporary->WithMetadataValue('SourceGroup','None')->'%(VersionedFile)')" />
 
+      <Content Remove="@(_Temporary->WithMetadataValue('SourceGroup','Content'))" />
+      <Content Include="@(_Temporary->WithMetadataValue('SourceGroup','Content')->'%(VersionedFile)')" />
+    </ItemGroup>
+  </Target>
+  
 </Project>
