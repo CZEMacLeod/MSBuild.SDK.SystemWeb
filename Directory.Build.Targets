@@ -65,7 +65,7 @@
         File="%(_Temporary.VersionedFile)"
         Lines="$([System.IO.File]::ReadAllText('%(_Temporary.SourceFile)').Replace('$version$','$(Version)'))"
         Overwrite="true"
-        Encoding="Unicode" Condition="@(_Temporary->Count())!=0" />
+        Encoding="UTF-8" Condition="@(_Temporary->Count())!=0" />
     <ItemGroup>
       <None Remove="@(_Temporary->WithMetadataValue('SourceGroup','None'))" />
       <None Include="@(_Temporary->WithMetadataValue('SourceGroup','None')->'%(VersionedFile)')" />
