@@ -275,3 +275,4 @@ cloud3d-codesign.snk
 
 # libman restored files
 /samples/ExampleFullWebApplication/lib
+/samples/RazorLibrary/ExampleRazorLibraryApplication/lib
