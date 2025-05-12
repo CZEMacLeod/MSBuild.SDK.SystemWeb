@@ -70,6 +70,12 @@ variables:
   value: '$(Build.QueuedBy)'
 - name: 'timestamper'
   value: ${{ parameters.timestamper }}
+- ${{ if startsWith(variables['Build.SourceBranch'], 'refs/heads/') }}:
+  - name: 'branchName'
+    value: $[ replace(variables['Build.SourceBranch'], 'refs/heads/', '') ]
+- ${{ if startsWith(variables['Build.SourceBranch'], 'refs/pull/') }}:
+  - name: 'branchName'
+    value: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
   
 steps:
 - checkout: self
