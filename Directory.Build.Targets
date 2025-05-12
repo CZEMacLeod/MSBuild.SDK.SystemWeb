@@ -60,12 +60,12 @@
         <PackagePath>$([MSBuild]::ValueOrDefault('%(Content.PackagePath)', 'content\%(Identity)'))</PackagePath>
       </_Temporary>
     </ItemGroup>
-    <Message Text="%(_Temporary.Identity)" Importance="high" />
+    <Message Text="Updating Version of %(_Temporary.Identity) [%(_Temporary.SourceGroup)]" Importance="high" />
     <WriteLinesToFile
         File="%(_Temporary.VersionedFile)"
         Lines="$([System.IO.File]::ReadAllText('%(_Temporary.SourceFile)').Replace('$version$','$(Version)'))"
         Overwrite="true"
-        Encoding="Unicode"/>
+        Encoding="Unicode" Condition="@(_Temporary->Count())!=0" />
     <ItemGroup>
       <None Remove="@(_Temporary->WithMetadataValue('SourceGroup','None'))" />
       <None Include="@(_Temporary->WithMetadataValue('SourceGroup','None')->'%(VersionedFile)')" />
