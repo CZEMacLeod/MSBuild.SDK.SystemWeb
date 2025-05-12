@@ -226,11 +226,13 @@ steps:
 
 - task: GithubRelease@1
   displayName: 'Create GitHub Release'
-  condition: and(succeeded(), ne(variables['package_count'],0))
+  condition: and(succeeded(), eq(variables['push_packages'], 'True'))
   inputs:
     gitHubConnection: github-czemacleod
     repositoryName: CZEMacLeod/MSBuild.SDK.SystemWeb
     assets: $(Build.ArtifactStagingDirectory)/*.nupkg
+    tagSource: userSpecifiedTag
+    tag: v$(Build.BuildNumber)
     addChangeLog: true
     releaseNotesSource: filePath
     releaseNotesFilePath: $(Build.ArtifactStagingDirectory)/ReleaseNotes.md
