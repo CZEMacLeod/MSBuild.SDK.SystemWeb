@@ -125,15 +125,10 @@ steps:
 - task: PowerShell@2
   displayName: 'Detect packages'
   inputs:
-   targetType: inline
-   script: |
-     $dir = $env:BUILD_ARTIFACTSTAGINGDIRECTORY + "\*.nupkg"
-     Write-Host "Package Directory: $dir"
-     $packages = Get-ChildItem -Path $dir -Recurse
-     $ids = $packages | Select-Object -ExpandProperty name
-     Write-Host "Packages: $ids"
-     Write-Host "Package Count: $($packages.Count)"
-     Write-Host ("##vso[task.setvariable variable=package_count;]$($packages.Count)")
+    targetType: filePath
+    filePath: 'build/DetectPackages.ps1'
+  env:
+    branchName: $(variables['branchName'])
      
 # Run the signing command
 - task: PowerShell@2
@@ -221,7 +216,7 @@ steps:
   displayName: Tag build
   env:
     BuildNumber: $(Build.BuildNumber)
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  condition: and(succeeded(), eq(variables['branchName'], 'main'))
 
 - task: GithubRelease@1
   displayName: 'Create GitHub Release'
@@ -231,3 +226,5 @@ steps:
     repositoryName: CZEMacLeod/MSBuild.SDK.SystemWeb
     assets: $(Build.ArtifactStagingDirectory)/*.nupkg
     addChangeLog: true
+    releaseNotesSource: filePath
+    releaseNotesFilePath: $(Build.ArtifactStagingDirectory)/ReleaseNotes.md
