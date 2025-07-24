@@ -60,6 +60,7 @@ For more information see
 | `OverwriteAppConfigWithBindingRedirects` | false | If set, then any [automatically generated binding redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md) will be copied into your web.config and `RazorAppConfigFiles` files. |
 
 ### Deprecated Properties
+
 | Property | Default value | Description |
 | -------- | ------------- | ----------- |
 | `ExcludeDefaultRazorPackages` | false | Use `ExcludeSDKDefaultPackages` instead  |
