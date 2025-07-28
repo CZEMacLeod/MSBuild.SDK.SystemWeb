@@ -69,10 +69,12 @@ For more information see
 
 ### Common Packages
 
-| Package | Default Version | Property |
-| ------- | --------------- | -------- |
-| `Microsoft.Net.Compilers.Toolset` | 4.5.0 | `MicrosoftNetCompilersToolset_Version` |
-| `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` | 3.6.0 | `MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version` |
+| Package | Target Framework | Default Version | Property |
+| ------- | ---------------- | --------------- | -------- |
+| `Microsoft.Net.Compilers.Toolset` | Any | 4.5.0 | `MicrosoftNetCompilersToolset_Version` |
+| `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` | <4.6.2 | 3.6.0 | `MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version` |
+| `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` | >=4.6.2 and < 4.7.2 | 3.11.0 | `MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version` |
+| `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` | >=4.7.2 | 4.1.0 | `MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version` |
 
 ### Specific Packages
 
