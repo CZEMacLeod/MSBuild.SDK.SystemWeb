@@ -27,7 +27,7 @@
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
 
   <!-- Inject BindingRedirects targets after Microsoft.NET.Sdk is injected -->
-  <Import Project="MSBuild.SDK.SystemWeb.BindingRedirects.targets" />
+  <Import Project="MSBuild.SDK.SystemWeb.Common.BindingRedirects.targets" />
 
   <Import Project="$(WebApplicationsTargetPath)" />
 </Project>
