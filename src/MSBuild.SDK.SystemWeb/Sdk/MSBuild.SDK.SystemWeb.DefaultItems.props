@@ -31,6 +31,15 @@
     https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/43 
     -->
     <Content Include="Web.*.config" Exclude="@(None)" />
+
+    <!-- Allows the Visual Studio Settings Designer to read from and write to Web.config
+    https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/95
+    -->
+    <None Include="Web.config" Condition="EXISTS('Web.config') AND !EXISTS('App.config')">
+      <Link>App.config</Link>
+      <Visible>false</Visible>
+      <InProject>false</InProject>
+    </None>
   </ItemGroup>
 
   <!-- Support App_GlobalResources folder
