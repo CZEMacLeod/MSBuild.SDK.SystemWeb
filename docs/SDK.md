@@ -39,7 +39,7 @@ Where `xx` is the latest release available on [nuget.org](https://nuget.org/pack
 | -------- | ------------- | ----------- |
 | `ExcludeSDKDefaultPackages` | false | Do not include the default packages `Microsoft.Net.Compilers.Toolset` and `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` |
 | `ApplySDKDefaultPackageVersions` | true* | Apply default version numbers to packages unless using a Central Package Management system |
-| `GeneratedBindingRedirectsAction` | None | Set the desired default behavior of what to do with SuggestedBindingRedirects if not yet set.<br>See [automatically generated binding redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md)<br><ul><li>`None` - Do nothing except show the warning</li><li>`Preview` - Creates new Web.BindingRedirects.config file showing proposed changes</li><li>`Overwrite` - Updates the $(AppConfig) aka web.config in the project root</li></ul> |
+| `GeneratedBindingRedirectsAction` | None | Set the desired default behavior of what to do with SuggestedBindingRedirects if not yet set.<br>See [automatically generated binding redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md)<br><ul><li>`None` - Do nothing except show the warning</li><li>`Preview` - Creates new Web.BindingRedirects.config file showing proposed changes</li><li>`Overwrite` - Updates the $(AppConfig) aka web.config in the project root and any `RazorAppConfigFiles` files</li></ul> |
 
 *Version numbers are not applied if you are using `Microsoft.Build.CentralPackageVersions` version 2.1.1 or higher. Remember to include the packages in your central package versions file.
 
@@ -54,6 +54,7 @@ Where `xx` is the latest release available on [nuget.org](https://nuget.org/pack
 ** You will have to adjust your web.config to change the `system.codedom/compilers/compiler` `compilerOptions` attribute to set the langversion - it won't automatically use the `LangVersion` property from your project file.
 
 ### Deprecated Properties
+
 | Property | Default value | Description |
 | -------- | ------------- | ----------- |
 | `ExcludeASPNetCompilers` | false | Use `ExcludeSDKDefaultPackages` instead |
@@ -63,7 +64,9 @@ Where `xx` is the latest release available on [nuget.org](https://nuget.org/pack
 
 ### Common Packages
 
-| Package | Default Version | Property |
-| ------- | --------------- | -------- |
-| `Microsoft.Net.Compilers.Toolset` | 4.5.0 | `MicrosoftNetCompilersToolset_Version` |
-| `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` | 3.6.0 | `MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version` |
+| Package | Target Framework | Default Version | Property |
+| ------- | ---------------- | --------------- | -------- |
+| `Microsoft.Net.Compilers.Toolset` | Any | 4.5.0 | `MicrosoftNetCompilersToolset_Version` |
+| `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` | <4.6.2 | 3.6.0 | `MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version` |
+| `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` | >=4.6.2 and < 4.7.2 | 3.11.0 | `MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version` |
+| `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` | >=4.7.2 | 4.1.0 | `MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version` |
