@@ -21,10 +21,28 @@
         Take an action
           OverwriteAppConfigWithBindingRedirects -> this is the SystemWeb Sdk Legacy property
           GeneratedBindingRedirectsAction (Overwrite) -> this will conditionally change wich config file is written to
+          
+    https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/58
+    This file is now common to both the MSBuild.SDK.SystemWeb and MSBuild.SDK.SystemWeb.RazorLibrary SDKs
+    As MVC Views folders often have their own copy of web.config, we need to ensure we add any binding redirects to those files too.
+    These are picked up by default into the RazorAppConfigFiles item group
     ====================================================================================================
 -->
 
 <Project>
+
+  <ItemGroup Condition="'$(BuildingInsideVisualStudio)'=='true'">
+    <AvailableItemName Include="RazorAppConfigFiles" />
+  </ItemGroup>
+  <ItemDefinitionGroup>
+    <RazorAppConfigFiles>
+      <Preview>%(RootDir)%(Directory)%(FileName).BindingRedirects%(Extension)</Preview>
+    </RazorAppConfigFiles>
+  </ItemDefinitionGroup>
+  <ItemGroup Condition="$(EnableDefaultItems)">
+    <RazorAppConfigFiles Include="Views/web.config" Condition="EXISTS('Views/web.config')" />
+    <RazorAppConfigFiles Include="Areas/**/web.config" />
+  </ItemGroup>
 
   <PropertyGroup Label="Change the default BindingRedirects behavior for projects of this SDK type">
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
@@ -59,7 +77,9 @@
 -->
   <Target Name="SystemWebProject_ChooseConfigFileForGenerateBindingRedirects"
           BeforeTargets="GenerateBindingRedirects"
-	        Condition="'$(AutoGenerateBindingRedirects)' == 'true' and '$(GenerateBindingRedirectsOutputType)' == 'true' and @(SuggestedBindingRedirects->Count()) > 0 ">
+	        Condition="'$(AutoGenerateBindingRedirects)' == 'true' and 
+                     '$(GenerateBindingRedirectsOutputType)' == 'true' and 
+                     @(SuggestedBindingRedirects->Count()) > 0 ">
 
     <PropertyGroup Label="Set the location of the file to which the suggestedBindingRedirects should be written during the GenerateBindingRedirects Target">
       <_GenerateBindingRedirectsIntermediateAppConfig Condition="'$(GeneratedBindingRedirectsAction)' == 'Preview' " >Web.BindingRedirects.config</_GenerateBindingRedirectsIntermediateAppConfig>
@@ -68,15 +88,48 @@
 
     <Warning Condition="'$(GeneratedBindingRedirectsAction)' != 'Preview' and '$(GeneratedBindingRedirectsAction)' != 'Overwrite'"
              File="$(TargetFileName).config"
-             Text="Generated Binding Redirects have been applied only to the $(TargetFileName).config. You should incorporate them into the web.config. Consider setting &lt;GeneratedBindingRedirectsAction&gt;Preview&lt;/GeneratedBindingRedirectsAction&gt; to create a file containing the proposals. Consider setting &lt;GeneratedBindingRedirectsAction&gt;Overwrite&lt;/GeneratedBindingRedirectsAction&gt; to automatically update web.config with proposals."  />
+             Text="Generated Binding Redirects have been applied only to the $(TargetFileName).config.
+You should incorporate them into the web.config.
+Consider setting &lt;GeneratedBindingRedirectsAction&gt;Preview&lt;/GeneratedBindingRedirectsAction&gt; to create a file containing the proposals. Consider setting &lt;GeneratedBindingRedirectsAction&gt;Overwrite&lt;/GeneratedBindingRedirectsAction&gt; to automatically update web.config with proposals."  />
 
     <Warning Condition="'$(GeneratedBindingRedirectsAction)' == 'Preview'"
              File="Web.BindingRedirects.config"
-             Text="Generated Binding Redirects have been applied only to the Web.BindingRedirects.config. You should incorporate them into the web.config. Consider setting &lt;GeneratedBindingRedirectsAction&gt;Overwrite&lt;/GeneratedBindingRedirectsAction&gt; to automatically update web.config with proposals." />
+             Text="Generated Binding Redirects have been applied only to the Web.BindingRedirects.config.
+You should incorporate them into the web.config.
+Consider setting &lt;GeneratedBindingRedirectsAction&gt;Overwrite&lt;/GeneratedBindingRedirectsAction&gt; to automatically update web.config with proposals." />
 
     <Warning Condition="'$(GeneratedBindingRedirectsAction)' == 'Overwrite'"
              File="Web.config"
              Text="Generated Binding Redirects have been applied automatically to the Web.config. This warning will disappear on the next build." />
+  </Target>
+
+  <Target Name="SystemWebProject_RazorAppConfigFilesBindingRedirects"
+          AfterTargets="GenerateBindingRedirects" 
+          Condition="'$(AutoGenerateBindingRedirects)' == 'true' and 
+                     '$(GenerateBindingRedirectsOutputType)' == 'true' and 
+                     @(RazorAppConfigFiles-&gt;Count()) &gt; 0 and
+                     '$(GeneratedBindingRedirectsAction)' != 'None' and
+                     @(SuggestedBindingRedirects-&gt;Count()) &gt; 0 ">
+
+    <GenerateBindingRedirects SuggestedRedirects="@(SuggestedBindingRedirects)"
+                              AppConfigFile="%(RazorAppConfigFiles.Identity)"
+                              OutputAppConfigFile="%(RazorAppConfigFiles.Preview)"
+                              Condition="'$(GeneratedBindingRedirectsAction)' == 'Preview'" />
+
+    <Warning Condition="'$(GeneratedBindingRedirectsAction)' == 'Preview'"
+             File="%(RazorAppConfigFiles.Preview)"
+             Text="Generated Binding Redirects have been applied only to %(RazorAppConfigFiles.Preview).
+You should incorporate them into the %(RazorAppConfigFiles.Identity).
+Consider setting &lt;GeneratedBindingRedirectsAction&gt;Overwrite&lt;/GeneratedBindingRedirectsAction&gt; to automatically update the file with proposals." />
+
+    <GenerateBindingRedirects SuggestedRedirects="@(SuggestedBindingRedirects)"
+                              AppConfigFile="%(RazorAppConfigFiles.Identity)"
+                              OutputAppConfigFile="%(RazorAppConfigFiles.Identity)"
+                              Condition="'$(GeneratedBindingRedirectsAction)' == 'Overwrite'" />
+
+    <Warning Condition="'$(GeneratedBindingRedirectsAction)' == 'Overwrite'"
+             File="%(RazorAppConfigFiles.Identity)"
+             Text="Generated Binding Redirects have been applied automatically to %(RazorAppConfigFiles.Identity). This warning will disappear on the next build." />
 
   </Target>
 </Project>

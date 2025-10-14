@@ -47,6 +47,7 @@ For more information see
 | -------- | ------------- | ----------- |
 | `ExcludeSDKDefaultPackages` | false | Do not include the default packages `Microsoft.Net.Compilers.Toolset` and `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` |
 | `ApplySDKDefaultPackageVersions` | true* | Apply default version numbers to packages unless using a Central Package Management system |
+| `GeneratedBindingRedirectsAction` | None | Set the desired default behavior of what to do with SuggestedBindingRedirects if not yet set.<br>See [automatically generated binding redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md)<br><ul><li>`None` - Do nothing except show the warning</li><li>`Preview` - Creates new Web.BindingRedirects.config file showing proposed changes</li><li>`Overwrite` - Updates the $(AppConfig) aka web.config in the project root and any `RazorAppConfigFiles` files</li></ul> |
 
 *Version numbers are not applied if you are using `Microsoft.Build.CentralPackageVersions` version 2.1.1 or higher. Remember to include the packages in your central package versions file.
 
@@ -57,13 +58,13 @@ For more information see
 | -------- | ------------- | ----------- |
 | `MvcBuildViews` | true if Configuration is Release<br/>false otherwise | Whether to invoke the AspNetCompiler automatically after build |
 | `EnableWebFormsDefaultItems` | Same as `EnableDefaultItems` | Whether to automatically include WebForms files as content<br><ul><li> *.asax</li><li> *.ascx</li><li> *.ashx</li><li> *.asmx</li><li> *.aspx</li><li> *.master</li><li> *.svc</li></ul> |
-| `OverwriteAppConfigWithBindingRedirects` | false | If set, then any [automatically generated binding redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md) will be copied into your web.config and `RazorAppConfigFiles` files. |
 
 ### Deprecated Properties
 
 | Property | Default value | Description |
 | -------- | ------------- | ----------- |
 | `ExcludeDefaultRazorPackages` | false | Use `ExcludeSDKDefaultPackages` instead  |
+| `OverwriteAppConfigWithBindingRedirects` | false | If set, then any [automatically generated binding redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md) will be copied into your web.config and `RazorAppConfigFiles` files. |
 
 ## Automatic Default Packages
 
@@ -84,6 +85,8 @@ For more information see
 
 ## Items
 
+### Common Items
+
 | Item Name | Default | Description |
 | --------- | ------- | ----------- |
-| `RazorAppConfigFiles` | `Views/web.config`<br>`Areas/**/web.config` | List of config files that will be updated with binding redirects |
+| `RazorAppConfigFiles` | `Views/web.config`<br>`Areas/**/web.config` | List of config files that will be updated with binding redirects in addition to $(AppConfig) |
