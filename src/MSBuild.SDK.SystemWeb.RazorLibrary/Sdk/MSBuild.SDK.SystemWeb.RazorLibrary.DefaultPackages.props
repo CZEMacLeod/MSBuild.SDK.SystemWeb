@@ -3,6 +3,7 @@
   <PropertyGroup>
     <ExcludeDefaultRazorPackages Condition="'$(ExcludeDefaultRazorPackages)'==''">false</ExcludeDefaultRazorPackages>
     <ExcludeSDKDefaultPackages Condition="'$(ExcludeSDKDefaultPackages)'==''">$(ExcludeDefaultRazorPackages)</ExcludeSDKDefaultPackages>
+    <EnableRazorGeneratorMVC Condition="'$(EnableRazorGeneratorMVC)'==''">true</EnableRazorGeneratorMVC>
   </PropertyGroup>
   <PropertyGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false'">
     <MicrosoftAspNetMvc_Version Condition="'$(MicrosoftAspNetMvc_Version)'==''">5.2.9</MicrosoftAspNetMvc_Version>
