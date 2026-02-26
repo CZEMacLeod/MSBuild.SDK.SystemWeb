@@ -19,7 +19,7 @@
       <_ConfigFileHash Include="@(_DllConfigFileHash)" />
       <_ConfigFileHash Include="@(_AppConfigFileHash)" />
     </ItemGroup>
-    <Message Text="%(_ConfigFileHash.Identity): %(_ConfigFileHash.FileHash)" Importance="high" />
+    <Message Text="%(_ConfigFileHash.Identity): %(_ConfigFileHash.FileHash)" />
     <Warning Text="Replacing web.config due to changes during compile - This should clear warning MSB3276 on next compile" File="web.config" Condition="'$(_DllConfigHash)'!='$(_AppConfigHash)'" />
     <PropertyGroup>
       <ConfigNameSpaces>&lt;Namespace Prefix='asm' Uri='urn:schemas-microsoft-com:asm.v1' /&gt;</ConfigNameSpaces>
@@ -29,7 +29,7 @@
              Query="/configuration/runtime/asm:assemblyBinding/asm:dependentAssembly" Condition="'$(_DllConfigHash)'!='$(_AppConfigHash)'">
       <Output TaskParameter="Result" ItemName="_bindings" />
     </XmlPeek>
-    <Message Text="New Bindings: %(_bindings.Indentity)" Importance="high" />
+    <Message Text="New Bindings: %(_bindings.Indentity)" Importance="high" Condition="@(_bindings->Count())!=0" />
     <PropertyGroup>
       <Bindings>@(_bindings ,'')</Bindings>
     </PropertyGroup>

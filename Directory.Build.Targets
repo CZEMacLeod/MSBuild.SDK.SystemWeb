@@ -60,7 +60,7 @@
         <PackagePath>$([MSBuild]::ValueOrDefault('%(Content.PackagePath)', 'content\%(Identity)'))</PackagePath>
       </_Temporary>
     </ItemGroup>
-    <Message Text="Updating Version of %(_Temporary.Identity) [%(_Temporary.SourceGroup)]" Importance="high" />
+    <Message Text="Updating Version of %(_Temporary.Identity) [%(_Temporary.SourceGroup)]" Importance="high" Condition="@(_Temporary->Count())!=0" />
     <WriteLinesToFile
         File="%(_Temporary.VersionedFile)"
         Lines="$([System.IO.File]::ReadAllText('%(_Temporary.SourceFile)').Replace('$version$','$(Version)'))"
