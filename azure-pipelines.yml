@@ -95,10 +95,17 @@ steps:
     secureFile: '61ad38e7-05ff-4421-aea8-e3241b75c7a1'
     
 - task: NuGetToolInstaller@1
-  displayName: 'Use NuGet >=6.6.1'
+  displayName: 'Use NuGet >=7.3.0'
   inputs:
-    versionSpec: '>=6.6.1'
+    versionSpec: '>=7.3.0'
     checkLatest: true
+
+- task: UseDotNet@2
+  displayName: 'Use .NET SDK'
+  inputs:
+    packageType: 'sdk'
+    useGlobalJson: true
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 
 # Install the code signing tool
 - task: DotNetCoreCLI@2
