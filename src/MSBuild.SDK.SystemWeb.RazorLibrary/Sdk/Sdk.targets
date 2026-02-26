@@ -1,14 +1,14 @@
 ﻿<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <Reference Include="System.Web" />
+  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false'">
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
 
-  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.BindingRedirects.targets"/>
-  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.targets"/>
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.BindingRedirects.targets" />
+  <Import Project="MSBuild.SDK.SystemWeb.Common.DefaultPackages.targets" Condition="'$(_MSBuildSDKSystemWebRazorImportsCommonPackages)' == 'true'" />
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.targets" />
   <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.RazorGeneratorDirectives.targets" />
-  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultItems.targets"/>
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultItems.targets" />
 
-  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" Condition="'$(_MSBuildSDKSystemWebRazorImportsMicrosoftNetSdk)' == 'true'" />
 
 </Project>

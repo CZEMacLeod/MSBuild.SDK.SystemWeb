@@ -13,8 +13,10 @@
 
   <!-- Include compilers unless ExcludeSDKDefaultPackages property is set -->
   <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false'">
-    <PackageReference Include="Microsoft.Net.Compilers.Toolset" PrivateAssets="All" GeneratePathProperty="true"/>
+    <PackageReference Include="Microsoft.Net.Compilers.Toolset" PrivateAssets="All" GeneratePathProperty="true" />
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
+
+    <Reference Include="System.Web" />
   </ItemGroup>
 
   <!-- Set package versions if ApplySDKDefaultPackageVersions is true -->

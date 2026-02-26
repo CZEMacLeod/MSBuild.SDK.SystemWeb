@@ -1,7 +1,5 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-  <Import Project="MSBuild.SDK.SystemWeb.Common.DefaultPackages.targets" />
-  
+ 
   <!-- Include packages unless ExcludeSDKDefaultPackages property is set -->
   <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false'">
     <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="All" />

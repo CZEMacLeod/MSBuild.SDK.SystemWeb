@@ -1,19 +1,24 @@
 ﻿<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <UsingMSBuildSDKSystemWebRazor>true</UsingMSBuildSDKSystemWebRazor>
+    <!-- Determines if the Razor Sdk is responsible for importing Microsoft.NET.Sdk. Microsoft.NET.Sdk.Web may have previously imported this. -->
+    <_MSBuildSDKSystemWebRazorImportsMicrosoftNetSdk Condition="'$(UsingMicrosoftNETSdk)' != 'true'">true</_MSBuildSDKSystemWebRazorImportsMicrosoftNetSdk>
+    <_MSBuildSDKSystemWebRazorImportsCommonPackages Condition="'$(UsingMSBuildSDKSystemWeb)' != 'true'">true</_MSBuildSDKSystemWebRazorImportsCommonPackages>
   </PropertyGroup>
-  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
-  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.props"/>
-  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.BindingRedirects.props"/>
-  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultItems.props"/>
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" Condition="'$(_MSBuildSDKSystemWebRazorImportsMicrosoftNetSdk)' == 'true'" />
+
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultPackages.props" />
+  <Import Project="MSBuild.SDK.SystemWeb.Common.DefaultPackages.props" Condition="'$(_MSBuildSDKSystemWebRazorImportsCommonPackages)' == 'true'" />
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.BindingRedirects.props" />
+  <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.DefaultItems.props" />
   <Import Project="MSBuild.SDK.SystemWeb.RazorLibrary.RazorGeneratorDirectives.props" />
-  
+
   <PropertyGroup>
     <UseRazorV4Editor>false</UseRazorV4Editor>
     <AppConfig>web.config</AppConfig>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <ProjectCapability Include="SupportsSystemWeb" />
     <ProjectCapability Include="LegacyRazorEditor" />
