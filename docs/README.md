@@ -60,7 +60,7 @@ For more information, [read the documentation](https://docs.microsoft.com/visual
 MSBuild 15.0 introduced new project XML for .NET Core that we refer to as SDK-style.  These SDK-style projects looks like:
 
 ```xml
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="MSBuild.SDK.SystemWeb">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
@@ -70,14 +70,14 @@ MSBuild 15.0 introduced new project XML for .NET Core that we refer to as SDK-st
 At evaluation time, MSBuild adds implicit imports at the top and bottom of the project like this:
 
 ```xml
-<Project Sdk="MSBuild.SDK.SystemWeb">
-  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+<Project>
+  <Import Project="Sdk.props" Sdk="MSBuild.SDK.SystemWeb" />
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
 
-  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+  <Import Project="Sdk.targets" Sdk="MSBuild.SDK.SystemWeb" />
 </Project>
 ```
 

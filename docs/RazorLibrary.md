@@ -32,6 +32,16 @@ Where `xx` is the latest release available on [nuget.org](https://nuget.org/pack
 
 You can also use the [templates](../MSBuild.SDK.SystemWeb.Templates) to easily create new projects.
 
+It is possible to mix this SDK with e.g. `MSBuild.SDK.SystemWeb` to allow pre-compiling the razor views during build.
+```xml
+<Project Sdk="MSBuild.SDK.SystemWeb/4.0.xx">
+
+    <Sdk Name="MSBuild.SDK.SystemWeb.RazorLibrary" Version="4.0.xx" />
+
+</Project>
+```
+For this to work correctly, please ensure you are using MSBuild.SDK.SystemWeb.RazorLibrary versions >4.0.106
+
 ## Documentation
 
 For more information see 
@@ -58,6 +68,7 @@ For more information see
 | `MvcBuildViews` | true if Configuration is Release<br/>false otherwise | Whether to invoke the AspNetCompiler automatically after build |
 | `EnableWebFormsDefaultItems` | Same as `EnableDefaultItems` | Whether to automatically include WebForms files as content<br><ul><li> *.asax</li><li> *.ascx</li><li> *.ashx</li><li> *.asmx</li><li> *.aspx</li><li> *.master</li><li> *.svc</li></ul> |
 | `OverwriteAppConfigWithBindingRedirects` | false | If set, then any [automatically generated binding redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md) will be copied into your web.config and `RazorAppConfigFiles` files. |
+| `EnableRazorGeneratorMVC` | true | If set, then the `RazorGenerator.MVC` package will automatically be added to your project. This will automatically register the contained views when consumed by an application. |
 
 ### Deprecated Properties
 
@@ -71,7 +82,7 @@ For more information see
 
 | Package | Default Version | Property |
 | ------- | --------------- | -------- |
-| `Microsoft.Net.Compilers.Toolset` | 4.5.0 | `MicrosoftNetCompilersToolset_Version` |
+| `Microsoft.Net.Compilers.Toolset` | 5.0.0 | `MicrosoftNetCompilersToolset_Version` |
 | `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` | 3.6.0 | `MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version` |
 
 ### Specific Packages
@@ -80,7 +91,7 @@ For more information see
 | ------- | --------------- | -------- |
 | `RazorGenerator.MsBuild` | 2.5.0 | `RazorGeneratorMSBuild_Version` |
 | `RazorGenerator.MVC` | 2.4.9 | `RazorGeneratorMVC_Version` |
-| `Microsoft.AspNet.Mvc` | 5.2.9 | `MicrosoftAspNetMvc_Version` |
+| `Microsoft.AspNet.Mvc` | 5.3.0 | `MicrosoftAspNetMvc_Version` |
 
 ## Items
 

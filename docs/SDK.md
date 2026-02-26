@@ -65,5 +65,5 @@ Where `xx` is the latest release available on [nuget.org](https://nuget.org/pack
 
 | Package | Default Version | Property |
 | ------- | --------------- | -------- |
-| `Microsoft.Net.Compilers.Toolset` | 4.5.0 | `MicrosoftNetCompilersToolset_Version` |
+| `Microsoft.Net.Compilers.Toolset` | 5.0.0 | `MicrosoftNetCompilersToolset_Version` |
 | `Microsoft.CodeDom.Providers.DotNetCompilerPlatform` | 3.6.0 | `MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version` |
