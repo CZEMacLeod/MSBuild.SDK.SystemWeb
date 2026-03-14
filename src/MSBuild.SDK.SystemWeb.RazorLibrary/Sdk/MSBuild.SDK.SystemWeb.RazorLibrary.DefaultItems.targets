@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   
-  <ItemGroup Condition="$(EnableDefaultItems)">
+  <ItemGroup Condition="'$(EnableDefaultItems)' == 'true'">
     <None Include="web.config" />
     <RazorAppConfigFiles Include="Views/web.config" Condition="EXISTS('Views/web.config')" />
     <RazorAppConfigFiles Include="Areas/**/web.config" />
