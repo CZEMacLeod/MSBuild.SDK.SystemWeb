@@ -7,8 +7,17 @@
     <MvcBuildViews Condition="'$(Configuration)'!='Release'">false</MvcBuildViews>
   </PropertyGroup>
 
-  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+  <!-- The 'AspNetCompiler' task ships only with the full .NET Framework MSBuild; under `dotnet`
+       (Core MSBuild) it errors with MSB4803. Precompile views only on full MSBuild, and emit an
+       informational message (rather than fail) when a Core build requested it, so
+       `dotnet build -c Release` still produces output. -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true' and '$(MSBuildRuntimeType)' != 'Core'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+
+  <Target Name="_SystemWebMvcBuildViewsSkipped" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true' and '$(MSBuildRuntimeType)' == 'Core'">
+    <!-- Informational only (not a warning) so it never trips TreatWarningsAsErrors. -->
+    <Message Importance="high" Text="MSBuild.SDK.SystemWeb: MvcBuildViews (view precompilation) was skipped because the 'AspNetCompiler' task is not available under the .NET (Core) MSBuild used by 'dotnet' (MSB4803). Build with the full Visual Studio MSBuild to precompile views." />
   </Target>
 
   <PropertyGroup>
@@ -17,13 +26,64 @@
     <WebApplicationsTargetPath Condition=" '$(WebApplicationsTargetPath)' == '' ">$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets</WebApplicationsTargetPath>
   </PropertyGroup>
 
+  <!--
+    With the full Visual Studio MSBuild, $(MSBuildExtensionsPath32) lives inside the VS / Build Tools
+    install, so the path above points at a real Microsoft.WebApplication.targets. With `dotnet build`
+    (Core MSBuild) $(MSBuildExtensionsPath32) points at the .NET SDK, where that file does not exist.
+    In that case locate an installed Visual Studio or Build Tools (any edition, incl. BuildTools) and
+    use its copy, so the `dotnet` tooling works whenever VS/Build Tools with the web workload is present.
+
+    Notes:
+      * Uses only property functions: <Import> below is processed before items are evaluated, so an
+        item glob could not influence it.
+      * Only shallow, always-readable directory levels are enumerated (no recursive search), so a
+        restricted sub-folder can never raise an access error that would break evaluation.
+      * Gated on !Exists(...): an explicit $(VSToolsPath)/$(WebApplicationsTargetPath) and normal VS /
+        full MSBuild builds already have an existing path, so they are left untouched and pay no cost.
+      * Resolves a single VS / Build Tools install of any edition. For side-by-side installs of several
+        major versions, set $(VSToolsPath) (or $(WebApplicationsTargetPath)) explicitly.
+  -->
+  <PropertyGroup Condition="!Exists('$(WebApplicationsTargetPath)')">
+    <!-- '<root>\Microsoft Visual Studio', 64-bit (VS 2022+) root preferred, then 32-bit (VS 2017/2019). -->
+    <_SystemWebVSDir Condition="'$(ProgramW6432)' != ''">$(ProgramW6432)\Microsoft Visual Studio</_SystemWebVSDir>
+    <_SystemWebVSDir Condition="!Exists('$(_SystemWebVSDir)') and '$(MSBuildProgramFiles32)' != ''">$(MSBuildProgramFiles32)\Microsoft Visual Studio</_SystemWebVSDir>
+
+    <!-- first '<year>' folder (e.g. '2022', '18') -->
+    <_SystemWebVSYear Condition="Exists('$(_SystemWebVSDir)')">$([System.IO.Directory]::GetDirectories('$(_SystemWebVSDir)'))</_SystemWebVSYear>
+    <_SystemWebVSYear Condition="$(_SystemWebVSYear.Contains(';'))">$(_SystemWebVSYear.Substring(0, $(_SystemWebVSYear.IndexOf(';'))))</_SystemWebVSYear>
+
+    <!-- first '<edition>' folder under that year (BuildTools / Community / Professional / Enterprise) -->
+    <_SystemWebVSEdition Condition="'$(_SystemWebVSYear)' != '' and Exists('$(_SystemWebVSYear)')">$([System.IO.Directory]::GetDirectories('$(_SystemWebVSYear)'))</_SystemWebVSEdition>
+    <_SystemWebVSEdition Condition="$(_SystemWebVSEdition.Contains(';'))">$(_SystemWebVSEdition.Substring(0, $(_SystemWebVSEdition.IndexOf(';'))))</_SystemWebVSEdition>
+
+    <_SystemWebVSCandidate Condition="'$(_SystemWebVSEdition)' != ''">$(_SystemWebVSEdition)\MSBuild\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets</_SystemWebVSCandidate>
+    <WebApplicationsTargetPath Condition="'$(_SystemWebVSCandidate)' != '' and Exists('$(_SystemWebVSCandidate)')">$(_SystemWebVSCandidate)</WebApplicationsTargetPath>
+  </PropertyGroup>
+
   <!-- Default item excludes -->
   <Import Project="MSBuild.SDK.SystemWeb.DefaultItems.targets" />
 
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
 
+  <!-- Under `dotnet` (Core MSBuild) the 'System.Web' framework reference contributed by
+       Common.DefaultPackages.targets is added before the Microsoft.NET.Sdk targets and gets silently
+       dropped from @(Reference), so it never resolves. Re-declare it here, after those targets, but only
+       for Core MSBuild: the full Visual Studio MSBuild already resolves the Common one, and gating on
+       Core avoids a duplicate-reference warning (MSB3105) there. -->
+  <ItemGroup Condition="'$(ExcludeSDKDefaultPackages)'=='false' and '$(MSBuildRuntimeType)' == 'Core'">
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
   <!-- Inject BindingRedirects targets after Microsoft.NET.Sdk is injected -->
   <Import Project="MSBuild.SDK.SystemWeb.BindingRedirects.targets" />
 
-  <Import Project="$(WebApplicationsTargetPath)" />
+  <Import Project="$(WebApplicationsTargetPath)" Condition="Exists('$(WebApplicationsTargetPath)')" />
+
+  <!-- Fail with an actionable message instead of a cryptic MSB4019 when the web targets cannot be found. -->
+  <Target Name="_SystemWebEnsureWebApplicationTargets"
+          BeforeTargets="BeforeBuild"
+          Condition="!Exists('$(WebApplicationsTargetPath)')">
+    <Error Code="SYSWEB001"
+           Text="MSBuild.SDK.SystemWeb could not locate 'Microsoft.WebApplication.targets'. Install Visual Studio or the Visual Studio Build Tools with the web development build tools workload, build from a Visual Studio Developer command prompt, or set the 'VSToolsPath' (or 'WebApplicationsTargetPath') property to a valid Visual Studio tools path." />
+  </Target>
 </Project>
