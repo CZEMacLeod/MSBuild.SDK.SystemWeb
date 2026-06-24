@@ -83,6 +83,9 @@ At evaluation time, MSBuild adds implicit imports at the top and bottom of the p
 
 # Useful Information
 
+## Diagnostics
+- [Message IDs and the `MissingWebApplicationsTargetPathAction` property](Diagnostics.md)
+
 ## Binding Redirects
 - [How to show Suggested Binding Redirects](Binding_Redirects/How-to-show-Suggested-Binding-Redirects.md)
 - [Autogenerating Binding Redirects](Binding_Redirects/Autogenerating-Binding-Redirects.md)

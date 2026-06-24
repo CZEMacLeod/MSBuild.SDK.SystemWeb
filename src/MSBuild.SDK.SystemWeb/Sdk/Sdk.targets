@@ -15,6 +15,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <WebApplicationsTargetPath Condition=" '$(WebApplicationsTargetPath)' == '' ">$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets</WebApplicationsTargetPath>
+    <MissingWebApplicationsTargetPathAction Condition="'$(MissingWebApplicationsTargetPathAction)' == ''">Error</MissingWebApplicationsTargetPathAction>
   </PropertyGroup>
 
   <!-- Default item excludes -->
@@ -25,5 +26,26 @@
   <!-- Inject BindingRedirects targets after Microsoft.NET.Sdk is injected -->
   <Import Project="MSBuild.SDK.SystemWeb.BindingRedirects.targets" />
 
-  <Import Project="$(WebApplicationsTargetPath)" />
+  <Import Project="$(WebApplicationsTargetPath)" Condition="Exists('$(WebApplicationsTargetPath)')" />
+
+  <!-- When Microsoft.WebApplication.targets is missing, react per $(MissingWebApplicationsTargetPathAction)
+       instead of failing with a cryptic MSB4019. See docs/Diagnostics.md (SYSWEB000/SYSWEB001). -->
+  <Target Name="_SystemWebCheckWebApplicationsTargetPath"
+          BeforeTargets="BeforeBuild"
+          Condition="!Exists('$(WebApplicationsTargetPath)')">
+
+    <PropertyGroup>
+      <_SystemWebMissingWebTargetsText>SYSWEB001: 'Microsoft.WebApplication.targets' was not found at '$(WebApplicationsTargetPath)'. Install Visual Studio or the Visual Studio Build Tools with the "web development build tools" workload, build from a Visual Studio Developer command prompt, or set the 'VSToolsPath' (or 'WebApplicationsTargetPath') property to a valid Visual Studio tools path. Use the 'MissingWebApplicationsTargetPathAction' property (Ignore | Skip | Warn | Error) to control this behaviour.</_SystemWebMissingWebTargetsText>
+    </PropertyGroup>
+
+    <!-- Reject unknown values up front. -->
+    <Error Code="SYSWEB000"
+           Condition="'$(MissingWebApplicationsTargetPathAction)' != 'Ignore' and '$(MissingWebApplicationsTargetPathAction)' != 'Skip' and '$(MissingWebApplicationsTargetPathAction)' != 'Warn' and '$(MissingWebApplicationsTargetPathAction)' != 'Error'"
+           Text="SYSWEB000: Unknown MissingWebApplicationsTargetPathAction '$(MissingWebApplicationsTargetPathAction)'. Valid values are: Ignore, Skip, Warn, Error." />
+
+    <Error   Code="SYSWEB001" Text="$(_SystemWebMissingWebTargetsText)" Condition="'$(MissingWebApplicationsTargetPathAction)' == 'Error'" />
+    <Warning Code="SYSWEB001" Text="$(_SystemWebMissingWebTargetsText)" Condition="'$(MissingWebApplicationsTargetPathAction)' == 'Warn'" />
+    <Message Importance="high" Text="$(_SystemWebMissingWebTargetsText)" Condition="'$(MissingWebApplicationsTargetPathAction)' == 'Skip'" />
+    <!-- 'Ignore' => no output -->
+  </Target>
 </Project>
